@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const allmovies = () => {
   const [open, setOpen] = useState(true)
+
   const Menus = [
     { title: 'Movies', src: 'user' },
     { title: 'New Release', src: 'Chat' },
@@ -23,11 +25,11 @@ const allmovies = () => {
       <div
         className={` ${
           open ? 'w-52' : 'w-20'
-        } bg-black p-5 pt-8 relative duration-300 h-screen`}
+        } bg-white p-5 pt-8 relative duration-300 h-auto`}
       >
         <img
           src="./src/assets/control.png"
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
+          className={`absolute cursor-pointer -right-3 top-9 w-7 border-black
         border-2 rounded-full  ${!open && 'rotate-180'}`}
           onClick={() => setOpen(!open)}
         />
@@ -43,14 +45,14 @@ const allmovies = () => {
               !open && 'scale-0'
             }`}
           >
-            BookMyTicket
+            <Link to="/" className='text-black'>BookMyTicket</Link>
           </h1>
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
+              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-black text-sm items-center gap-x-4 
            ${Menu.gap ? 'mt-9' : 'mt-2'} ${index === 0 && 'bg-light-white'} `}
             >
               <img

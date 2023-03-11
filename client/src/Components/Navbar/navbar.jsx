@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 // Components
-import Login from './login'
+import LoginSignup from './loginsignup';
 
 const navbar = () => {
    const [Navbar, setNavbar] = useState(false)
@@ -51,7 +51,7 @@ const navbar = () => {
           {/* full screen login */}
         <div className="hidden space-x-2 md:inline-block">
 
-        <Login />
+        <LoginSignup />
         
         </div>
       </div>

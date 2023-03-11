@@ -1,31 +1,35 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider }  from 'react-router-dom'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import '@fortawesome/fontawesome-free/js/all.js';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 // Components
 import Homepage from './Pages/Homepage/homepage'
-import Movies from './Pages/Movies/movies';
+import Movies from './Pages/Movies/movies'
+import MovieDetail from './Pages/MovieDetail/movieDetail'
 
 // Routes
 const router = createBrowserRouter([
   {
-    path : '/',
-    element : <Homepage></Homepage>
+    path: '/',
+    element: <Homepage></Homepage>,
   },
   {
-    path : '/allmovies',
-    element : <Movies></Movies>
-  }
+    path: '/allmovies',
+    element: <Movies></Movies>,
+  },
+  {
+    path: '/moviedetail',
+    element: <MovieDetail></MovieDetail>,
+  },
 ])
-
 
 function App() {
   return (
     <main>
-       <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router}></RouterProvider>
     </main>
- )
+  )
 }
 
-export default App;
+export default App
