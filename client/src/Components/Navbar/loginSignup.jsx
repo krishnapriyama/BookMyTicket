@@ -1,20 +1,62 @@
 import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
+import { ToastContainer, toast } from 'react-toastify'
+import axios from 'axios'
+import { useFormik } from 'formik'
 
 const login = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
+  const navigate = useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
+  const generateError = (err) =>
+    toast.err(err, {
+      position: 'bottom-right',
+    })
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validate: (values) => {
+      console.log(values)
+      const error = {}
+      if (!values.email) {
+        error.email = 'Email Required'
+      } else if (!values.password) {
+        error.password = 'Password Required'
+      } else if (values.password != values.confirmPassword) {
+        error.confirmPassword = 'Password Mismatch'
+      }
+      return error
+    },
+    onSubmit: async (values) => {
+      try {
+        const { data } = await axios.post(
+          'http://localhost:4000/register',
+          {
+            ...values,
+          },
+          { withCredentials: true },
+        )
+
+        if (!data.errors) {
+          navigate('/')
+        } else {
+          console.log(data.errors)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
   })
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target
-    setFormData({ ...formData, [name]: value })
-  }
-  
   return (
     <>
       <button
@@ -65,50 +107,64 @@ const login = () => {
             >
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 {showRegister ? (
-                  <form>
-                    <h2 className="text-2xl font-bold mb-4 text-center">Welcome New!</h2>
-                    <div className="mb-4">
-                      <input
-                        className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        onChange={handleInputChange}
-                        value={formData.email}
-                        required
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <input
-                        className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        onChange={handleInputChange}
-                        value={formData.password}
-                        required
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <input
-                        className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        onChange={handleInputChange}
-                        value={formData.confirmPassword}
-                        required
-                      />
-                    </div>
-                    <button
-                      className="w-full px-4 py-2 text-lg font-bold text-white bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:bg-red-700"
-                      type="submit"
-                    >
-                      Register
-                    </button>
+                  <>
+                    <form onSubmit={formik.handleSubmit}>
+                      <h2 className="text-2xl font-bold mb-4 text-center">
+                        Welcome New!
+                      </h2>
+                      <div className="mb-4">
+                        <input
+                          {...formik.getFieldProps('email')}
+                          className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Enter your email"
+                        />
+                      </div>
+                      {formik.touched.email && formik.errors.email ? (
+                        <div className="text-red-500">
+                          {formik.errors.email}
+                        </div>
+                      ) : null}
+                      <div className="mb-4">
+                        <input
+                          {...formik.getFieldProps('password')}
+                          className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
+                          type="password"
+                          name="password"
+                          id="password"
+                          placeholder="Enter your password"
+                        />
+                      </div>
+                      {formik.touched.password && formik.errors.password ? (
+                        <div className="text-red-500">
+                          {formik.errors.password}
+                        </div>
+                      ) : null}
+                      <div className="mb-4">
+                        <input
+                          {...formik.getFieldProps('confirmPassword')}
+                          className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
+                          type="password"
+                          name="confirmPassword"
+                          id="confirmPassword"
+                          placeholder="Confirm your password"
+                        />
+                      </div>
+                      {formik.errors.confirmPassword ? (
+                        <div className="text-red-500">
+                          {formik.errors.confirmPassword}
+                        </div>
+                      ) : null}
+                      <button
+                        className="w-full px-4 py-2 text-lg font-bold text-white bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:bg-red-700"
+                        type="submit"
+                      >
+                        Register
+                      </button>
+                    </form>
+                    <ToastContainer/>
                     <p className="mt-4 text-gray-600 text-center">
                       Already have an account?{' '}
                       <button
@@ -118,40 +174,49 @@ const login = () => {
                         Login here.
                       </button>
                     </p>
-                  </form>
+                  </>
                 ) : (
                   <form>
-                    <h2 className="text-2xl font-bold mb-4 text-center">Welcome Back!</h2>
+                    <h2 className="text-2xl font-bold mb-4 text-center">
+                      Welcome Back!
+                    </h2>
                     <div className="mb-4">
                       <input
+                        {...formik.getFieldProps('email')}
                         className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
                         type="email"
                         name="email"
                         id="email"
                         placeholder="Enter your email"
-                        onChange={handleInputChange}
-                        value={formData.email}
                       />
                     </div>
+                    {formik.touched.email && formik.errors.email ? (
+                      <div className="text-red-500">{formik.errors.email}</div>
+                    ) : null}
                     <div className="mb-4">
                       <input
+                        {...formik.getFieldProps('password')}
                         className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
                         type="password"
                         name="password"
                         id="password"
                         placeholder="Enter your password"
-                        onChange={handleInputChange}
-                        value={formData.password}
-                        required
                       />
                     </div>
+                    {formik.touched.password && formik.errors.password ? (
+                      <div className="text-red-500">
+                        {formik.errors.password}
+                      </div>
+                    ) : null}
                     <button
                       className="w-full px-4 py-2 text-lg font-bold text-white bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:bg-red-700"
                       type="submit"
                     >
                       Login
                     </button>
-                    <h2 className="text-2xl font-bold mb-4 text-center mt-2">OR</h2>
+                    <h2 className="text-2xl font-bold mb-4 text-center mt-2">
+                      OR
+                    </h2>
                     <button
                       className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none focus:bg-red-700"
                       type="submit"
