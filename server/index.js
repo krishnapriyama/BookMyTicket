@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const authRoutes = require("./Routes/AuthRoutes")
+const authRoutes = require("./Routes/UserRoutes")
 const app = express()
 
 const cookieParser = require('cookie-parser')
@@ -31,5 +31,5 @@ app.listen(4000, () => {
 })
 
 app.use(express.json())
-app.use("/",authRoutes)
 app.use(cookieParser())
+app.use("/",authRoutes)

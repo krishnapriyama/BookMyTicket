@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 import Homepage from './Pages/Homepage/homepage'
 import Movies from './Pages/Movies/movies'
 import MovieDetail from './Pages/MovieDetail/movieDetail'
+import MovieBooking from './Pages/Moviebooking/movieBooking'
 
 // Routes
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: '/moviedetail',
     element: <MovieDetail></MovieDetail>,
+  },
+  {
+    path: '/moviebooking',
+    element: <MovieBooking></MovieBooking>,
   },
 ])
 
