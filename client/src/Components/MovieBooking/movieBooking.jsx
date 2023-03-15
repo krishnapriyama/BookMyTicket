@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const movieBooking = () => {
   return (
@@ -16,7 +17,7 @@ const movieBooking = () => {
       <p class="m-0">INFO</p>
     </div>
     <div class="Time-button w-7/10 flex justify-start mt-5">
-      <button class="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">03:45</button>
+      <button class="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1"><Link to='/seating'>03:45</Link></button>
       <button class="btn bg-red-500 h-10  text-white rounded-lg px-4 mx-1">03:45</button>
       <button class="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">03:45</button>
     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 // components
 import Navbar from '../../Components/Navbar/navbar'
-import Sidebar from '../../Components/Movies/sidebar'
+import Sidebar from '../../Components/Extracomponents/sidebarmovie'
 import Movies from '../../Components/Movies/movies'
 
 const movies = () => {

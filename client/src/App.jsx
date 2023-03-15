@@ -9,6 +9,7 @@ import Homepage from './Pages/Homepage/homepage'
 import Movies from './Pages/Movies/movies'
 import MovieDetail from './Pages/MovieDetail/movieDetail'
 import MovieBooking from './Pages/Moviebooking/movieBooking'
+import Seating from './Pages/Moviebooking/seating'
 
 // Routes
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: '/moviebooking',
     element: <MovieBooking></MovieBooking>,
+  },
+  {
+    path: '/seating',
+    element: <Seating></Seating>,
   },
 ])
 
