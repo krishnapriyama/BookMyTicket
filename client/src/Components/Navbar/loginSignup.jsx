@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //components
 import Signup from './signup'
@@ -78,17 +80,17 @@ const login = () => {
                     {/* Login Form */}
                     <Login></Login>
 
-                    <h2 className="text-2xl font-bold mb-4 text-center mt-2">
+                    <h2 className="text-2xl font-bold text-center mt-4">
                       OR
                     </h2>
                     <button
-                      className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none focus:bg-red-700"
+                      className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none"
                       type="submit"
                     >
-                      Login With Google
+                    <FontAwesomeIcon icon={faGoogle} className="mr-2"/> Login With Google
                     </button>
                     <button
-                      className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none focus:bg-red-700 mt-4"
+                      className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none"
                       type="submit"
                     >
                       Login With OTP

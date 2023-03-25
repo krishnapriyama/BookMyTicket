@@ -4,7 +4,7 @@ const newRelease = () => {
   return (
     <div>
       <section class="py-10 bg-gray-100 items-center justify-center">
-        <h1 className="text-center font-bold text-2xl">New Release Movies</h1>
+      <h1 className="text-start p-8  font-bold text-2xl ml-10 mb-[-20px]">NEW RELEASE MOVIES</h1>
 
         <div
           class="mx-auto grid max-w-full items-center grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"

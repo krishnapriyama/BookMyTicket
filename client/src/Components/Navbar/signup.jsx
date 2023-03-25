@@ -46,7 +46,6 @@ const Signup = () => {
           { ...values },
           { withCredentials: true },
         )
-
         console.log(response.data, 'response data')
 
         if (!response.data.created) {

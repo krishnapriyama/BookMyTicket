@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
+  
   if (token) {
     console.log("Token true");
     jwt.verify(
