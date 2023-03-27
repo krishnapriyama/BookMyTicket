@@ -1,6 +1,7 @@
 const MovieModel = require('../Models/movieModel')
 const TheaterModel = require('../Models/theaterModel')
 const bcrypt = require('bcrypt')
+const userModel = require('../Models/userModel')
 
 module.exports.adminLogin = async (req, res, next) => {
   try {
@@ -26,11 +27,11 @@ module.exports.adminLogin = async (req, res, next) => {
 
 module.exports.theatorAccept = async (req, res, next) => {
   try {
-    const { email } = await req.body
+    const { email,action } = await req.body
     console.log(req.body);
-    TheaterModel.updateOne({ email: email }, { accepted: true })
+    TheaterModel.findOneAndUpdate({ email: email }, { accepted: action })
       .then((resp) => {
-        res.send({ msg: 'user accepted' })
+        res.send(resp)
       })
       .catch((err) => {
         res.send(err)
@@ -98,3 +99,15 @@ module.exports.editMovie = async (req, res, next) => {
 }
 
 module.exports.deleteMovie = async (req, res, next) => {}
+
+module.exports.viewUsers = async (req,res,next)=>{
+  try {
+    userModel.find().then((res)=>{
+      res.send(res)
+    }).catch((err)=>{
+      res.send(err)
+    })
+  } catch (error) {
+    res.send(error)
+  }
+}

@@ -5,6 +5,7 @@ import axios from 'axios'
 
 const viewtheaters = () => {
   const [theater, setTheater] = useState([])
+  const [auth, setAuth] = useState()
 
   useEffect(() => {
     fetch('http://localhost:4000/admin/view-theaters')
@@ -13,18 +14,24 @@ const viewtheaters = () => {
       .catch((error) => console.error(error))
   }, [])
 
-  function authorisetheater(theater) {
-fetch('http://localhost:4000/admin/accept', {
-  method: 'PATCH',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(theater)
-}).then((resposne)=>{
-console.log(resposne);
-});
+  function authorisetheater(theaterToUpdate, action) {
+    axios
+      .patch(`http://localhost:4000/admin/accept`, {
+        email: theaterToUpdate.email,
+        action: action,
+      })
+      .then((response) => {
+        console.log(response)
+        const updatedTheater = theater.map((t) => {
+          if (t.email === theaterToUpdate.email) {
+            return { ...t, accepted: response.data.accepted }
+          }
+          return t
+        })
+        setTheater(updatedTheater)
+      })
+      .catch((error) => console.error(error))
   }
-    
   return (
     <>
       <div className="h-screen flex justify-center items-center">
@@ -44,7 +51,7 @@ console.log(resposne);
               </tr>
             </thead>
             <tbody>
-              {theater.map((theater,index) => (
+              {theater.map((theater, index) => (
                 <tr key={index} class="bg-white border-b">
                   <th
                     scope="row"
@@ -58,22 +65,16 @@ console.log(resposne);
                   <td class="px-6 py-4 items-center flex justify-center">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                      onClick={() => authorisetheater(theater)}
+                      class={`text-white ${
+                        theater.accepted
+                          ? 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+                          : 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+                      } font-medium`}
+                      onClick={() =>
+                        authorisetheater(theater, !theater.accepted)
+                      }
                     >
-                      Block
-                    </button>
-                    <button
-                      type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                    >
-                      Delete
+                      {theater.accepted ? 'Accept' : 'Reject'}
                     </button>
                   </td>
                 </tr>

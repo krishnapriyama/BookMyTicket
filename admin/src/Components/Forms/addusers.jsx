@@ -1,10 +1,12 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
-
+import {useNavigate} from 'react-router-dom'
+ 
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 const addusers = () => {
+  const navigateto = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -39,12 +41,13 @@ const addusers = () => {
       console.log(values, '----users data')
       try {
         const response = await axios.post(
-          'http://localhost:4000/add-users',
+          'http://localhost:4000/register',
           { ...values },
           { withCredentials: true },
         )
 
-        if (response) {
+        if (response.data.created == true) {
+          navigateto('/view-users')
         } else {
         }
       } catch (error) {

@@ -1,6 +1,13 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const viewusers = () => {
+  // const [users,setUsers]= useState()
+  useEffect(()=>{
+axios.get('http://localhost:4000/admin/view-users').then((resp)=>{
+
+})
+  },[])
   return (
     <>
       <div className="h-screen flex justify-center items-center">
@@ -23,35 +30,37 @@ const viewusers = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
-                >
-                  Krishna 
-                </th>
-                <td className="px-6 py-4 text-black text-center font-medium">0000000000</td>
-                <td className="px-6 py-4 items-center flex justify-center">
-                  <button
-                    type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  >
-                    Block
-                  </button>
-                  <button
-                    type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
+              
+                 <tr className="bg-white border-b">
+                 <th
+                   scope="row"
+                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+                 >
+                   Krishna 
+                 </th>
+                 <td className="px-6 py-4 text-black text-center font-medium">0000000000</td>
+                 <td className="px-6 py-4 items-center flex justify-center">
+                   <button
+                     type="button"
+                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                   >
+                     Block
+                   </button>
+                   <button
+                     type="button"
+                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                   >
+                     Edit
+                   </button>
+                   <button
+                     type="button"
+                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                   >
+                     Delete
+                   </button>
+                 </td>
+               </tr>
+                  
             </tbody>
           </table>
         </div>

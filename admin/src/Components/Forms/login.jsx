@@ -47,14 +47,6 @@ const login = () => {
           console.log('Login Success')
         } else if (response.data.error == 'Invalid email or password') {
           generateError(response.data.error, 'invalid error')
-
-
-
-
-
-
-
-          
           console.log('Invalid email or password')
         }
       } catch (error) {

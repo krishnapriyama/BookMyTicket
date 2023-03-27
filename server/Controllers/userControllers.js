@@ -37,8 +37,8 @@ const handleErrors = (err) => {
 
 module.exports.register = async (req, res, next) => {
   try {
-    const { email, password } = req.body
-    let user = new User({ email, password })
+    const { email, password,number} = req.body
+    let user = new User({ email, password ,number})
     user = await user.save()
 
     const token = createToken(user._id)
@@ -47,7 +47,6 @@ module.exports.register = async (req, res, next) => {
       httpOnly: false,
       maxAge: maxAge * 1000,
     })
-
     res.status(201).json({ user: user._id, created: true })
   } catch (err) {
     console.log(err,"Error from server,register")
