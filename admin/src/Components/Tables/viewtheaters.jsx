@@ -1,90 +1,91 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import axios from 'axios'
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
-const viewtheaters = () => {
-  const [theater, setTheater] = useState([])
-  const [auth, setAuth] = useState()
+
+
+const ViewTheaters = () => {
+  const [theaters, setTheaters] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:4000/admin/view-theaters')
       .then((response) => response.json())
-      .then((data) => setTheater(data))
-      .catch((error) => console.error(error))
-  }, [])
+      .then((data) => setTheaters(data))
+      .catch((error) => console.error(error));
+  }, []);
 
-  function authorisetheater(theaterToUpdate, action) {
+  function authorizeTheater(theaterToUpdate, action) {
     axios
       .patch(`http://localhost:4000/admin/accept`, {
         email: theaterToUpdate.email,
         action: action,
       })
       .then((response) => {
-        console.log(response)
-        const updatedTheater = theater.map((t) => {
+        console.log(response);
+        const updatedTheaters = theaters.map((t) => {
           if (t.email === theaterToUpdate.email) {
-            return { ...t, accepted: response.data.accepted }
+            return { ...t, accepted: response.data.accepted };
           }
-          return t
-        })
-        setTheater(updatedTheater)
+          return t;
+        });
+        setTheaters(updatedTheaters);
       })
-      .catch((error) => console.error(error))
+      .catch((error) => console.error(error));
   }
-  return (
-    <>
-      <div className="h-screen flex justify-center items-center">
-        <div class="relative overflow-x-auto ">
-          <table class="text-sm text-left text-white rounded-2xl">
-            <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-400 text-center text-white">
-              <tr>
-                <th scope="col" class="px-6 py-3">
-                  Email
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Place
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {theater.map((theater, index) => (
-                <tr key={index} class="bg-white border-b">
-                  <th
-                    scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
-                  >
-                    {theater.email}
-                  </th>
-                  <td class="px-6 py-4 text-black font-medium">
-                    {theater.place}
-                  </td>
-                  <td class="px-6 py-4 items-center flex justify-center">
-                    <button
-                      type="button"
-                      class={`text-white ${
-                        theater.accepted
-                          ? 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
-                          : 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
-                      } font-medium`}
-                      onClick={() =>
-                        authorisetheater(theater, !theater.accepted)
-                      }
-                    >
-                      {theater.accepted ? 'Accept' : 'Reject'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
-  )
-}
 
-export default viewtheaters
+  return (
+    <div className="h-screen w-full p-0 m-0 flex justify-center items-center bg-gray-100 dark:bg-gray-800">
+    <div className="relative overflow-x-auto shadow-md">
+      <table className="w-full text-sm bg-white dark:bg-gray-900 rounded-2xl overflow-hidden">
+        <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
+          <tr>
+            <th scope="col" className="px-6 py-3 font-medium">
+              Email
+            </th>
+            <th scope="col" className="px-6 py-3 font-medium">
+              Place
+            </th>
+            <th scope="col" className="px-6 py-3 font-medium">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+            {theaters.map((theater, index) => (
+              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800" key={theater.id}>
+              <td
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
+              >
+                {theater.email}
+              </td>
+              <td
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
+              >
+                {theater.place}
+              </td>
+                <td className="px-6 py-4 items-center flex justify-center">
+                  <button
+                    type="button"
+                    className={`text-white bg-blue-700 rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ${
+                      theater.accepted
+                        ? 'bg-green-500'
+                        : 'bg-red-500'
+                    }`}
+                    onClick={() => authorizeTheater(theater, !theater.accepted)}
+                  >
+                    {theater.accepted ? 'Accepted' : 'Rejected'}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default ViewTheaters;

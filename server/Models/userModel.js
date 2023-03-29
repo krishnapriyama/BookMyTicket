@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema({
    number:{
       type:String,
       required:true
-   }
+   },
+   isBlocked: {
+      type: Boolean,
+    },
 })
 
 userSchema.pre('save',async function (next) {

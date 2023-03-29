@@ -1,4 +1,4 @@
-const User = require('../Models/userModel')
+const userModel = require('../Models/userModel')
 const jwt = require('jsonwebtoken')
 
 const maxAge = 3 * 24 * 60 * 60
@@ -37,19 +37,17 @@ const handleErrors = (err) => {
 
 module.exports.register = async (req, res, next) => {
   try {
-    const { email, password,number} = req.body
-    let user = new User({ email, password ,number})
-    user = await user.save()
-
-    const token = createToken(user._id)
-    res.cookie('jwt', token, {
-      withCredentials: true,
-      httpOnly: false,
-      maxAge: maxAge * 1000,
+    const { email, password, number } = req.body
+    const action = { isBlocked: true }
+    const user = await userModel.create({
+      email,
+      number,
+      password,
+      ...action,
     })
     res.status(201).json({ user: user._id, created: true })
   } catch (err) {
-    console.log(err,"Error from server,register")
+    console.log(err, 'Error from server,register')
     const errors = handleErrors(err)
     res.json({ errors, created: false })
   }
@@ -58,7 +56,7 @@ module.exports.register = async (req, res, next) => {
 module.exports.login = async (req, res) => {
   const { email, password } = req.body
   try {
-    const user = await User.login(email, password)
+    const user = await userModel.login(email, password)
     const token = createToken(user._id)
     res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000 })
     res.status(200).json({ user: user._id, status: true })

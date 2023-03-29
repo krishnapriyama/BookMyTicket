@@ -13,7 +13,8 @@ import Statics from '../../Components/Cards/statictics'
 const dashboard = () => {
   return (
     <>
-    <div className='h-screen'>
+    <div className=' bg-blueGray-100 h-screen w-full'>
+    <div className='h-screen bg-blueGray-100'>
       <Sidebar></Sidebar>
       <div className="relative md:ml-64 bg-blueGray-100">
         <Navbar></Navbar>
@@ -38,6 +39,7 @@ const dashboard = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
       </div>
     </>

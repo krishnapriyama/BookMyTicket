@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-
 // components
 import MovieSlide from '../Extracomponents/movieSlide'
 
@@ -60,16 +59,31 @@ const movieImage = () => {
           scrambled it to make a type specimen book. It has survived not only
           five centuries, but also the leap into electronic typesetting,
           remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
+          the release of Letraset sheets containing Lorem Ipsum and
           more recently with desktop publishing software like Aldus PageMaker
           including versions of Lorem Ipsum.
         </p>
+
+        <div className="text-center">
+          <h1 className="font-bold text-2xl uppercase">Details</h1>
+          <div className="text-center">
+            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
+              Language :{' '}
+            </h5>
+            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
+              Genre :{' '}
+            </h5>
+            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
+              Release Date :{' '}
+            </h5>
+          </div>
+        </div>
         <div className="flex mx-auto items-center justify-center gap-6">
           <button
             className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
             type="button"
           >
-<Link to="/moviebooking">Book</Link>
+            <Link to="/moviebooking">Book</Link>
           </button>
           <button
             className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
@@ -99,7 +113,7 @@ const movieImage = () => {
           ))}
         </div>
       </div>
-      <h2 className='mt-12 text-center font-bold text-xl'>UPCOMMING MOVIES</h2>
+      <h2 className="mt-12 text-center font-bold text-xl">UPCOMMING MOVIES</h2>
       <MovieSlide></MovieSlide>
     </div>
   )
