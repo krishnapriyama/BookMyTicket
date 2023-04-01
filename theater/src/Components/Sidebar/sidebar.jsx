@@ -84,9 +84,9 @@ const sidebar = () => {
               <li className="items-center">
                 <Link
                   className="text-xs uppercase py-3 font-bold block "
-                  to="/view-users"
+                  to="/view-screens"
                 >
-                  <i className={'fas fa-tools mr-2 text-sm '}></i> view users
+                  <i className={'fas fa-tools mr-2 text-sm '}></i> view Screens
                 </Link>
               </li>
             </ul>

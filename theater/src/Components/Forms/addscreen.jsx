@@ -1,10 +1,14 @@
 import React from 'react'
 import { useFormik } from 'formik'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const addscreen = () => {
+
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
-      moviename: '',
+      screenname: '',
       screentype: '',
       acnon: '',
       rowcount: '',
@@ -13,8 +17,8 @@ const addscreen = () => {
     },
     validate: (values) => {
       const error = {}
-      if (!values.moviename) {
-        error.moviename = 'Name Required'
+      if (!values.screenname) {
+        error.screenname = 'Name Required'
       } else if (!values.screentype) {
         error.screentype = 'Type Required'
       } else if (!values.acnon) {
@@ -32,13 +36,15 @@ const addscreen = () => {
       console.log(values, '----movies data')
       try {
         const response = await axios.post(
-          'http://localhost:4000/add-movies',
+          'http://localhost:4000/theater/add-screen',
           { ...values },
           { withCredentials: true },
         )
 
-        if (response) {
+        if (response.data.msg) {
+          navigate('/view-screens')
         } else {
+          console.log("Something went wrong");
         }
       } catch (error) {
         console.log(error, 'Error from ClientAxios')
@@ -61,15 +67,15 @@ const addscreen = () => {
               Name
             </label>
             <input
-              {...formik.getFieldProps('moviename')}
+              {...formik.getFieldProps('screenname')}
               class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-first-name"
               type="text"
-              name="moviename"
+              name="screenname"
               placeholder="Name"
             />
-            {formik.touched.moviename && formik.errors.moviename ? (
-              <div className="text-red-500">{formik.errors.moviename}</div>
+            {formik.errors.screenname ? (
+              <div className="text-red-500">{formik.errors.screenname}</div>
             ) : null}
           </div>
           <div class="w-full md:w-1/2 px-3">
@@ -87,11 +93,11 @@ const addscreen = () => {
               placeholder="date"
             >
               <option value="">Select</option>
-              <option value="2023-03-23">1D</option>
-              <option value="2023-03-24">2D</option>
-              <option value="2023-03-25">3D</option>
+              <option value="1D">1D</option>
+              <option value="2D">2D</option>
+              <option value="3D">3D</option>
             </select>
-            {formik.touched.screentype && formik.errors.screentype ? (
+            {formik.errors.screentype ? (
               <div className="text-red-500">{formik.errors.screentype}</div>
             ) : null}
           </div>
@@ -112,11 +118,11 @@ const addscreen = () => {
               placeholder="date"
             >
               <option value="">Select</option>
-              <option value="2023-03-23">A/C</option>
-              <option value="2023-03-24">NON_A/C</option>
+              <option value="AC">A/C</option>
+              <option value="NON-AC">NON-A/C</option>
             </select>
           </div>
-          {formik.touched.acnon && formik.errors.acnon ? (
+          {formik.errors.acnon ? (
             <div className="text-red-500">{formik.errors.acnon}</div>
           ) : null}
         </div>
@@ -135,7 +141,7 @@ const addscreen = () => {
               name="rowcount"
               type="number"
             />
-            {formik.touched.rowcount && formik.errors.rowcount ? (
+            {formik.errors.rowcount ? (
               <div className="text-red-500">{formik.errors.rowcount}</div>
             ) : null}
           </div>
@@ -153,7 +159,7 @@ const addscreen = () => {
               name="columncount"
               type="number"
             />
-            {formik.touched.columncount && formik.errors.columncount ? (
+            {formik.errors.columncount ? (
               <div className="text-red-500">{formik.errors.columncount}</div>
             ) : null}
           </div>
@@ -171,13 +177,11 @@ const addscreen = () => {
               type="number"
               name="totalcount"
             />
-          {formik.touched.totalcount && formik.errors.totalcount ? (
+          {formik.errors.totalcount ? (
             <div className="text-red-500">{formik.errors.totalcount}</div>
           ) : null}
           </div>
         </div>
-
-        
         <div class="w-full px-3 mt-9 items-end flex justify-end">
           <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Submit

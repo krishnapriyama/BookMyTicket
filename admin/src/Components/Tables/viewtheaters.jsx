@@ -22,12 +22,11 @@ const ViewTheaters = () => {
         action: action,
       })
       .then((response) => {
-        console.log(response);
-        const updatedTheaters = theaters.map((t) => {
-          if (t.email === theaterToUpdate.email) {
-            return { ...t, accepted: response.data.accepted };
+        const updatedTheaters = theaters.map((value) => {
+          if (value.email === theaterToUpdate.email) {
+            return { ...value, accepted: response.data.accepted };
           }
-          return t;
+          return value;
         });
         setTheaters(updatedTheaters);
       })

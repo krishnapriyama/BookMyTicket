@@ -106,8 +106,7 @@ const viewmovies = () => {
                     >
                       Block
                     </button>
-                   
-                    <Editmovie></Editmovie>
+                    <Editmovie movie={movie}></Editmovie>
                     <button
                       type="button"
                       onClick={() => handleDelete(movie._id)}

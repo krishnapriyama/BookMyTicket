@@ -13,8 +13,12 @@ import Login from './Pages/Authentication/login'
 import Approval from './Pages/404/approval'
 
 //screens
-import Addscreen from './Pages/Screens/addscreen'
-import Addmovies from './Pages/Screens/addmovies'
+import Addscreen from './Pages/screen/addscreen'
+import Viewscreen from './Pages/screen/viewscreen'
+
+
+
+import Addmovies from './Pages/Movie/addmovies'
 
 //Routes
 const router = createBrowserRouter([
@@ -41,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: '/add-movies',
     element: <Addmovies></Addmovies>,
+  },
+  {
+    path: '/view-screens',
+    element: <Viewscreen></Viewscreen>,
   },
 ])
 
