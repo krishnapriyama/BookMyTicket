@@ -43,22 +43,22 @@ const viewmovies = () => {
           <table className="w-full text-sm bg-white dark:bg-gray-900 rounded-2xl overflow-hidden">
             <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
               <tr>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" className="px-6 py-3 font-medium">
                   Movie name
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" className="px-6 py-3 font-medium">
                   release date
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" className="px-6 py-3 font-medium">
                   Genre
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" className="px-6 py-3 font-medium">
                   language
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" className="px-6 py-3 font-medium">
                   Trailer link
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" className="px-6 py-3 font-medium">
                   Action
                 </th>
               </tr>
@@ -67,7 +67,7 @@ const viewmovies = () => {
               {movies.map((movie) => (
                 <tr
                   className="hover:bg-gray-50 dark:hover:bg-gray-800"
-                  key={movie.id}
+                  key={movie._id}
                 >
                   <td
                     scope="row"
@@ -99,10 +99,10 @@ const viewmovies = () => {
                   >
                     {movie.trailerlink}
                   </td>
-                  <td class="px-6 py-4 items-center flex justify-center gap-4">
+                  <td className="px-6 py-4 items-center flex justify-center gap-4">
                     <button
                       type="button"
-                      class="text-white bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                      className="text-white bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                     >
                       Block
                     </button>
@@ -110,7 +110,7 @@ const viewmovies = () => {
                     <button
                       type="button"
                       onClick={() => handleDelete(movie._id)}
-                      class="text-white bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                      className="text-white bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                     >
                       Delete
                     </button>

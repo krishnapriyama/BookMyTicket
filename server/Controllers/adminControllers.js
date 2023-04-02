@@ -18,7 +18,7 @@ module.exports.adminLogin = async (req, res, next) => {
         }
       })
     } else {
-      res.json({ error: 'Invalid email or password' })
+      res.json({ error:'Invalid email or password'})
     }
   } catch (error) {
     console.log(error)
@@ -57,7 +57,6 @@ module.exports.viewMovies = async (req, res, next) => {
   }
 }
 
-
 //Add Details
 module.exports.addMovie = async (req, res, next) => {
   try {
@@ -72,6 +71,8 @@ module.exports.addMovie = async (req, res, next) => {
       genre,
       language,
     } = req.body
+
+    console.log(req.body);
 
     const Movie = {
       moviename: moviename,
@@ -93,30 +94,26 @@ module.exports.addMovie = async (req, res, next) => {
   }
 }
 
-
-//Delete 
+//Delete
 module.exports.deleteUser = async (req, res, next) => {
   try {
-    const userId = req.params.id; 
-    await userModel.findByIdAndDelete(userId);
-    res.send({msg:'deleted'}); 
+    const userId = req.params.id
+    await userModel.findByIdAndDelete(userId)
+    res.send({ msg: 'deleted' })
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404).send(error)
   }
 }
 module.exports.deleteMovie = async (req, res, next) => {
   try {
-    const movieId = req.params.id; 
-    await MovieModel.findByIdAndDelete(movieId);
-    res.json({msg:'Movie deleted'}); 
+    const movieId = req.params.id
+    await MovieModel.findByIdAndDelete(movieId)
+    res.json({ msg: 'Movie deleted' })
   } catch (error) {
-    console.log(error);
-    res.status(404).send(error);
+    console.log(error)
+    res.status(404).send(error)
   }
-};
-
-
-
+}
 
 //Authorise
 module.exports.theatorAccept = async (req, res, next) => {
@@ -137,29 +134,49 @@ module.exports.theatorAccept = async (req, res, next) => {
 
 module.exports.userAction = async (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log(req.body)
     const { email, action } = await req.body
     userModel
-      .findOneAndUpdate({ email: email }, { isBlocked : action })
+      .findOneAndUpdate({ email: email }, { isBlocked: action })
       .then((resp) => {
-        res.send(resp);
+        res.send(resp)
       })
       .catch((err) => {
-        res.send(err);
-      });
+        res.send(err)
+      })
   } catch (error) {
-    res.send(error);
+    res.send(error)
   }
 }
 
+//Edit
 
-
-module.exports.editMovie = async (req, res, next) => {
+module.exports.updateMovie = async (req, res, next) => {
+  
+  const {
+    _id,
+    moviename,
+    releasedate,
+    description,
+    trailerlink,
+    genre,
+    language,
+  } = req.body
   try {
-    MovieModel.findOne({})
+    MovieModel.updateOne(
+      { _id: _id },
+      {
+        moviename: moviename,
+        releasedate: releasedate,
+        description: description,
+        trailerlink: trailerlink,
+        genre: genre,
+        language: language,
+      },
+    ).then((resp) => {
+      resp.status(200).send({ msg: 'movie updated' })
+    })
   } catch (error) {
-    console.log(error)
+    res.status(404).send(error)
   }
 }
-
-

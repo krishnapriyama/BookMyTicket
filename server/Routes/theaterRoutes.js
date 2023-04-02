@@ -1,4 +1,6 @@
 const express = require('express')
+const router = express.Router()
+
 const {
   Login,
   Register,
@@ -6,7 +8,6 @@ const {
   viewScreen,
   deleteScreen,
 } = require('../Controllers/theaterControllers')
-const router = express.Router()
 
 //post
 router.post('/login', Login)

@@ -5,12 +5,12 @@ const {
   theatorAccept,
   viewTheaters,
   addMovie,
-  editMovie,
   deleteUser,
   viewUsers,
   viewMovies,
   userAction,
   deleteMovie,
+  updateMovie,
 } = require('../Controllers/adminControllers')
 
 //get
@@ -18,12 +18,11 @@ router.get('/view-theaters', viewTheaters)
 router.get('/view-users', viewUsers)
 router.get('/view-movies', viewMovies)
 
-router.get('/editMovie/:id', editMovie)
-
 //post
 router.post('/login', adminLogin)
 router.post('/useraction', userAction)
 router.post('/addmovies', addMovie)
+router.post('/updateMovie', updateMovie)
 
 //patch
 router.patch('/accept', theatorAccept)

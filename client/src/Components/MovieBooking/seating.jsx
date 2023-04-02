@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 let coulumSeat = []
 let seat = []
 
@@ -33,17 +34,25 @@ const seating = () => {
                             {index == 0 && value}
                             {value == 'A' && data}
                           </button>
-                        </> 
+                        </>
                       )
                     })}
                   </div>
                 )
               })}
               <div className="pt-50 flex items-center flex-col text-yellow-500">
-                <div className="mt-8">
-                  </div>Screen</div>
-                  <div>
-                <div className="w-1/2 h-50 bg-gray-800 rounded-full border-b-5 border-white filter blur-md"></div>
+                <div className="mt-8 font-extrabold text-3xl">SCREEN</div>
+              </div>
+              <div>
+                <div class="flex flex-col items-center">
+                  <div class="bg-[#2d2424fb] h-16 w-56 rounded-lg mt-20"></div>
+                  <button class="bg-red-800 py-2 px-4 mt-7 rounded-lg text-white font-bold">
+                    <Link to='/booking'>
+                    Confirm Seats
+                    </Link>
+                    
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -52,5 +61,4 @@ const seating = () => {
     </div>
   )
 }
-
 export default seating

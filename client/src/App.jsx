@@ -11,6 +11,7 @@ import Movies from './Pages/Movies/movies'
 import MovieDetail from './Pages/MovieDetail/movieDetail'
 import MovieBooking from './Pages/Moviebooking/movieBooking'
 import Seating from './Pages/Moviebooking/seating'
+import Booking from './Pages/Moviebooking/booking'
 
 // Routes
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/seating',
     element: <Seating></Seating>,
+  },
+  {
+    path: '/booking',
+    element: <Booking></Booking>,
   },
 ])
 

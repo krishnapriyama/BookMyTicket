@@ -39,7 +39,7 @@ const viewscreen = () => {
   return (
     <div className="h-screen w-full p-0 m-0 flex justify-center items-center">
       <div className="relative overflow-x-auto shadow-md">
-        <table className="w-full text-sm bg-white dark:bg-gray-900 rounded-2xl overflow-hidden">
+        <table className="w-full text-sm bg-white rounded-2xl overflow-hidden">
           <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
             <tr>
               <th scope="col" class="px-6 py-3 font-medium">
@@ -65,36 +65,35 @@ const viewscreen = () => {
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             {screen.map((s) => (
               <tr
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
                 key={s.id}
               >
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
+                  className="px-6 py-4 font-medium text-black whitespace-nowrap"
                 >
                   {s.screenname}
                 </td>
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-white dark:text-white whitespace-nowrap"
+                  className="px-6 py-4 font-medium text-black  whitespace-nowrap"
                 >
                   {s.screentype}
                 </td>
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
+                  className="px-6 py-4 font-medium text-black  whitespace-nowrap"
                 >
                   {s.acnon}
                 </td>
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
+                  className="px-6 py-4 font-medium text-black  whitespace-nowrap"
                 >
                   {s.rowcount}
                 </td>
                 <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
+                  className="px-6 py-4 font-medium text-black  whitespace-nowrap"
                 >
                   {s.columncount}
                 </td>

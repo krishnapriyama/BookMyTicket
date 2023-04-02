@@ -3,22 +3,21 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 
 export default function Modal(props) {
-  const [showModal, setShowModal] = React.useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [movie, setMovie] = useState(props.movie)
-  console.log(movie)
+  const formattedDate = new Date(movie.releasedate).toLocaleDateString('en-GB')
+
   const formik = useFormik({
     initialValues: {
-      moviename: '',
-      releasedate: '',
-      description: '',
-      poster1: '',
-      poster2: '',
-      poster3: '',
-      genre: '',
-      language: '',
-      trailerlink: '',
+      moviename: movie.moviename,
+      releasedate: formattedDate,
+      description: movie.description,
+      genre: movie.genre,
+      language: movie.language,
+      trailerlink: movie.trailerlink,
     },
     validate: (values) => {
+      console.log(values)
       const error = {}
       if (!values.moviename) {
         error.moviename = 'Name Required'
@@ -26,12 +25,6 @@ export default function Modal(props) {
         error.releasedate = 'Date Required'
       } else if (!values.description) {
         error.description = 'Description Required'
-      } else if (!values.poster1) {
-        error.poster1 = 'Image Required'
-      } else if (!values.poster2) {
-        error.poster2 = 'Image Required'
-      } else if (!values.poster3) {
-        error.poster3 = 'Image Required'
       } else if (!values.trailerlink) {
         error.trailerlink = 'Link Required'
       } else if (!values.genre) {
@@ -42,14 +35,14 @@ export default function Modal(props) {
       return error
     },
     onSubmit: async (values) => {
+      setShowModal(false)
       console.log(values, '----movies data')
       try {
         const response = await axios.post(
-          'http://localhost:4000/admin/addmovies',
+          'http://localhost:4000/admin/updateMovie',
           { ...values },
           { withCredentials: true },
         )
-
         if (response.data.msg) {
           navigate('/view-movies')
         } else {
@@ -89,8 +82,8 @@ export default function Modal(props) {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <form class="w-full max-w-lg" onSubmit={formik.handleSubmit}>
+                <form class="w-full max-w-lg" onSubmit={formik.handleSubmit}>
+                  <div className="relative p-6 flex-auto">
                     <div class="flex flex-wrap -mx-3 mb-6">
                       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
@@ -102,10 +95,9 @@ export default function Modal(props) {
                         <input
                           {...formik.getFieldProps('moviename')}
                           class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                          id="grid-first-name"
+                          id="moviename"
                           type="text"
                           name="moviename"
-                          placeholder="THE DARK"
                         />
                         {formik.touched.moviename && formik.errors.moviename ? (
                           <div className="text-red-500">
@@ -124,9 +116,8 @@ export default function Modal(props) {
                           {...formik.getFieldProps('releasedate')}
                           class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-last-name"
-                          type="date"
+                          type="text"
                           name="releasedate"
-                          placeholder="date"
                         />
                         {formik.touched.releasedate &&
                         formik.errors.releasedate ? (
@@ -150,7 +141,6 @@ export default function Modal(props) {
                           id="grid-password"
                           type="text"
                           name="description"
-                          placeholder="Description............"
                         />
                       </div>
                       {formik.touched.description &&
@@ -174,7 +164,6 @@ export default function Modal(props) {
                           id="grid-city"
                           name="genre"
                           type="text"
-                          placeholder="Genre"
                         />
                         {formik.touched.genre && formik.errors.genre ? (
                           <div className="text-red-500">
@@ -195,7 +184,6 @@ export default function Modal(props) {
                           id="grid-city"
                           name="language"
                           type="text"
-                          placeholder="Language"
                         />
                         {formik.touched.language && formik.errors.language ? (
                           <div className="text-red-500">
@@ -217,7 +205,6 @@ export default function Modal(props) {
                         id="grid-password"
                         type="text"
                         name="trailerlink"
-                        placeholder="Link"
                       />
                       {formik.touched.trailerlink &&
                       formik.errors.trailerlink ? (
@@ -226,25 +213,24 @@ export default function Modal(props) {
                         </div>
                       ) : null}
                     </div>
-                  </form>
-                </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end  p-6 border-solid border-slate-200">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-emerald-500 text-black active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                  </div>
+                  {/*footer*/}
+                  <div className="flex items-center justify-end  p-6 border-solid border-slate-200">
+                    <button
+                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                    >
+                      Close
+                    </button>
+                    <button
+                      className="bg-emerald-500 text-black active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="submit"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

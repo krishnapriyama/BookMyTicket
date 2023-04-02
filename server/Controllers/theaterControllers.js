@@ -58,7 +58,6 @@ module.exports.Login = async (req, res, next) => {
 }
 
 module.exports.addScreen = async (req, res, next) => {
-  console.log(req.body)
   try {
     const {
       screenname,
@@ -77,7 +76,6 @@ module.exports.addScreen = async (req, res, next) => {
       columncount: columncount,
       totalcount: totalcount,
     }
-
     ScreenModel.create(Screen).then((resp) => {
       console.log(resp)
       res.send({ msg: 'Screen Added successfully' })
