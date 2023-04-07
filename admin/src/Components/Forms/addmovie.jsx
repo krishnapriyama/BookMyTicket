@@ -10,9 +10,6 @@ const addmovieform = () => {
   const [image1, setImage1] = useState(null)
   const [image2, setImage2] = useState(null)
   const [image3, setImage3] = useState(null)
-  console.log(image1)
-  console.log(image2)
-  console.log(image3)
   const navigate = useNavigate()
 
   const formik = useFormik({
@@ -42,9 +39,6 @@ const addmovieform = () => {
       return errors
     },
     onSubmit: async (values) => {
-      console.log(values.poster1, 'image')
-      console.log(values.poster2, 'image')
-      console.log(values.poster3, 'image')
       console.log(values, '----movies data')
       try {
         let posterUrl1 = null

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import firebase from '../../Firebase/firebase'
 
 //components
 import Signup from './signup'
@@ -10,6 +11,39 @@ import Login from './login'
 const login = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
+
+  const handleClick = async () => {
+    try {
+      var applicationVerifier = new firebase.auth.RecaptchaVerifier(
+        'recaptcha-container',
+      )
+      var provider = new firebase.auth.PhoneAuthProvider()
+      provider
+        .verifyPhoneNumber('+917994632026', applicationVerifier)
+        .then(function (verificationId) {
+          var verificationCode = window.prompt(
+            'Please enter the verification ' +
+              'code that was sent to your mobile device.',
+          )
+          return firebase.auth.PhoneAuthProvider.credential(
+            verificationId,
+            verificationCode,
+          )
+        }).then((phoneCredential)=>{
+         
+          return firebase.auth().signInWithCredential(phoneCredential)
+        }).then((respo)=>{
+         
+        })
+
+
+        // .then(function (phoneCredential) {
+        //   return firebase.auth().signInWithCredential(phoneCredential)
+        // })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -65,6 +99,7 @@ const login = () => {
                     {/* Signup Form */}
                     <Signup></Signup>
 
+
                     <p className="mt-4 text-gray-600 text-center">
                       Already have an account?{' '}
                       <button
@@ -80,21 +115,22 @@ const login = () => {
                     {/* Login Form */}
                     <Login></Login>
 
-                    <h2 className="text-2xl font-bold text-center mt-4">
-                      OR
-                    </h2>
+                    <h2 className="text-2xl font-bold text-center mt-4">OR</h2>
                     <button
                       className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none"
                       type="submit"
                     >
-                    <FontAwesomeIcon icon={faGoogle} className="mr-2"/> Login With Google
+                      <FontAwesomeIcon icon={faGoogle} className="mr-2" /> Login
+                      With Google
                     </button>
                     <button
                       className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none"
                       type="submit"
+                      onClick={handleClick}
                     >
                       Login With OTP
                     </button>
+                    <div id="recaptcha-container"></div>
                     <p className="mt-4 text-gray-600 text-center">
                       Don't have an account yet?{' '}
                       <button

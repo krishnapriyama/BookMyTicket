@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 import { useFormik } from 'formik'
+import { useNavigate } from 'react-router-dom'
 
 export default function Modal(props) {
+  const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false)
   const [movie, setMovie] = useState(props.movie)
   const formattedDate = new Date(movie.releasedate).toLocaleDateString('en-GB')
@@ -38,13 +41,14 @@ export default function Modal(props) {
       setShowModal(false)
       console.log(values, '----movies data')
       try {
+        values._id = movie._id;
         const response = await axios.post(
           'http://localhost:4000/admin/updateMovie',
           { ...values },
           { withCredentials: true },
         )
         if (response.data.msg) {
-          navigate('/view-movies')
+          window.location.href = '/view-movies'
         } else {
           console.log('Something went wrong')
         }

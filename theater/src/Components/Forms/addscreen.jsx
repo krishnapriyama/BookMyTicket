@@ -10,7 +10,6 @@ const addscreen = () => {
     initialValues: {
       screenname: '',
       screentype: '',
-      acnon: '',
       rowcount: '',
       columncount: '',
       totalcount: '',
@@ -21,8 +20,6 @@ const addscreen = () => {
         error.screenname = 'Name Required'
       } else if (!values.screentype) {
         error.screentype = 'Type Required'
-      } else if (!values.acnon) {
-        error.acnon = 'Required'
       } else if (!values.rowcount) {
         error.rowcount = 'Count Required'
       } else if (!values.columncount) {
@@ -41,9 +38,11 @@ const addscreen = () => {
           { withCredentials: true },
         )
 
-        if (response.data.msg) {
-          navigate('/view-screens')
-        } else {
+       if (response) {
+          if(response.data.created){
+            navigate('/view-screens')
+          }
+        }else {
           console.log("Something went wrong");
         }
       } catch (error) {
@@ -102,30 +101,6 @@ const addscreen = () => {
             ) : null}
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-password"
-            >
-              A/c or non
-            </label>
-            <select
-              {...formik.getFieldProps('acnon')}
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-last-name"
-              name="acnon"
-              placeholder="date"
-            >
-              <option value="">Select</option>
-              <option value="AC">A/C</option>
-              <option value="NON-AC">NON-A/C</option>
-            </select>
-          </div>
-          {formik.errors.acnon ? (
-            <div className="text-red-500">{formik.errors.acnon}</div>
-          ) : null}
-        </div>
         <div class="flex flex-wrap -mx-3 mb-2">
           <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
@@ -175,7 +150,8 @@ const addscreen = () => {
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-zip"
               type="number"
-              name="totalcount"
+              name="totalcount" readOnly
+              value={formik.values.totalcount = formik.values.columncount*formik.values.rowcount}
             />
           {formik.errors.totalcount ? (
             <div className="text-red-500">{formik.errors.totalcount}</div>

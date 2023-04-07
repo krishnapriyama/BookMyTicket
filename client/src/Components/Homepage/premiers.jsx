@@ -1,11 +1,12 @@
 import React from 'react'
 
+
 const cards = [
-  { id: 1, content: 'Card 1' },
-  { id: 2, content: 'Card 2' },
-  { id: 3, content: 'Card 3' },
-  { id: 4, content: 'Card 4' },
-  { id: 5, content: 'Card 5' },
+  { id: 1, src: 'Card 1'},
+  { id: 2, src: 'Card 2' },
+  { id: 3, src: 'Card 3' },
+  { id: 4, src: 'Card 4' },
+  { id: 5, src: 'Card 5' },
 ]
 
 const premiers = () => {
@@ -26,7 +27,7 @@ const premiers = () => {
                 key={card.id}
                 className="bg-white w-full h-96 p-4 flex items-center justify-center rounded-2xl"
               >
-                {card.content}
+                {card.src}
               </div>
             ))}
           </div>

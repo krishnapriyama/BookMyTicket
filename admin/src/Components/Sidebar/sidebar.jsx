@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 const sidebar = () => {
+  const navigate = useNavigate()
   const [collapseShow, setCollapseShow] = useState('hidden')
   return (
     <>
@@ -149,6 +150,15 @@ const sidebar = () => {
                 </Link>
               </li>
             </ul>
+            <button
+              className="text-blueGray-700 bg-[#fa1b1b] rounded-xl hover:text-black-500 text-xs uppercase py-3 font-bold block duration-300 hover:bg-[#690606] hover:text-white hover:rounded-lg "
+              onClick={() => {
+                localStorage.removeItem('adminToken')
+                navigate('/login')
+              }}
+            >
+              <i className="text-blueGray-400 text-sm"></i> LogOut
+            </button>
           </div>
         </div>
       </nav>

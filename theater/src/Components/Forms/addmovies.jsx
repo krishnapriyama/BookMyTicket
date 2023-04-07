@@ -1,12 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
+import Select from 'react-select'
+
+const timeOptions = [
+  { value: '9.45', label: '9.45' },
+  { value: '12.35', label: '12.35' },
+  { value: '4.00', label: '4.00' },
+  { value: '7.30', label: '7.30' },
+  { value: '10.30', label: '10.30' },
+]
 
 const addmovies = () => {
+  const [ShowTimes, setShowTimes] = useState([
+    timeOptions[1],
+    timeOptions[2],
+    timeOptions[4],
+  ])
+  const [movies, setMovies] = useState([])
+  const [screens, setScreen] = useState([])
+
+  
+  const handleTimingsChange = (selectedOptions) => {
+    setShowTimes(selectedOptions)
+  }
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/admin/view-movies').then((response) => {
+      setMovies(response.data)
+    })
+
+    let token = localStorage.getItem('theaterToken')
+    console.log(token)
+    axios
+      .get('http://localhost:4000/theater/view-screens', 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      .then((resp) => {
+        console.log(resp)
+        if (resp.data) {
+          setScreen(resp.data.screens)
+        } else {
+          setScreen([])
+        }
+      })
+  }, [])
+
   const formik = useFormik({
     initialValues: {
       screen: '',
       movie: '',
+      startDate: '',
+      EndDate: '',
+      TicketPrice: '',
     },
     validate: (values) => {
       const error = {}
@@ -14,15 +63,21 @@ const addmovies = () => {
         error.screen = 'Screen Required'
       } else if (!values.movie) {
         error.movie = 'Movie Required'
+      } else if (!values.startDate) {
+        error.startDate = 'Date Required'
+      } else if (!values.EndDate) {
+        error.EndDate = 'Date Required'
+      } else if (!values.TicketPrice) {
+        error.TicketPrice = 'Price Required'
       }
       return error
     },
     onSubmit: async (values) => {
-      console.log(values, '----movies data')
+      console.log(values, ShowTimes, '----movies data')
       try {
         const response = await axios.post(
           'http://localhost:4000/theater/add-movies',
-          { ...values },
+          { ...values, ShowTimes },
           { withCredentials: true },
         )
         if (response) {
@@ -55,10 +110,12 @@ const addmovies = () => {
               name="screen"
               placeholder="date"
             >
-              <option value="">Select</option>
-              <option value="2S">2S</option>
-              <option value="VIP">VIP</option>
-              <option value="Dolby">DOLBY</option>
+               <option value="">Select</option>
+              {screens.map((screen) => (
+                <option key={screen.id} value={screen._id}>
+                  {screen.screenname}
+                </option>
+              ))}
             </select>
             {formik.touched.screen && formik.errors.screen ? (
               <div className="text-red-500">{formik.errors.screen}</div>
@@ -79,18 +136,104 @@ const addmovies = () => {
               placeholder="date"
             >
               <option value="">Select</option>
-              <option value="Dark">Dark</option>
-              <option value="Romacham">Romacham</option>
-              <option value="Shark">Shark</option>
+              {movies.map((movie) => (
+                <option key={movie.id} value={movie._id}>
+                  {movie.moviename}
+                </option>
+              ))}
             </select>
             {formik.touched.movie && formik.errors.movie ? (
               <div className="text-red-500">{formik.errors.movie}</div>
             ) : null}
           </div>
         </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="grid-first-name"
+            >
+              start date
+            </label>
+            <input
+              {...formik.getFieldProps('startDate')}
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="grid-first-name"
+              type="date"
+              name="startDate"
+              placeholder="Name"
+            />
+            {formik.touched.startDate && formik.errors.startDate ? (
+              <div className="text-red-500">{formik.errors.startDate}</div>
+            ) : null}
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="grid-first-name"
+            >
+              end date
+            </label>
+            <input
+              {...formik.getFieldProps('EndDate')}
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="grid-first-name"
+              type="date"
+              name="EndDate"
+              placeholder="Name"
+            />
+            {formik.touched.EndDate && formik.errors.EndDate ? (
+              <div className="text-red-500">{formik.errors.EndDate}</div>
+            ) : null}
+          </div>
+        </div>
+        <div className="w-full">
+          <label
+            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            htmlFor="movie-timing"
+          >
+            Movie timings
+          </label>
+          <Select
+            value={ShowTimes}
+            onChange={handleTimingsChange}
+            isMulti
+            name="timings"
+            options={timeOptions}
+            className="w-full text-black"
+            classNamePrefix="select"
+          />
+          {ShowTimes.length === 0 ? (
+            <div className="text-red-500">
+              Please select at least one timing
+            </div>
+          ) : null}
+        </div>
+        <div class="w-full mt-8">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="grid-first-name"
+          >
+            Ticket Price
+          </label>
+          <input
+            {...formik.getFieldProps('TicketPrice')}
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            id="grid-first-name"
+            type="number"
+            name="TicketPrice"
+            placeholder="Ticket Price"
+          />
+          {formik.touched.TicketPrice && formik.errors.TicketPrice ? (
+            <div className="text-red-500">{formik.errors.TicketPrice}</div>
+          ) : null}
+        </div>
 
         <div class="w-full px-3 mt-9 items-end flex justify-end">
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            type="submit"
+          >
             Submit
           </button>
         </div>

@@ -1,31 +1,23 @@
-const User = require("../Models/userModel");
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-module.exports.checkUser = (req, res, next) => {
-  const token = req.cookies.jwt;
-  
-  if (token) {
-    console.log("Token true");
-    jwt.verify(
-      token,
-      "SuperSecretKey",
-      async (err, decodedToken) => {
-        if (err) {
-          console.log("Token err");
-          res.json({ status: false });
-          next();
-        } else {
-          console.log("Token decode true");
-          const user = await User.findById(decodedToken.id);
-          if (user) res.json({ status: true, user: user.email });
-          else res.json({ status: false });
-          next();
-        }
-      }
-    );
-  } else {
-    console.log("Token false");
-    res.json({ status: false });
-    next();
+function authMiddleware(req, res, next) {
+
+  const Authtoken = req.headers.authorization
+ 
+  const token = Authtoken && Authtoken.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Authorization header missing' });
   }
-};
+
+  try {
+    const decoded = jwt.verify(token, 'SuperSecretKey');
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+}
+
+module.exports = authMiddleware;
+

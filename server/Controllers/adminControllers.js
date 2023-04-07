@@ -1,24 +1,28 @@
 const MovieModel = require('../Models/movieModel')
 const TheaterModel = require('../Models/theaterModel')
+const AdminModel = require('../Models/adminModel')
 const bcrypt = require('bcrypt')
 const userModel = require('../Models/userModel')
+const jwt = require('jsonwebtoken')
+
 
 //Login
 module.exports.adminLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body
-    const admin = await TheaterModel.findOne({ email })
+    const admin = await AdminModel.findOne({ email })
     if (admin) {
       bcrypt.compare(password, admin.password, function (err, result) {
         if (result === true) {
-          res.json({ created: true })
+          const token = jwt.sign({email},'SuperSecretKey')
+          res.json({ created: true ,token})
         } else {
           res.json({ error: 'Invalid email or password' })
           console.log('Passwords do not match.')
         }
       })
     } else {
-      res.json({ error:'Invalid email or password'})
+      res.json({ error: 'Invalid email or password' })
     }
   } catch (error) {
     console.log(error)
@@ -72,7 +76,7 @@ module.exports.addMovie = async (req, res, next) => {
       language,
     } = req.body
 
-    console.log(req.body);
+    console.log(req.body)
 
     const Movie = {
       moviename: moviename,
@@ -152,7 +156,6 @@ module.exports.userAction = async (req, res, next) => {
 //Edit
 
 module.exports.updateMovie = async (req, res, next) => {
-  
   const {
     _id,
     moviename,
@@ -162,21 +165,54 @@ module.exports.updateMovie = async (req, res, next) => {
     genre,
     language,
   } = req.body
+  console.log(req.body)
   try {
     MovieModel.updateOne(
       { _id: _id },
       {
-        moviename: moviename,
-        releasedate: releasedate,
-        description: description,
-        trailerlink: trailerlink,
-        genre: genre,
-        language: language,
+        $set: {
+          moviename: moviename,
+          releasedate: new Date(releasedate),
+          description: description,
+          trailerlink: trailerlink,
+          genre: genre,
+          language: language,
+        },
       },
     ).then((resp) => {
-      resp.status(200).send({ msg: 'movie updated' })
+      res.send({ msg: 'movie updated' })
     })
   } catch (error) {
     res.status(404).send(error)
+  }
+}
+
+module.exports.updateUser = async (req, res, next) => {
+  const { _id, number, email } = req.body
+  try {
+    userModel
+      .updateOne({ _id: _id }, { number: number, email: email })
+      .then((resp) => {
+        res.send({ msg: `user updated` })
+      })
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
+}
+
+module.exports.updateTheater = async (req, res, next) => {
+  const { _id, theatername, place } = req.body
+  try {
+    TheaterModel.updateOne(
+      { _id: _id },
+      { name: theatername, place: place },
+      ).then((resp) => {
+        res.send({ msg: `theater updated` })
+        console.log(req.body);
+    })
+  } catch (error) {
+    console.log(error)
+    res.send(error)
   }
 }

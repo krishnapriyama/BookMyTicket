@@ -11,10 +11,6 @@ const userSchema = new mongoose.Schema({
       type:String,
       required:true
    },
-   number:{
-      type:String,
-      required:true
-   },
    isBlocked: {
       type: Boolean,
     },

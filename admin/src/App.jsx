@@ -1,65 +1,99 @@
-import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import "react-toastify/dist/ReactToastify.css"
+import React, { lazy, Suspense } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-//componets
-import Dashboard from './Pages/dashboard/dashboard'
-import Login from './Pages/Authentication/login'
-
-// movies
-import AddMovies from './Pages/Movies/addmovies'
-import Viewmovies from './Pages/Movies/viewmovies'
-// users
-import AddUser from './Pages/Users/addUser'
-import Viewusers from './Pages/Users/viewUser'
-//theater
-import Addtheater from './Pages/Theaters/addtheater'
-import Viewtheater from './Pages/Theaters/viewtheater'
-
-// Routes
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Dashboard></Dashboard>,
-  },
-  {
-    path: '/login',
-    element: <Login></Login>,
-  },
-  // /movies
-  {
-    path: '/add-movies',
-    element: <AddMovies></AddMovies>,
-  },
-  {
-    path: '/view-movies',
-    element: <Viewmovies></Viewmovies>,
-  },
-  // users
-  {
-    path: '/add-users',
-    element: <AddUser></AddUser>,
-  },
-  {
-    path: '/view-users',
-    element: <Viewusers></Viewusers>,
-  },
-  // theaters
-  {
-    path: '/view-theaters',
-    element: <Viewtheater></Viewtheater>,
-  },
-  {
-    path: '/add-theaters',
-    element: <Addtheater></Addtheater>,
-  }
-])
+// Lazy load components
+const Dashboard = lazy(() => import('./Pages/Dashboard/dashboard'))
+const Login = lazy(() => import('./Pages/Authentication/login'))
+const Sidebar = lazy(() => import('./Pages/Dashboard/sidebar'))
+const AddMovies = lazy(() => import('./Pages/Movies/addmovies'))
+const Viewmovies = lazy(() => import('./Pages/Movies/viewmovies'))
+const AddUser = lazy(() => import('./Pages/Users/addUser'))
+const Viewusers = lazy(() => import('./Pages/Users/viewUser'))
+const Addtheater = lazy(() => import('./Pages/Theaters/addtheater'))
+const Viewtheater = lazy(() => import('./Pages/Theaters/viewtheater'))
 
 function App() {
   return (
-    <main>
-      <RouterProvider router={router}></RouterProvider>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={'/login'}
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Login />
+            </Suspense>
+          }
+        />
+        {/* child component */}
+        <Route
+          path={'/'}
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Sidebar />
+            </Suspense>
+          }
+        >
+          <Route
+            index
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Dashboard />
+              </Suspense>
+            }
+          />
+          <Route
+            path={'/add-movies'}
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <AddMovies />
+              </Suspense>
+            }
+          />
+          <Route
+            path={'/view-movies'}
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Viewmovies />
+              </Suspense>
+            }
+          />
+          <Route
+            path={'/add-users'}
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <AddUser />
+              </Suspense>
+            }
+          />
+          <Route
+            path={'/view-users'}
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Viewusers />
+              </Suspense>
+            }
+          />
+          <Route
+            path={'/add-theaters'}
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Addtheater />
+              </Suspense>
+            }
+          />
+          <Route
+            path={'/view-theaters'}
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Viewtheater />
+              </Suspense>
+            }
+          />
+        </Route>
+        {/* end */}
+      </Routes>
+    </BrowserRouter>
   )
 }
 

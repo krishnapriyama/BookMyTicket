@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const upcommingMovies = () => {
   return (
@@ -19,10 +20,12 @@ const upcommingMovies = () => {
             <div key={index} class="grid-item" style={{ width: '250px' }}>
               <article class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
                 <div class="relative flex items-center overflow-hidden rounded-xl ">
+                  <Link to='/allmovies'>
                   <img
                     src="https://i.pinimg.com/originals/79/8b/4f/798b4f39e2b76774fb2f3f167409c6cd.jpg"
                     alt="dark"
                   />
+                  </Link>
                 </div>
                 <div class="mt-1 p-2 items-center justify-center">
                   <h2 class="text-slate-700 items-center justify-center">

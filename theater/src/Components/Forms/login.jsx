@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
+import { useEffect } from 'react'
 
 const login = () => {
   const navigate = useNavigate()
@@ -12,6 +13,13 @@ const login = () => {
     toast.error(error, {
       position: 'bottom-right',
     })
+
+    useEffect(() => {
+      const theaterToken = localStorage.getItem('theaterToken')
+      if (theaterToken) {
+        navigate('/')
+      }
+    }, [])
 
   const formik = useFormik({
     initialValues: {
@@ -46,6 +54,7 @@ const login = () => {
           console.log(response.data.error,'error')
           console.log('Waiting to Approve')
         } else if (response.data.created == true) {
+          localStorage.setItem('theaterToken', response.data.token)
           navigate('/')
           console.log(response.data.created, 'created')
           console.log('Login Success')

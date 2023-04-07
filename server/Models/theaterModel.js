@@ -1,7 +1,35 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
+
+const screenSchema = new mongoose.Schema({
+  screenname: {
+    type: String,
+    required: true
+  },
+  totalcount: {
+    type: Number,
+    required: true
+  },
+  row: {
+    type: Number,
+    required: true
+  },
+  column: {
+    type: Number,
+    required: true
+  },
+  screentype: {
+    type: String,
+    required: true
+  }
+});
+
 const theaterOwnerSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    require:true
+  },
   email: {
     type: String,
     require: [true, ' Email is require'],
@@ -18,6 +46,7 @@ const theaterOwnerSchema = new mongoose.Schema({
   accepted: {
     type: Boolean,
   },
+  screens:[screenSchema]
 })
 
 theaterOwnerSchema.pre('save', async function (next) {

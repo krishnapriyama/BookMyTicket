@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const login = () => {
   const navigate = useNavigate()
@@ -12,6 +14,13 @@ const login = () => {
     toast.error(error, {
       position: 'bottom-right',
     })
+
+  useEffect(() => {
+    const adminToken = localStorage.getItem('adminToken')
+    if (adminToken) {
+      navigate('/')
+    }
+  }, [])
 
   const formik = useFormik({
     initialValues: {
@@ -42,6 +51,7 @@ const login = () => {
         )
 
         if (response.data.created == true) {
+          localStorage.setItem('adminToken', response.data.token)
           navigate('/')
           console.log(response.data.created, 'created')
           console.log('Login Success')
@@ -94,7 +104,7 @@ const login = () => {
               <div className="flex flex-col items-start">
                 <input
                   {...formik.getFieldProps('password')}
-                  type="password"
+                  type="text"
                   name="password"
                   className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none"
                 />

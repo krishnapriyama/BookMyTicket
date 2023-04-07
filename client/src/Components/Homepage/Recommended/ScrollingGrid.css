@@ -1,0 +1,252 @@
+#container1 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container2 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container3 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container4 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container5 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container6 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container7 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container8 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container9 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ #container10 {
+   width: 100%;
+   margin: auto;
+   overflow: hidden;
+   scroll-behavior: smooth;
+ }
+ 
+ .gridDiv {
+   display: grid;
+   grid-template-columns: 9% 9% 9% 9% 9% 9% 9% 9% 9% 9%;
+   grid-template-rows: 446px;
+   grid-gap: 1.25%;
+   width: 200%;
+ }
+ .gridDiv div {
+   cursor: pointer;
+ }
+ 
+ .gridDiv img {
+   width: 100%;
+   border-radius: 10px;
+ }
+ 
+ .movieTitle {
+   margin-top: 8px;
+   font-size: 17px;
+   font-weight: 500;
+ }
+ 
+ #rightArrow {
+   font-size: 45px;
+   position: absolute;
+   top: 97vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow {
+   font-size: 45px;
+   position: absolute;
+   top: 97vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow1 {
+   font-size: 45px;
+   position: absolute;
+   top: 182vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow1 {
+   font-size: 45px;
+   position: absolute;
+   top: 182vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow2 {
+   font-size: 45px;
+   position: absolute;
+   top: 276vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow2 {
+   font-size: 45px;
+   position: absolute;
+   top: 276vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow3 {
+   font-size: 45px;
+   position: absolute;
+   top: 364vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow3 {
+   font-size: 45px;
+   position: absolute;
+   top: 364vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow4 {
+   font-size: 45px;
+   position: absolute;
+   top: 444vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow4 {
+   font-size: 45px;
+   position: absolute;
+   top: 444vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow5 {
+   font-size: 45px;
+   position: absolute;
+   top: 525vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow5 {
+   font-size: 45px;
+   position: absolute;
+   top: 525vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow6 {
+   font-size: 45px;
+   position: absolute;
+   top: 603vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow6 {
+   font-size: 45px;
+   position: absolute;
+   top: 603vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow7 {
+   font-size: 45px;
+   position: absolute;
+   top: 682vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow7 {
+   font-size: 45px;
+   position: absolute;
+   top: 682vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow8 {
+   font-size: 45px;
+   position: absolute;
+   top: 763vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow8 {
+   font-size: 45px;
+   position: absolute;
+   top: 763vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 
+ #rightArrow9 {
+   font-size: 45px;
+   position: absolute;
+   top: 842vh;
+   left: 92.1vw;
+   cursor: pointer;
+ }
+ 
+ #leftArrow9 {
+   font-size: 45px;
+   position: absolute;
+   top: 842vh;
+   left: 3.3vw;
+   cursor: pointer;
+ }
+ 

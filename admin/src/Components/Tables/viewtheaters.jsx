@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 
-
+//components
+import Modaltheater from '../Models/edittheater';
 
 const ViewTheaters = () => {
   const [theaters, setTheaters] = useState([]);
@@ -43,6 +44,9 @@ const ViewTheaters = () => {
               Email
             </th>
             <th scope="col" className="px-6 py-3 font-medium">
+              Name
+            </th>
+            <th scope="col" className="px-6 py-3 font-medium">
               Place
             </th>
             <th scope="col" className="px-6 py-3 font-medium">
@@ -63,12 +67,18 @@ const ViewTheaters = () => {
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
               >
+                {theater.name}
+              </td>
+              <td
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap"
+              >
                 {theater.place}
               </td>
                 <td className="px-6 py-4 items-center flex justify-center">
                   <button
                     type="button"
-                    className={`text-white bg-blue-700 rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ${
+                    className={`text-white bg-blue-700 items-center rounded-lg text-sm px-5 py-2 mr-2 ${
                       theater.accepted
                         ? 'bg-green-500'
                         : 'bg-red-500'
@@ -77,6 +87,7 @@ const ViewTheaters = () => {
                   >
                     {theater.accepted ? 'Accepted' : 'Rejected'}
                   </button>
+                  <Modaltheater theater = {theater}></Modaltheater>
                 </td>
               </tr>
             ))}

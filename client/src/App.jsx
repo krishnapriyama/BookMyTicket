@@ -2,8 +2,9 @@ import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@fortawesome/fontawesome-free/js/all.js'
-import "react-toastify/dist/ReactToastify.css"
-import 'typeface-roboto';
+import 'react-toastify/dist/ReactToastify.css'
+import 'typeface-roboto'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 // Components
 import Homepage from './Pages/Homepage/homepage'
@@ -12,40 +13,24 @@ import MovieDetail from './Pages/MovieDetail/movieDetail'
 import MovieBooking from './Pages/Moviebooking/movieBooking'
 import Seating from './Pages/Moviebooking/seating'
 import Booking from './Pages/Moviebooking/booking'
+import Offer from './Pages/Payments/offer'
 
 // Routes
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Homepage></Homepage>,
-  },
-  {
-    path: '/allmovies',
-    element: <Movies></Movies>,
-  },
-  {
-    path: '/moviedetail',
-    element: <MovieDetail></MovieDetail>,
-  },
-  {
-    path: '/moviebooking',
-    element: <MovieBooking></MovieBooking>,
-  },
-  {
-    path: '/seating',
-    element: <Seating></Seating>,
-  },
-  {
-    path: '/booking',
-    element: <Booking></Booking>,
-  },
-])
+
 
 function App() {
   return (
-    <main>
-      <RouterProvider router={router}></RouterProvider>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path={'/'} element={<Homepage />} />
+        <Route path={'/allmovies'} element={<Movies />} />
+        <Route path={'/moviedetail'} element={<MovieDetail />} />
+        <Route path={'/moviebooking'} element={<MovieBooking />} />
+        <Route path={'/seating'} element={<Seating />} />
+        <Route path={'/booking'} element={<Booking />} />
+        <Route path={'/offer'} element={<Offer />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

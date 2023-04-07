@@ -7,12 +7,9 @@ import Viewscreen from '../../Components/Tables/viewscreen'
 const viewscreen = () => {
   return (
    <div>
-   <div className="h-screen">
-     <Sidebar></Sidebar>
-     <div className="relative md:ml-64 bg-blueGray-100 p-6">
+     <div className="mx-auto w-full text-white dark:bg-gray-800">
        <Viewscreen></Viewscreen>
      </div>
-   </div>
  </div>
   )
 }

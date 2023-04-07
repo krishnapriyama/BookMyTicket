@@ -11,6 +11,8 @@ const {
   userAction,
   deleteMovie,
   updateMovie,
+  updateUser,
+  updateTheater,
 } = require('../Controllers/adminControllers')
 
 //get
@@ -23,6 +25,8 @@ router.post('/login', adminLogin)
 router.post('/useraction', userAction)
 router.post('/addmovies', addMovie)
 router.post('/updateMovie', updateMovie)
+router.post('/updateUser', updateUser)
+router.post('/updateTheater', updateTheater)
 
 //patch
 router.patch('/accept', theatorAccept)

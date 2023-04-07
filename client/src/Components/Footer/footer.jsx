@@ -13,26 +13,12 @@ import { AiFillFacebook, AiFillYoutube } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <div className="bg-black">
-      {/* privacy note */}
-      <div style={{ backgroundColor: "#F2F3F3" }} className="">
-        <p className="text-left ml-16 text-2xl font-bold">Privacy Note</p>
-        <div className="ml-16 mr-16">
-          By using www.bookmyshow.com(our website), you are fully accepting the
-          Privacy Policy available at{" "}
-          <a href="/privacy">https://bookmyshow.com/privacy</a> governing your
-          access to Bookmyshow and provision of services by Bookmyshow to you.
-          If you do not accept terms mentioned in the{" "}
-          <a href="/privacy">Privacy Policy</a>, you must not share any of your
-          personal information and immediately exit Bookmyshow.
-        </div>
-      </div>
-      {/* privacy note */}
+    <div className="bg-black mt-28">
       {/* list Show */}
       <div>
-        <div className="flex justify-between text-white ml-16 mr-16 bg-black">
+        <div className="flex justify-between text-white ml-16 mr-16 bg-black items-center">
           <div className="flex">
-            <GiBarracksTent className="text-4xl" />{" "}
+            <GiBarracksTent className="text-4xl mt-2" />{" "}
             <p className="ml-2 text-lg mt-2">List your Show</p>
             <div className="ml-4 text-lg mt-2 mb-4">
               Got a show, event, activity or a great experience? Partner with us

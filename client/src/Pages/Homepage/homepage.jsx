@@ -2,6 +2,7 @@ import React from 'react'
 
 // Components
 import Navbar from '../../Components/Navbar/navbar'
+import { Slideshow } from '../../Components/Homepage/Slideshow/Slideshow'
 import Footer from '../../Components/Footer/footer'
 import UpcommingMovies from '../../Components/Homepage/upcommingMovies'
 import NewRelease from '../../Components/Homepage/newRelease'
@@ -13,7 +14,7 @@ const homepage = () => {
 
       {/* header */}
       <Navbar></Navbar>
-
+      
       {/* homecontent */}
       <UpcommingMovies></UpcommingMovies>
       <NewRelease></NewRelease>

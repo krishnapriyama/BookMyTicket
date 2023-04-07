@@ -1,5 +1,6 @@
 const userModel = require('../Models/userModel')
 const jwt = require('jsonwebtoken')
+const movieModels = require('../Models/movieModel')
 
 const maxAge = 3 * 24 * 60 * 60
 
@@ -63,5 +64,17 @@ module.exports.login = async (req, res) => {
   } catch (err) {
     const errors = handleErrors(err)
     res.json({ errors, status: false })
+  }
+}
+
+module.exports.getMovies = async (req,res,next)=>{
+  try {
+    movieModels.find().then((resp)=>{
+      res.json(resp)
+    }).catch((err)=>{
+      res.json(err)
+    })
+  } catch (error) {
+    res.status(404).send(error)
   }
 }

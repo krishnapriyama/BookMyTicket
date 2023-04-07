@@ -8,6 +8,7 @@ const {
   viewScreen,
   deleteScreen,
 } = require('../Controllers/theaterControllers')
+const authMiddleware = require('../Middlewares/authMiddleware')
 
 //post
 router.post('/login', Login)
@@ -15,7 +16,7 @@ router.post('/register', Register)
 router.post('/add-screen', addScreen)
 
 //get
-router.get('/view-screens', viewScreen)
+router.get('/view-screens',authMiddleware, viewScreen)
 
 //delete
 router.delete('/deleteScreen/:id', deleteScreen)

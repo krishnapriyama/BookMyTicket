@@ -63,7 +63,7 @@ const addtheater = () => {
            class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
            for="grid-first-name"
          >
-           theaer Name
+           theater Name
          </label>
          <input
            {...formik.getFieldProps('theatername')}

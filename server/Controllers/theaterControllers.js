@@ -14,9 +14,10 @@ const handleErrors = (err) => {
 
 module.exports.Register = async (req, res, next) => {
   try {
-    const { email, place, password } = req.body
+    const { name, email, place, password } = req.body
     const autherize = { accepted: false }
     const TheaterOwner = await TheaterModel.create({
+      name,
       email,
       place,
       password,
@@ -38,7 +39,8 @@ module.exports.Login = async (req, res, next) => {
       bcrypt.compare(password, TheatOwner.password, function (err, result) {
         if (result === true) {
           if (TheatOwner.accepted === true) {
-            res.json({ created: true })
+            const token = jwt.sign({email},'SuperSecretKey')
+            res.json({ created: true ,token})
             console.log('Password match')
           } else {
             res.json({ error: 'Admin Not accepted' })
@@ -58,36 +60,32 @@ module.exports.Login = async (req, res, next) => {
 }
 
 module.exports.addScreen = async (req, res, next) => {
-  try {
-    const {
-      screenname,
-      screentype,
-      acnon,
-      rowcount,
-      columncount,
-      totalcount,
-    } = req.body
+  const data = {
+    screenname: req.body.screenname,
+    totalcount: req.body.totalcount,
+    row: req.body.rowcount,
+    column: req.body.columncount,
+    screentype: req.body.screentype,
+  }
 
-    const Screen = {
-      screenname: screenname,
-      screentype: screentype,
-      acnon: acnon,
-      rowcount: rowcount,
-      columncount: columncount,
-      totalcount: totalcount,
-    }
-    ScreenModel.create(Screen).then((resp) => {
-      console.log(resp)
-      res.send({ msg: 'Screen Added successfully' })
-    })
+  try {
+    TheaterModel.updateOne({ $push: { screens: data } })
+      .then((resp) => {
+        res.json({ created: true })
+      })
+      .catch((err) => {
+        res.json({ created: false, err })
+      })
   } catch (error) {
     res.status(404).send(error)
   }
 }
 
-module.exports.viewScreen = async (req, res, next) => {
+module.exports.
+viewScreen = async (req, res, next) => {
+  const {email} = req.user;
   try {
-    ScreenModel.find({}).then((response) => {
+    TheaterModel.findOne({email:email}).then((response) => {
       res.json(response)
     })
   } catch (error) {
@@ -95,13 +93,12 @@ module.exports.viewScreen = async (req, res, next) => {
   }
 }
 
-
-module.exports.deleteScreen = async (req,res,next)=>{
+module.exports.deleteScreen = async (req, res, next) => {
   try {
-    const screenId = req.params.id; 
-    await ScreenModel.findByIdAndDelete(screenId);
-    res.send({msg:'deleted'}); 
+    const screenId = req.params.id
+    await TheaterModel.findByIdAndDelete(screenId)
+    res.send({ msg: 'deleted' })
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404).send(error)
   }
 }
