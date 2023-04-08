@@ -19,8 +19,8 @@ const addmovies = () => {
   ])
   const [movies, setMovies] = useState([])
   const [screens, setScreen] = useState([])
+  console.log(screens,"------------");
 
-  
   const handleTimingsChange = (selectedOptions) => {
     setShowTimes(selectedOptions)
   }
@@ -31,13 +31,11 @@ const addmovies = () => {
     })
 
     let token = localStorage.getItem('theaterToken')
-    console.log(token)
     axios
-      .get('http://localhost:4000/theater/view-screens', 
-      {
+      .get('http://localhost:4000/theater/view-screens', {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       })
       .then((resp) => {
         console.log(resp)
@@ -73,11 +71,13 @@ const addmovies = () => {
       return error
     },
     onSubmit: async (values) => {
-      console.log(values, ShowTimes, '----movies data')
+      values.ShowTimes=ShowTimes;
+       console.log(values, '----movies data')
+      // console.log(ShowTimes, '----movies data')
       try {
         const response = await axios.post(
           'http://localhost:4000/theater/add-movies',
-          { ...values, ShowTimes },
+          { ...values},
           { withCredentials: true },
         )
         if (response) {
@@ -110,7 +110,7 @@ const addmovies = () => {
               name="screen"
               placeholder="date"
             >
-               <option value="">Select</option>
+              <option value="">Select</option>
               {screens.map((screen) => (
                 <option key={screen.id} value={screen._id}>
                   {screen.screenname}

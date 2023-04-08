@@ -13,8 +13,8 @@ const premiers = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center w-screen h-[700px] bg-gray-800 mb-20">
-        <div className="flex justify-between ml-28 items-center w-full md:w-full p-7 mt-[-90px] ">
-          <h2 className="text-white text-2xl font-bold">
+        <div className="flex justify-between items-center w-screen md:w-screen p-7 mt-[-90px] ">
+          <h2 className="text-white text-2xl font-bold w-screen">
             Premiers
             <br/>
             <span className='text-lg'>Brand new releases every Friday</span>

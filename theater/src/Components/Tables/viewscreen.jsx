@@ -3,7 +3,6 @@ import axios from 'axios'
 
 const viewscreen = () => {
   const [screen, setScreen] = useState([])
-
   useEffect(() => {
     try {
       let token = localStorage.getItem('theaterToken')
@@ -30,7 +29,7 @@ const viewscreen = () => {
 
   const handleDelete = (id) => {
     fetch(`http://localhost:4000/theater/deleteScreen/${id}`, {
-      method: 'DELETE',
+      method: 'delete',
       headers: {
         'Content-Type': 'application/json',
       },

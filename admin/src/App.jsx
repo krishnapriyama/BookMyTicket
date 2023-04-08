@@ -20,7 +20,7 @@ function App() {
         <Route
           path={'/login'}
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="bg-gray-800">Loading...</div>}>
               <Login />
             </Suspense>
           }
@@ -29,7 +29,7 @@ function App() {
         <Route
           path={'/'}
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="bg-gray-800">Loading...</div>}>
               <Sidebar />
             </Suspense>
           }
@@ -37,7 +37,9 @@ function App() {
           <Route
             index
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<div className="bg-gray-800">Loading...</div>}
+              >
                 <Dashboard />
               </Suspense>
             }
@@ -45,7 +47,9 @@ function App() {
           <Route
             path={'/add-movies'}
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<div className="bg-gray-800">Loading...</div>}
+              >
                 <AddMovies />
               </Suspense>
             }
@@ -53,7 +57,9 @@ function App() {
           <Route
             path={'/view-movies'}
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<div className="bg-gray-800">Loading...</div>}
+              >
                 <Viewmovies />
               </Suspense>
             }
@@ -61,7 +67,9 @@ function App() {
           <Route
             path={'/add-users'}
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<div className="bg-gray-800">Loading...</div>}
+              >
                 <AddUser />
               </Suspense>
             }
@@ -69,7 +77,9 @@ function App() {
           <Route
             path={'/view-users'}
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<div className="bg-gray-800">Loading...</div>}
+              >
                 <Viewusers />
               </Suspense>
             }
@@ -77,7 +87,9 @@ function App() {
           <Route
             path={'/add-theaters'}
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<div className="bg-gray-800">Loading...</div>}
+              >
                 <Addtheater />
               </Suspense>
             }
@@ -85,7 +97,9 @@ function App() {
           <Route
             path={'/view-theaters'}
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<div className="bg-gray-800">Loading...</div>}
+              >
                 <Viewtheater />
               </Suspense>
             }

@@ -39,8 +39,8 @@ module.exports.Login = async (req, res, next) => {
       bcrypt.compare(password, TheatOwner.password, function (err, result) {
         if (result === true) {
           if (TheatOwner.accepted === true) {
-            const token = jwt.sign({email},'SuperSecretKey')
-            res.json({ created: true ,token})
+            const token = jwt.sign({ email }, 'SuperSecretKey')
+            res.json({ created: true, token })
             console.log('Password match')
           } else {
             res.json({ error: 'Admin Not accepted' })
@@ -81,11 +81,10 @@ module.exports.addScreen = async (req, res, next) => {
   }
 }
 
-module.exports.
-viewScreen = async (req, res, next) => {
-  const {email} = req.user;
+module.exports.viewScreen = async (req, res, next) => {
+  const { email } = req.user
   try {
-    TheaterModel.findOne({email:email}).then((response) => {
+    TheaterModel.findOne({ email: email }).then((response) => {
       res.json(response)
     })
   } catch (error) {
@@ -94,11 +93,15 @@ viewScreen = async (req, res, next) => {
 }
 
 module.exports.deleteScreen = async (req, res, next) => {
+  const screenId = req.params.id
   try {
-    const screenId = req.params.id
-    await TheaterModel.findByIdAndDelete(screenId)
-    res.send({ msg: 'deleted' })
+    TheaterModel.updateOne({"screens._id":screenId},{ $pull: { screens: { _id: screenId } } },
+      { new: true }
+    ).then((resp)=>{
+      res.send({msg:"screen deleted"})
+    })
+   
   } catch (error) {
-    res.status(404).send(error)
+    res.status(404).send({err:"no idea",error})
   }
 }

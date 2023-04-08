@@ -1,45 +1,44 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import "react-toastify/dist/ReactToastify.css"
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
-//components
-import Dashboard from './Pages/Dashboard/dashboard'
-import Sidebar from './Pages/Dashboard/sidebar'
+// components
+const Dashboard = lazy(() => import('./Pages/Dashboard/dashboard'));
+const Sidebar = lazy(() => import('./Pages/Dashboard/sidebar'));
 
-//Auth
-import Signup from './Pages/Authentication/signup'
-import Login from './Pages/Authentication/login'
+// Auth
+const Signup = lazy(() => import('./Pages/Authentication/signup'));
+const Login = lazy(() => import('./Pages/Authentication/login'));
 
-//404
-import Approval from './Pages/404/approval'
+// 404
+const Approval = lazy(() => import('./Pages/404/approval'));
 
-//screens
-import Addscreen from './Pages/screen/addscreen'
-import Viewscreen from './Pages/screen/viewscreen'
+// screens
+const Addscreen = lazy(() => import('./Pages/screen/addscreen'));
+const Viewscreen = lazy(() => import('./Pages/screen/viewscreen'));
 
-
-
-import Addmovies from './Pages/Movie/addmovies'
-
+const Addmovies = lazy(() => import('./Pages/Movie/addmovies'));
+const Viewmovies = lazy(() => import('./Pages/Movie/viewmovies'));
 
 const App = () => {
- return (
+  return (
     <BrowserRouter>
       <Routes>
-      <Route path={"/login"} element={<Login/>} />
-      <Route path={"/signup"} element={<Signup/>} /> 
-      <Route path={"/waiting"} element={<Approval/>} /> 
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/signup'} element={<Signup />} />
+        <Route path={'/waiting'} element={<Approval />} />
         {/* child component */}
-        <Route path={"/"} element={<Sidebar />}>
-          <Route index element={<Dashboard />} />
-          <Route path={'/add-screen'} element={<Addscreen />} />
-          <Route path={'/add-movies'} element={<Addmovies />} />
-          <Route path={'/view-screens'} element={<Viewscreen />} />
+        <Route path={'/'} element={<Suspense fallback={<div>Loading...</div>}> <Sidebar /> </Suspense>}>
+          <Route index element={<Suspense fallback={<div>Loading...</div>}> <Dashboard /> </Suspense>} />
+          <Route path={'/add-screen'} element={<Suspense fallback={<div>Loading...</div>}> <Addscreen /> </Suspense>} />
+          <Route path={'/add-movies'} element={<Suspense fallback={<div>Loading...</div>}> <Addmovies /> </Suspense>} />
+          <Route path={'/view-screens'} element={<Suspense fallback={<div>Loading...</div>}> <Viewscreen /> </Suspense>} />
+          <Route path={'/view-movies'} element={<Suspense fallback={<div>Loading...</div>}> <Viewmovies /> </Suspense>} />
         </Route>
         {/* end */}
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -15,7 +15,8 @@ router.post('/login', Login)
 router.post('/register', Register)
 router.post('/add-screen', addScreen)
 
-//get
+
+// http://localhost:4000/theater/deleteScreen/:id 
 router.get('/view-screens',authMiddleware, viewScreen)
 
 //delete
