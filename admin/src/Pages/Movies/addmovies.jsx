@@ -7,7 +7,7 @@ import Navbar from '../../Components/Navabar/navbar'
 
 const addmovies = () => {
   return (
-      <div className="mx-auto w-full">
+      <div className="mx-auto w-full h-screen dark:bg-gray-800">
         <Addmovieform />
       </div>
   )

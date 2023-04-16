@@ -11,8 +11,10 @@ export default function Modaluser(props) {
 
   const formik = useFormik({
     initialValues: {
-      email: user.email,
-      number: user.number,
+      email: '',
+      number: '',
+      name: '',
+      name: '',
     },
     validate: (values) => {
       const errors = {}
@@ -25,6 +27,12 @@ export default function Modaluser(props) {
         errors.number = 'This field should only contain numbers'
       } else if (values.number.length != 10) {
         errors.number = 'Number should be 10'
+      }
+      if (!values.name) {
+        errors.name = 'Name Required'
+      }
+      if (!values.name) {
+        errors.name = 'Name Required'
       }
       return errors
     },
@@ -52,11 +60,11 @@ export default function Modaluser(props) {
   return (
     <>
       <button
-        class="text-black bg-yellow-600 font-medium rounded-lg text-lg px-5 py-2.5 focus:outline-none"
+        class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
-        onClick={() => setShowModal(true)}
+        onClick={() => setShowModal(true)} 
       >
-        Edit
+        Edit dETAILS
       </button>
       {showModal ? (
         <>
@@ -93,7 +101,7 @@ export default function Modaluser(props) {
                           id="grid-first-name"
                           type="email"
                           name="email"
-                          placeholder="Name"
+                          placeholder="Email"
                         />
                         {formik.touched.email && formik.errors.email ? (
                           <div className="text-red-500">
@@ -115,6 +123,48 @@ export default function Modaluser(props) {
                           type="text"
                           name="number"
                           placeholder="Phone Number"
+                        />
+                        {formik.touched.number && formik.errors.number ? (
+                          <div className="text-red-500">
+                            {formik.errors.number}
+                          </div>
+                        ) : null}
+                      </div>
+                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          for="grid-first-name"
+                        >
+                          UserName
+                        </label>
+                        <input
+                          {...formik.getFieldProps('name')}
+                          class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          id="grid-first-name"
+                          type="text"
+                          name="name"
+                          placeholder="Name"
+                        />
+                        {formik.touched.email && formik.errors.email ? (
+                          <div className="text-red-500">
+                            {formik.errors.email}
+                          </div>
+                        ) : null}
+                      </div>
+                      <div class="w-full md:w-1/2 px-3">
+                        <label
+                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          for="grid-last-name"
+                        >
+                          phone number
+                        </label>
+                        <input
+                          {...formik.getFieldProps('place')}
+                          class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          id="grid-last-name"
+                          type="text"
+                          name="place"
+                          placeholder="Place"
                         />
                         {formik.touched.number && formik.errors.number ? (
                           <div className="text-red-500">

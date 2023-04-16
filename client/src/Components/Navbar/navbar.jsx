@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GoChevronRight } from 'react-icons/go'
-import { BiSearch, BiMenu, BiChevronDown } from 'react-icons/bi'
+import { BiSearch } from 'react-icons/bi'
 import Modal from 'react-modal'
 import Bookmyshowimg from '../../assets/bookmyshow.png'
-
-import LoginSignup from '../../Components/Navbar/loginSignup'
 
 
 
@@ -45,12 +43,20 @@ const NavLg = () => {
   const [locations, setLocations] = useState('')
   const [value, setValue] = useState('')
 
+  const userToken = localStorage.getItem('userToken')
+  const [token, setToken] = useState(userToken)
+  useEffect(() => {
+    
+   setToken(userToken)
+    
+  }, [token])
+
   return (
     <>
       <div className="container flex items-center gap-8 justify-center">
         <div className="flex items-center w-2/3 gap-3">
           <div className="w-40 h-11 m-0  ">
-            <Link to='/'>
+            <Link to="/">
               <img src={Bookmyshowimg} alt="logo" className="w-full h-full" />
             </Link>
           </div>
@@ -65,8 +71,30 @@ const NavLg = () => {
         </div>
         <div className="flex items-center justify-end w-full gap-3 ml-6">
           <div className="justify-end flex items-center">
-            <LoginSignup></LoginSignup>
-            
+
+            {token ? (
+              
+                <button
+                  className="px-6 py-3 text-white bg-red-600 rounded-md"
+                  type="button"
+                  onClick={()=>{
+                    localStorage.removeItem('userToken')
+                    setToken(null)
+                  }}
+                >
+                  Logout
+                </button>
+            ) : (
+              <Link to="/login">
+              <button
+                className="px-6 py-3 text-white bg-red-600 rounded-md"
+                type="button" 
+              >
+                Login
+              </button>
+              </Link>
+            )}
+
           </div>
         </div>
       </div>

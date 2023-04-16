@@ -23,7 +23,7 @@ const sidebar = () => {
       <div className=" bg-blueGray-100 h-screen w-full">
         <div className="h-screen bg-blueGray-100">
           <Sidebar />
-          <div className="relative md:ml-64 bg-blueGray-100">
+          <div className="relative ml-72 bg-blueGray-100">
             <Navbar />
             {token && <Outlet />}
           </div>

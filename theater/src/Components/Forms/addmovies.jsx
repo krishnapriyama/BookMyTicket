@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import Select from 'react-select'
+import { useNavigate } from 'react-router-dom'
 
+let token = localStorage.getItem('theaterToken')
 const timeOptions = [
   { value: '9.45', label: '9.45' },
   { value: '12.35', label: '12.35' },
   { value: '4.00', label: '4.00' },
-  { value: '7.30', label: '7.30' },
-  { value: '10.30', label: '10.30' },
+  { value: '7.30',},
+  { value: '10.30'},
 ]
 
 const addmovies = () => {
+  const navigate = useNavigate()
   const [ShowTimes, setShowTimes] = useState([
     timeOptions[1],
     timeOptions[2],
@@ -19,7 +22,6 @@ const addmovies = () => {
   ])
   const [movies, setMovies] = useState([])
   const [screens, setScreen] = useState([])
-  console.log(screens,"------------");
 
   const handleTimingsChange = (selectedOptions) => {
     setShowTimes(selectedOptions)
@@ -30,7 +32,6 @@ const addmovies = () => {
       setMovies(response.data)
     })
 
-    let token = localStorage.getItem('theaterToken')
     axios
       .get('http://localhost:4000/theater/view-screens', {
         headers: {
@@ -73,15 +74,22 @@ const addmovies = () => {
     onSubmit: async (values) => {
       values.ShowTimes=ShowTimes;
        console.log(values, '----movies data')
-      // console.log(ShowTimes, '----movies data')
       try {
         const response = await axios.post(
-          'http://localhost:4000/theater/add-movies',
-          { ...values},
-          { withCredentials: true },
+          'http://localhost:4000/theater/add-Show',
+          { ...values },
+          { 
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true 
+           }
+          
         )
         if (response) {
+          navigate('/view-movies')
         } else {
+          console.log("Something went wrong");
         }
       } catch (error) {
         console.log(error, 'Error from ClientAxios')

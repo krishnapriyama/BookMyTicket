@@ -132,9 +132,9 @@ const addmovieform = () => {
   }
 
   return (
-    <div className="h-screen flex justify-center items-center w-full text-white dark:bg-gray-800">
-      <form className="w-full max-w-lg ml-4" onSubmit={formik.handleSubmit}>
-        <h1 className="font-bold text-2xl items-center justify-center flex mb-11">
+    <div className="flex justify-center items-center w-full text-white">
+      <form className="w-full max-w-lg ml-4 mt-9" onSubmit={formik.handleSubmit}>
+        <h1 className="font-bold text-5xl items-center justify-center flex mb-11">
           ADD MOVIE
         </h1>
         <div className="flex flex-wrap -mx-3 mb-6">
@@ -147,7 +147,7 @@ const addmovieform = () => {
             </label>
             <input
               {...formik.getFieldProps('moviename')}
-              className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-first-name"
               type="text"
               name="moviename"
@@ -166,7 +166,7 @@ const addmovieform = () => {
             </label>
             <input
               {...formik.getFieldProps('releasedate')}
-              className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-last-name"
               type="date"
               name="releasedate"
@@ -187,7 +187,7 @@ const addmovieform = () => {
             </label>
             <input
               {...formik.getFieldProps('description')}
-              className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-password"
               type="text"
               name="description"
@@ -207,7 +207,7 @@ const addmovieform = () => {
               Movie poster
             </label>
             <input
-              className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-city"
               name="poster1"
               type="file"
@@ -225,7 +225,7 @@ const addmovieform = () => {
               side poster
             </label>
             <input
-              className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-city"
               name="poster2"
               type="file"
@@ -243,7 +243,7 @@ const addmovieform = () => {
               grand poster
             </label>
             <input
-              className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-zip"
               type="file"
               name="poster3"
@@ -265,7 +265,7 @@ const addmovieform = () => {
             </label>
             <input
               {...formik.getFieldProps('genre')}
-              className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-city"
               name="genre"
               type="text"
@@ -284,7 +284,7 @@ const addmovieform = () => {
             </label>
             <input
               {...formik.getFieldProps('language')}
-              className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-city"
               name="language"
               type="text"
@@ -304,7 +304,7 @@ const addmovieform = () => {
           </label>
           <input
             {...formik.getFieldProps('trailerlink')}
-            className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-password"
             type="text"
             name="trailerlink"
@@ -316,7 +316,7 @@ const addmovieform = () => {
         </div>
         <div className="w-full px-3 mt-9 items-end flex justify-end">
           <button
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 h-14 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-full"
             type="submit"
           >
             Submit

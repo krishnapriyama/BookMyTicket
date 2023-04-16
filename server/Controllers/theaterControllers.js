@@ -1,5 +1,7 @@
 const TheaterModel = require('../Models/theaterModel')
 const ScreenModel = require('../Models/screenmodel')
+const MovieModel = require('../Models/movieModel')
+const ShowModel = require('../Models/showModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -95,13 +97,62 @@ module.exports.viewScreen = async (req, res, next) => {
 module.exports.deleteScreen = async (req, res, next) => {
   const screenId = req.params.id
   try {
-    TheaterModel.updateOne({"screens._id":screenId},{ $pull: { screens: { _id: screenId } } },
-      { new: true }
-    ).then((resp)=>{
-      res.send({msg:"screen deleted"})
+    TheaterModel.updateOne(
+      { 'screens._id': screenId },
+      { $pull: { screens: { _id: screenId } } },
+      { new: true },
+    ).then((resp) => {
+      res.send({ msg: 'screen deleted' })
     })
-   
   } catch (error) {
-    res.status(404).send({err:"no idea",error})
+    res.status(404).send({ err: 'no idea', error })
+  }
+}
+
+module.exports.ScreennedMovies = async (req, res, next) => {
+  console.log(req.user);
+  const { email } = req.user
+  try {
+    ShowModel.find({ 'theater.email': email })
+      .then((ScreendMovies) => {
+        res.send(ScreendMovies)
+      })
+      .catch((err) => {
+        console.log(err)
+        res.send(err)
+      })
+  } catch (error) {
+    console.log(err)
+    res.send(error)
+  }
+}
+
+module.exports.AddShow = async (req, res, next) => {
+  const { email } = req.user
+  let Theater = await TheaterModel.findOne({ email: email })
+  let Movie = await MovieModel.findOne({ _id: req.body.movie })
+  let Times = req.body.ShowTimes.map((showtimes) => {
+    return showtimes.value
+  })
+  const screen = Theater.screens.find((screen) => screen._id == req.body.screen)
+  const newData = {
+    startDate: new Date(req.body.startDate),
+    EndDate: new Date(req.body.EndDate),
+    ShowTimes: Times,
+    TicketPrice: req.body.TicketPrice,
+    Movie: Movie,
+    theater: {
+      name: Theater.name,
+      email: Theater.email,
+      address: Theater.place,
+      screen: screen,
+    },
+  }
+  try {
+    ShowModel.create(newData).then((resp) => {
+      res.send({ msg: 'Screen Added Successfully', created: true })
+    })
+  } catch (error) {
+    res.status(404).send(error)
   }
 }

@@ -1,90 +1,85 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import axios from 'axios'
 
 // components
 import MovieSlide from '../Extracomponents/movieSlide'
-
-const movieData = {
-  title: 'The Marvel Series',
-  releaseDate: '12/03/2001',
-  Director: 'Peter John',
-  genres: ['Action', 'Sci-Fi'],
-}
-
-const castDetails = [
-  {
-    name: 'Ram K Das',
-    imgSrc:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGk0XDPwd63cdXVsxCfKxTn-gEos2wz-A0ocfU8OhTLltxMbuiTRxz35d0TqxUJ0XAFcPTekABTww&usqp=CAU&ec=48600113',
-    position: 'Director',
-  },
-  {
-    name: 'Ram K Das',
-    position: 'Director',
-  },
-  {
-    name: 'Ram K Das',
-    position: 'Director',
-  },
-  {
-    name: 'Ram K Das',
-    position: 'Director',
-  },
-  {
-    name: 'Ram K Das',
-    position: 'Director',
-  },
-  {
-    name: 'Ram K Das',
-    position: 'Director',
-  },
-]
-
 const movieImage = () => {
+  const [movie, SetMovie] = useState('')
+  const { id } = useParams();
+  useEffect(() => {
+    axios.get(`http://localhost:4000/moviedetail/${id}`).then((resp) => {
+      SetMovie(resp.data)
+      console.log(resp.data)
+    })
+  }, [])
+
+  const castDetails = [
+    {
+      name: 'Ram K Das',
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGk0XDPwd63cdXVsxCfKxTn-gEos2wz-A0ocfU8OhTLltxMbuiTRxz35d0TqxUJ0XAFcPTekABTww&usqp=CAU&ec=48600113',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+  ]
   return (
     <div className="mx-auto p-8 items-center justify-center">
       <div className="bg-white p-8 rounded-lg mb-8 items-center justify-center">
         <h1 className="text-3xl font-bold mb-6 text-center">
-          {movieData.title}
+        {movie.moviename}
         </h1>
         <img
-          src="https://wallpaperaccess.com/full/13453.jpg"
+          src={movie.poster2}
           alt=""
-          className="mx-auto block mb-8 rounded-lg  lg:max-w-screen-lg"
+          className="mx-auto w-[600px] h-[300px] block mb-8 rounded-lg  lg:max-w-screen-lg"
         />
         <p className="text-gray-600 mb-4 flex items-center text-center">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+        {movie.description}
         </p>
 
         <div className="text-center">
           <h1 className="font-bold text-2xl uppercase">Details</h1>
           <div className="text-center">
             <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
-              Language :{' '}
+              Language :{movie.language}
             </h5>
             <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
-              Genre :{' '}
+              Genre :{movie.genre}
             </h5>
             <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
-              Release Date :{' '}
+              Release Date :{movie.releasedate}
             </h5>
           </div>
         </div>
         <div className="flex mx-auto items-center justify-center gap-6">
+        <Link to={`/SelectTheater/${movie._id}`}>
           <button
             className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
             type="button"
           >
-            <Link to="/moviebooking">Book</Link>
+          Book
           </button>
+          </Link>
           <button
             className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
             type="button"

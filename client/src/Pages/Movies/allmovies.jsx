@@ -3,7 +3,7 @@ import React from 'react'
 // components
 import Navbar from '../../Components/Navbar/navbar'
 import Sidebar from '../../Components/Extracomponents/sidebarmovie'
-import Movies from '../../Components/Movies/movies'
+import Movies from '../../Components/Movies/allMovie'
 
 const movies = () => {
   return (

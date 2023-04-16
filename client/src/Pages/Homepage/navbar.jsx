@@ -6,15 +6,24 @@ import { useEffect } from 'react'
 // Components
 import Navbar from '../../Components/Navbar/navbar'
 import Footer from '../../Components/Footer/footer'
-import UpcommingMovies from '../../Components/Homepage/newRelease'
-import NewRelease from '../../Components/Homepage/allMovieSlide'
+import UpcommingMovies from '../../Components/Homepage/upcommingMovies'
+import NewRelease from '../../Components/Homepage/newRelease'
 import Premiers from '../../Components/Homepage/premiers'
 
 
 const navbar = () => {
+   const navigate = useNavigate()
+   const [token, setToken] = useState(false)
+   useEffect(() => {
+     const userToken = localStorage.getItem('userToken')
+     setToken(userToken)
+     if (!userToken) {
+       navigate('/login')
+     }
+   }, [token])
 
   return (
-    <div className='bg-gray-100'>
+    <div>
 
       {/* header */}
       <Navbar></Navbar>
