@@ -11,10 +11,7 @@ const movies = () => {
       {/* navbar */}
       <Navbar></Navbar>
 
-      {/* sidebar */}
-      <div className="flex">
-      <Sidebar></Sidebar>
-
+     
       {/* movies */}
       <div className="h-screen flex-1 p-7">
       <Movies></Movies>
@@ -22,8 +19,6 @@ const movies = () => {
       </div>
 
       
-
-    </div>
   )
 }
 

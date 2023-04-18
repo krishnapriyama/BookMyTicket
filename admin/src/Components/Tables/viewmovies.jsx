@@ -142,7 +142,7 @@ const viewmovies = () => {
             <Link to="/add-movies">
               <button
                 type="button"
-                className="text-white  bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                className="text-white  bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none items-center "
               >
                 ADD Movies
               </button>

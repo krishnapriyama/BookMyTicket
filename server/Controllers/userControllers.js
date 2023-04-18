@@ -2,6 +2,7 @@ const userModel = require('../Models/userModel')
 const jwt = require('jsonwebtoken')
 const movieModels = require('../Models/movieModel')
 const bcrypt = require('bcrypt')
+const ShowModel = require('../Models/showModel')
 
 const handleErrors = (err) => {
   let errors = { email: '', password: '' }
@@ -122,10 +123,25 @@ module.exports.categorymovie = async (req, res, next) => {
 module.exports.findShow = async (req, res, next) => {
   const id = req.params.id;
   try {
-    ShowModel.find({ "Movie._id": id }).then((resp) => {
+    ShowModel.find({"Movie._id": id }).then((resp) => {
       res.status(200).send(resp);
+      console.log(resp)
     });
   } catch (error) {
     res.status(404).send(error);
   }
 };
+
+module.exports.search = async (req, res, next) => {
+  let key = req.query.key.toLowerCase(); // convert the search query to lowercase
+  const limit = req.query.limit;
+  try {
+    const resp = await movieModels.find({"moviename": { $regex: new RegExp(key, "i") } }).limit(Number(limit));
+    res.status(200).send(resp);
+    console.log(resp);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while processing the request');
+  }
+};
+

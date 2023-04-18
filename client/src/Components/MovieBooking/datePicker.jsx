@@ -1,69 +1,53 @@
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from "@material-tailwind/react";
+import * as React from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import { useEffect,useState } from 'react';
+
+
+export default function   ScrollableTabsButtonAuto(props) {
+  const [date,setDates] = useState([])
+  const [show,setShow] = useState([])
+  const [value, setValue] = useState(0);
+
+  
+  useEffect(()=>{
+   setShow(props.data)
+ },[props])
+
+ useEffect(()=>{
+   const startDate = new Date();
+   const duplicateDate = new Date();
+   const expiryDate =new Date(duplicateDate.setDate(duplicateDate.getDate() + 10));
+ for (let Showdate = startDate; Showdate < expiryDate; Showdate.setDate(Showdate.getDate() + 1)) {
+   date.push(new Intl.DateTimeFormat('en-Uk', {year: 'numeric', month: '2-digit',day: '2-digit' }).format(Showdate));
+ }
+
+ },[date])
  
-export default function TransparentTabs() {
-  const data = [
-    {
-      label: "HTML",
-      value: "html",
-      desc: `It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people 
-      who are like offended by it, it doesn't matter.`,
-    },
-    {
-      label: "React",
-      value: "react",
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
-    },
-    {
-      label: "Vue",
-      value: "vue",
-      desc: `We're not always in the position that we want to be at.
-      We're constantly growing. We're constantly making mistakes. We're
-      constantly trying to express ourselves and actualize our dreams.`,
-    },
-    {
-      label: "Angular",
-      value: "angular",
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
-    },
-    {
-      label: "Svelte",
-      value: "svelte",
-      desc: `We're not always in the position that we want to be at.
-      We're constantly growing. We're constantly making mistakes. We're
-      constantly trying to express ourselves and actualize our dreams.`,
-    },
-  ];
- 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+const dateStr = event.target.innerText;
+const [day, month, year] = dateStr.split('/');
+const date = new Date(year, month - 1, day);
+props.fn(date)
+  };
+
   return (
-    <Tabs value="html" className="max-w-[40rem]">
-      <TabsHeader
-        className="bg-transparent"
-        indicatorProps={{
-          className: "bg-blue-500/10 shadow-none text-blue-500",
-        }}
+   <div className='bg-[#ffeded]'>
+     <Box sx={{ maxWidth: { xs: 320, sm: 480 }  }}>
+      <Tabs 
+        value={value}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons="auto"
+        aria-label="scrollable auto tabs example"
+        indicatorColor='secondary'
       >
-        {data.map(({ label, value }) => (
-          <Tab key={value} value={value}>
-            {label}
-          </Tab>
-        ))}
-      </TabsHeader>
-      <TabsBody>
-        {data.map(({ value, desc }) => (
-          <TabPanel key={value} value={value}>
-            {desc}
-          </TabPanel>
-        ))}
-      </TabsBody>
-    </Tabs>
+        {date.map((dat,index)=> <Tab label={dat} key={index}  />)}
+        
+      </Tabs>
+    </Box>
+   </div>
   );
 }

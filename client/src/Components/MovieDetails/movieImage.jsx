@@ -45,50 +45,63 @@ const movieImage = () => {
   return (
     <div className="mx-auto p-8 items-center justify-center">
       <div className="bg-white p-8 rounded-lg mb-8 items-center justify-center">
-        <h1 className="text-3xl font-bold mb-6 text-center">
-        {movie.moviename}
-        </h1>
-        <img
-          src={movie.poster2}
-          alt=""
-          className="mx-auto w-[600px] h-[300px] block mb-8 rounded-lg  lg:max-w-screen-lg"
-        />
-        <p className="text-gray-600 mb-4 flex items-center text-center">
-        {movie.description}
-        </p>
-
-        <div className="text-center">
-          <h1 className="font-bold text-2xl uppercase">Details</h1>
-          <div className="text-center">
-            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
-              Language :{movie.language}
-            </h5>
-            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
-              Genre :{movie.genre}
-            </h5>
-            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
-              Release Date :{movie.releasedate}
-            </h5>
-          </div>
-        </div>
-        <div className="flex mx-auto items-center justify-center gap-6">
-        <Link to={`/SelectTheater/${movie._id}`}>
-          <button
-            className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
-            type="button"
-          >
-          Book
-          </button>
-          </Link>
-          <button
-            className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
-            type="button"
-          >
-            Trailer
-          </button>
-        </div>
+  <h1 className="text-3xl font-bold mb-6 text-center">
+    {movie.moviename}
+  </h1>
+  <div className="flex justify-center mb-8 gap-6">
+    <img
+      src={movie.poster1}
+      alt=""
+      className="w-[200px] h-[300px] block rounded-lg"
+    />
+    <img
+      src={movie.poster2}
+      alt=""
+      className="w-[200px] h-[300px] block rounded-lg"
+    />
+    <img
+      src={movie.poster3}
+      alt=""
+      className="w-[200px] h-[300px] block rounded-lg"
+      />
       </div>
-      <div className="bg-white p-8 rounded-lg shadow-lg">
+      <p class="text-black mb-4 w-[1200px] mx-auto flex justify-center font-semibold items-center text-center">
+  {movie.description}
+</p>
+
+
+  <div className="text-center">
+    <div className="text-center text-black">
+      <h5 className='"text-gray-600 text-black mb-4 mt-6 items-center text-center'>
+        Language :{movie.language}
+      </h5>
+      <h5 className='"text-gray-600 text-black mb-4 mt-6 items-center text-center'>
+        Genre :{movie.genre}
+      </h5>
+      <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
+        Release Date :{movie.releasedate}
+      </h5>
+    </div>
+  </div>
+  <div className="flex mx-auto items-center justify-center gap-6">
+    <Link to={`/SelectTheater/${movie._id}`}>
+      <button
+        className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
+        type="button"
+      >
+        Book
+      </button>
+    </Link>
+    <button
+      className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
+      type="button"
+    >
+      Trailer
+    </button>
+  </div>
+</div>
+
+      <div className="bg-white p-8 rounded-lg shadow-lg mb-10">
         <h2 className="text-2xl font-bold mb-4 text-center">Cast & Crew</h2>
         <div className="grid grid-cols-6 gap-5 items-center justify-center">
           {castDetails.map((cast) => (
@@ -108,7 +121,7 @@ const movieImage = () => {
           ))}
         </div>
       </div>
-      <h2 className="mt-12 text-center font-bold text-xl">UPCOMMING MOVIES</h2>
+      <h2 className="text-center font-bold text-xl mb-7">NEW RELEASE MOVIES</h2>
       <MovieSlide></MovieSlide>
     </div>
   )

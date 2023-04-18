@@ -121,12 +121,13 @@ function login() {
           <div className="text-red-500">{formik.errors.password}</div>
         ) : null}
             </div>
-            <a
-              href="#!"
+            <Link
+              to='/forgotpassword'
               className="text-red-600 text-sm font-bold mt-4 items-center w-full"
             >
-              Forgot password?
-            </a>
+              Before Login Verify Your account
+            </Link>
+
 
             <div className="mb-3 mt-4">
               <button

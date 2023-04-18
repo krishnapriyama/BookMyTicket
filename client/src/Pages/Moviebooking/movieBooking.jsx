@@ -10,16 +10,17 @@ import Datepicker from '../../Components/MovieBooking/datePicker'
 
 const movieBooking = () => {
   const [show, setShow] = useState('')
-  const { MovieId } = useParams()
+  const { id } = useParams()
   const [bookingDate, setBookingDate] = useState(new Date())
 
   function currentDate(value) {
     setBookingDate(value)
+    console.log(show)
   }
 
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/findShow/${MovieId}`).then((resp) => {
+    axios.get(`http://localhost:4000/findShow/${id}`).then((resp) => {
       setShow(resp.data)
       console.log(resp.data);
     })
@@ -30,12 +31,12 @@ const movieBooking = () => {
       {/* Navbar */}
       <Navbar></Navbar>
 
-      <Sidebartheater></Sidebartheater>
+      {/* <Sidebartheater data={show}/> */}
     <Datepicker  data={show} fn={currentDate} />
      
 
       {/* Booking */}
-      <MovieBooking></MovieBooking>
+      <MovieBooking data={show} date={bookingDate} />
     </div>
   )
 }
