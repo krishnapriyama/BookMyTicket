@@ -4,7 +4,6 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
-const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
 
 const addusers = () => {
   const navigate = useNavigate()
@@ -17,32 +16,35 @@ const addusers = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      number: '',
+      name: '',
+      phone: '',
       password: '',
       confirmPassword: '',
     },
     validate: (values) => {
-      const errors = {}
+      const error = {}
       if (!values.email) {
-        errors.email = 'Email Required'
-      }
-      if (!values.number) {
-        errors.number = 'Number Required'
-      } else if (!/^[0-9]+$/.test(values.number)) {
-        errors.number = 'This field should only contain numbers'
-      } else if (values.number.length != 10) {
-        errors.number = 'Number should be 10'
-      }
+        error.email = 'Email Required'
+      }else
+
+      if (!values.name) {
+        error.name = 'Name Required'
+      }else
+
+      if (!values.phone) {
+        error.phone = 'Number Required'
+      } else if (values.phone.length != 10) {
+        error.phone = 'Number should be 10'
+      } else if (!/^[0-9]+$/.test(values.phone)) {
+        error.phone = 'This field should only contain numbers'
+      }else
 
       if (!values.password) {
-        errors.password = 'Password Required'
-      } else if (!passwordRegex.test(values.password)) {
-        errors.password =
-          'Password must contain at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long.'
-      } else if (values.password !== values.confirmPassword) {
-        errors.confirmPassword = 'Password Mismatch'
+        error.password = 'Password Required'
+      }else if (values.password != values.confirmPassword) {
+        error.confirmPassword = 'Password Mismatch'
       }
-      return errors
+      return error
     },
     onSubmit: async (values) => {
       console.log(values, '----users data')
@@ -90,7 +92,7 @@ const addusers = () => {
               id="grid-first-name"
               type="email"
               name="email"
-              placeholder="Name"
+              placeholder="Email..."
             />
 
             {formik.touched.email && formik.errors.email ? (
@@ -102,20 +104,41 @@ const addusers = () => {
               class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
               for="grid-last-name"
             >
-              phone number
+              UserName
             </label>
             <input
-              {...formik.getFieldProps('number')}
+              {...formik.getFieldProps('name')}
               class="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-last-name"
+              id="name"
               type="text"
-              name="number"
-              placeholder="Phone Number"
+              name="name"
+              placeholder="Username..."
             />
-            {formik.touched.number && formik.errors.number ? (
-              <div className="text-red-500">{formik.errors.number}</div>
+            {formik.touched.name && formik.errors.name ? (
+              <div className="text-red-500">{formik.errors.name}</div>
             ) : null}
           </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              for="grid-password"
+            >
+              Phone Number
+            </label>
+            <input
+              {...formik.getFieldProps('phone')}
+              class="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="phone"
+              type="text"
+              name="phone"
+              placeholder="Number..."
+            />
+          </div>
+          {formik.touched.phone && formik.errors.phone ? (
+            <div className="text-red-500">{formik.errors.phone}</div>
+          ) : null}
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
           <div class="w-full px-3">
@@ -129,9 +152,9 @@ const addusers = () => {
               {...formik.getFieldProps('password')}
               class="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-password"
-              type="password"
+              type="text"
               name="password"
-              placeholder="Password"
+              placeholder="Password..."
             />
           </div>
           {formik.touched.password && formik.errors.password ? (
@@ -152,7 +175,7 @@ const addusers = () => {
               id="grid-password"
               type="password"
               name="confirmPassword"
-              placeholder="Confirm Password"
+              placeholder="Confirm Password..."
             />
             {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
               <div className="text-red-500">

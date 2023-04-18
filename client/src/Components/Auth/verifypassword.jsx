@@ -1,12 +1,12 @@
 import React from "react";
-import firebase from "../../../Config/firebase";
+import firebase from "../../Firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert2";
 import swal1 from "sweetalert";
-import UserAxios from "../../../assets/axiosForUser";
+import axios from 'axios'
 import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 
-function verifyaccount() {
+function forgotpassword() {
   const navigate = useNavigate();
 
   async function handleClickVerify() {
@@ -54,7 +54,7 @@ function verifyaccount() {
             verified: true,
             number: "+91" +document.getElementById("phone").value,
           };
-          UserAxios.post("/verifyNumber", {
+          axios.post('http://localhost:4000/verifyNumber', {
             ...verifyPhoneNumber,
           }).then((resp)=>{
             
@@ -149,4 +149,4 @@ function verifyaccount() {
   );
 }
 
-export default verifyaccount;
+export default forgotpassword;

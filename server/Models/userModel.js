@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
    isBlocked: {
       type: Boolean,
     },
+    verified:{
+      type: Boolean,
+    }
 })
 
 userSchema.pre('save',async function (next) {

@@ -59,7 +59,7 @@ function login() {
           console.log('Invalid email or password')
         }
       } catch (error) {
-        console.log(error)
+        generateError(error.response.data.error, 'invalid error')
       }
     },
   })

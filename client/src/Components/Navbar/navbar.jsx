@@ -6,41 +6,6 @@ import Modal from 'react-modal'
 import Bookmyshowimg from '../../assets/bookmyshow.png'
 import axios from 'axios'
 
-Modal.setAppElement('#root')
-const NavSm = () => {
-  return (
-    <div>
-      <div className="text-white flex items-center justify-between ">
-        <div>
-          <h3 className="text-xl font-bold">It All starts Here!</h3>
-          <span className="text-gray-400 text-xs flex items-center">
-            Idukki
-            <GoChevronRight />
-          </span>
-        </div>
-        <div className="w-8 h-8">
-          <BiSearch className="w-full h-full" />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-
-
-
-const NavMd = () => {
-  return (
-    <div className="w-full flex items-center gap-3  px-3 py-2 rounded-md bg-red">
-      <BiSearch className="" />
-      <input
-        type="search"
-        className="w-full bg-transparent border-none focus:outline"
-        placeholder="Search for movies, events, Plays, Sports and Activities."
-      />
-    </div>
-  )
-}
 
 
 
@@ -151,11 +116,11 @@ const Navbar = () => {
         <div className="p-3 ">
           <div className="md:hidden mt-0 p-2">
             {/* Mobile screen */}
-            <NavSm />
+            {/* <NavSm /> */}
           </div>
           <div className="hidden md:flex lg:hidden mt-0 ">
             {/* Medium/Tab screen */}
-            <NavMd />
+            {/* <NavMd /> */}
           </div>
           <div className="hidden w-full justify-center lg:flex mt-0 ">
             {/* Large screen */}

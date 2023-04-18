@@ -40,6 +40,7 @@
     "react-toastify": "^9.1.1",
     "styled-components": "^5.3.9",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.3",
     "swiper": "^9.1.0",
     "typeface-roboto": "^1.1.13"
   },

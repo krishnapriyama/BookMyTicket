@@ -7,6 +7,7 @@ import 'typeface-roboto'
 
 // Components
 const Homepage = lazy(() => import('./Pages/Homepage/homepage'))
+const Forgotpassword = lazy(()=> import('./Components/Auth/verifypassword'))
 const Login = lazy(() => import('./Components/Auth/login'))
 const Signup = lazy(() => import('./Components/Auth/signup'))
 const Movies = lazy(() => import('./Pages/Movies/allmovies'))
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path={'/login'} element={<Login />} />
           <Route path={'/signup'} element={<Signup />} />
+        <Route path="/forgotpassword" element={<Forgotpassword/>}/>
           {/* Child components */}
           <Route path={'/'} element={<Homepage />}/>
             <Route path={'/allmovies'} element={<Movies />} />

@@ -56,8 +56,14 @@ module.exports.login = async (req, res, next) => {
     if (user) {
       bcrypt.compare(password, user.password, function (err, result) {
         if (result === true) {
-          const token = jwt.sign({ email }, 'SuperSecretKey')
-          res.json({ created: true, token })
+          if (user.isBlocked) {
+            res.status(401).json({ error: "user Blocked Contact admin" });
+          } else if (!user.verified) {
+            res.status(401).json({ error: "user Not verified" });
+          }else{
+            const token = jwt.sign({ email }, 'SuperSecretKey')
+            res.json({ created: true, token })
+          }
         } else {
           res.json({ error: 'Invalid email or password' })
           console.log('Passwords do not match.')
@@ -145,3 +151,19 @@ module.exports.search = async (req, res, next) => {
   }
 };
 
+module.exports.verifyNumber = async (req,res,next)=>{
+  let number = req.body.number.split('+91')[1]
+  userModel.updateOne({phone:number},{$set:{verified:req.body.verified}}).then((resp)=>{
+   
+     if (resp.matchedCount > 0){
+      res.status(200).send({verified:true,resp})
+    }else if(resp.modifiedCount == 0 || resp.matchedCount == 0){
+      res.status(200).send({err:"Not Verified",resp})
+    }
+   
+  }).catch((err)=>{
+    res.status(200).send(err)
+  })
+   
+  
+}

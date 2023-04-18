@@ -6,7 +6,8 @@ const {
   singleMovie,
   categorymovie,
   findShow,
-  search
+  search,
+  verifyNumber
 } = require('../Controllers/userControllers')
 const { checkUser } = require('../Middlewares/UserMddleware')
 
@@ -22,5 +23,6 @@ router.get('/moviedetail/:id', singleMovie)
 router.get('/categorymovie/:category', categorymovie)
 router.get('/findShow/:id',findShow)
 router.get('/search',search)
+router.post('/verifyNumber',verifyNumber)
 
 module.exports = router
