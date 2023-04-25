@@ -14,11 +14,21 @@ app.use(
       'http://127.0.0.1:3000',
       'http://127.0.0.1:3001',
       'http://127.0.0.1:3002',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
     ],
     method: ['GET', 'POST', 'PUT', 'PATCH'],
     credentials: true,
   }),
 )
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 mongoose
   .connect('mongodb://localhost:27017/bookticket', {

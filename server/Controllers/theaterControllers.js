@@ -110,7 +110,7 @@ module.exports.deleteScreen = async (req, res, next) => {
 }
 
 module.exports.ScreennedMovies = async (req, res, next) => {
-  console.log(req.user);
+  console.log(req.user)
   const { email } = req.user
   try {
     ShowModel.find({ 'theater.email': email })
@@ -156,3 +156,32 @@ module.exports.AddShow = async (req, res, next) => {
     res.status(404).send(error)
   }
 }
+
+module.exports.updateScreen = async (req, res, next) => {
+  const {
+    _id,
+    screenname,
+    screentype,
+    rowcount,
+    columncount,
+  } = req.body
+
+  try {
+    const theater = await TheaterModel.findById(_id)
+    const screen = theater.screens.find((s) => s._id.toString() === _id)
+
+    screen.screenname = screenname
+    screen.screentype = screentype
+    screen.row = rowcount
+    screen.column = columncount
+
+    await theater.save()
+    res.json(screen)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Server error" })
+  }
+}
+
+
+

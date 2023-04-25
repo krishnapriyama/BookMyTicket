@@ -13,7 +13,7 @@ import { AiFillFacebook, AiFillYoutube } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <div className="bg-black mt-28">
+    <div className="bg-black">
       {/* list Show */}
       <div>
         <div className="flex justify-between text-white ml-16 mr-16 bg-black items-center">

@@ -12,19 +12,19 @@ export default function Modaluser(props) {
   const formik = useFormik({
     initialValues: {
       email: user.email,
-      number: user.number,
+      phone: user.phone,
     },
     validate: (values) => {
       const errors = {}
       if (!values.email) {
         errors.email = 'Email Required'
       }
-      if (!values.number) {
-        errors.number = 'Number Required'
-      } else if (!/^[0-9]+$/.test(values.number)) {
-        errors.number = 'This field should only contain numbers'
-      } else if (values.number.length != 10) {
-        errors.number = 'Number should be 10'
+      if (!values.phone) {
+        errors.phone = 'Number Required'
+      } else if (!/^[0-9]+$/.test(values.phone)) {
+        errors.phone = 'This field should only contain numbers'
+      } else if (values.phone.length != 10) {
+        errors.phone = 'Number should be 10'
       }
       return errors
     },
@@ -106,19 +106,19 @@ export default function Modaluser(props) {
                           class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
                           for="grid-last-name"
                         >
-                          phone number
+                          phone Number
                         </label>
                         <input
-                          {...formik.getFieldProps('number')}
+                          {...formik.getFieldProps('phone')}
                           class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-last-name"
                           type="text"
-                          name="number"
+                          name="phone"
                           placeholder="Phone Number"
                         />
-                        {formik.touched.number && formik.errors.number ? (
+                        {formik.touched.phone && formik.errors.phone ? (
                           <div className="text-red-500">
-                            {formik.errors.number}
+                            {formik.errors.phone}
                           </div>
                         ) : null}
                       </div>

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 const newRelease = () => {
   const [movies, setMovies] = useState([])
   useEffect(() => {
-    axios.get('http://localhost:4000/getMovies').then((resp) => {
+    axios.get('http://localhost:4000/homeMovies').then((resp) => {
       setMovies(resp.data)
     })
   }, [])

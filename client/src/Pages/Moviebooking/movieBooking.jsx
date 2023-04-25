@@ -17,14 +17,13 @@ const movieBooking = () => {
     setBookingDate(value)
     console.log(show)
   }
-
-
   useEffect(() => {
     axios.get(`http://localhost:4000/findShow/${id}`).then((resp) => {
       setShow(resp.data)
       console.log(resp.data);
     })
   }, [])
+
 
   return (
     <div>
@@ -33,7 +32,6 @@ const movieBooking = () => {
 
       {/* <Sidebartheater data={show}/> */}
     <Datepicker  data={show} fn={currentDate} />
-     
 
       {/* Booking */}
       <MovieBooking data={show} date={bookingDate} />

@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
+import swal from 'sweetalert';
+
+//components
+import Modelscreen  from '../Model/editscreen'
+
+
 const viewscreen = () => {
   const [screen, setScreen] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
@@ -33,26 +39,37 @@ const viewscreen = () => {
   }, [])
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:4000/theater/deleteScreen/${id}`, {
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    swal({
+       title: "Are you sure?",
+       text: "Once deleted, you will not be able to recover this",
+       icon: "warning",
+       buttons: true,
+       dangerMode: true,
     })
-      .then((response) => {
-        if (response.ok) {
-          console.log('Movie deleted')
-          window.location.href = '/view-screens'
-        } else {
-          console.error('Error deleting user')
-          alert('Error deleting user')
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        alert('Error deleting user')
-      })
-  }
+       .then((willDelete) => {
+          if (willDelete) {
+             fetch(`http://localhost:4000/theater/deleteScreen/${id}`, {
+                method: 'DELETE',
+                headers: {
+                   'Content-Type': 'application/json',
+                },
+             })
+                .then((response) => {
+                   if (response.ok) {
+                      const updatedscreen = screen.filter((s) => s._id !== id);
+                      setScreen(updatedscreen);
+                   } else {
+                      console.error('Error deleting screen')
+                      alert('Error deleting screen')
+                   }
+                })
+                .catch((error) => {
+                   console.error(error)
+                   alert('Error deleting screen')
+                })
+          }
+       });
+ }
 
   function getCurrentPageData() {
     const startIndex = currentPage * itemsPerPage;
@@ -121,6 +138,7 @@ const viewscreen = () => {
                     {s.column}
                   </td>
                   <td className="px-6 py-4 items-center flex justify-center gap-4">
+                  <Modelscreen screen={s}></Modelscreen>
                     <button
                       type="button"
                       onClick={() => handleDelete(s._id)}

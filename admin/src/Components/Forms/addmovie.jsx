@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +10,8 @@ const addmovieform = () => {
   const [image1, setImage1] = useState(null)
   const [image2, setImage2] = useState(null)
   const [image3, setImage3] = useState(null)
+  const [genre, setGenre] = useState([])
+  const [language, setLanguage] = useState([])
   const navigate = useNavigate()
 
   const formik = useFormik({
@@ -130,6 +132,20 @@ const addmovieform = () => {
       setImage3(e.target.files[0])
     }
   }
+
+
+  useEffect(() => {
+    try {
+      axios.get('http://localhost:4000/admin/all-Genres').then((response) => {
+        setGenre(response.data)
+      })
+      axios.get('http://localhost:4000/admin/all-Languages').then((response) => {
+        setLanguage(response.data)
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }, [genre, language])
 
   return (
     <div className="flex justify-center items-center w-full text-white">
@@ -257,44 +273,39 @@ const addmovieform = () => {
 
         <div className="flex flex-wrap -mx-3 mb-2 mt-9">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-              htmlFor="grid-city"
-            >
+            <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-city">
               Genre
             </label>
-            <input
-              {...formik.getFieldProps('genre')}
-              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-city"
-              name="genre"
-              type="text"
-              placeholder="Genre"
-            />
+            <select {...formik.getFieldProps('genre')} className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-city" name="genre">
+              <option value="">Select</option>
+              {genre.map((g) => (
+                <option key={g.id} value={g.genre}>
+                  {g.genre}
+                </option>
+              ))}
+            </select>
             {formik.touched.genre && formik.errors.genre ? (
               <div className="text-red-500">{formik.errors.genre}</div>
             ) : null}
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-              htmlFor="grid-state"
-            >
+            <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-state">
               language
             </label>
-            <input
-              {...formik.getFieldProps('language')}
-              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-city"
-              name="language"
-              type="text"
-              placeholder="Language"
-            />
+            <select {...formik.getFieldProps('language')} className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-state" name="language">
+              <option value="">Select</option>
+              {language.map((l) => (
+                <option key={l.id} value={l.language}>
+                  {l.language}
+                </option>
+              ))}
+            </select>
             {formik.touched.language && formik.errors.language ? (
               <div className="text-red-500">{formik.errors.language}</div>
             ) : null}
           </div>
         </div>
+
         <div className="w-full mt-9">
           <label
             className="block uppercase tracking-wide text-white text-xs font-bold mb-2"

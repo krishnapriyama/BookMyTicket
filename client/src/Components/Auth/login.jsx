@@ -41,6 +41,7 @@ function login() {
       return error
     },
     onSubmit: async (values) => {
+      console.log(values,"--------------values");
       try {
         const response = await axios.post(
           'http://localhost:4000/login',
@@ -49,17 +50,18 @@ function login() {
           },
           { withCredentials: true },
         )
+        console.log(response);
         if (response.data.created == true) {
           localStorage.setItem('userToken',response.data.token)
           navigate('/')
           console.log(response.data.created, 'created')
           console.log('Login Success')
-        } else if (response.data.error == 'Invalid email or password') {
+        } else if (response && response.data && response.data.error == 'Invalid email or password') {
           generateError(response.data.error, 'invalid error')
           console.log('Invalid email or password')
         }
       } catch (error) {
-        generateError(error.response.data.error, 'invalid error')
+        //generateError(error.data.error, 'invalid error')
       }
     },
   })

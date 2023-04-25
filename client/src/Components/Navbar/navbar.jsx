@@ -17,8 +17,6 @@ const NavLg = () => {
 
   const [search, setSearch] = useState([])
   const [key, setKey] = useState('')
-  console.log(search, '------search')
-  console.log(key, '------key')
 
   useEffect(() => {
     const search = async () => {

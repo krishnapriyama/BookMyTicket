@@ -115,7 +115,7 @@ const viewusers = () => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap text-lg"
                     >
-                      {user.number}
+                      {user.phone}
                     </td>
                     <td className="px-6 py-4 flex justify-center items-center space-x-4">
                       <button
@@ -125,7 +125,7 @@ const viewusers = () => {
                         }`}
                         onClick={() => userAction(user, !user.isBlocked)}
                       >
-                        {user.isBlocked ? 'Block' : 'Unblock'}
+                        {user.isBlocked ? 'Unblock' : 'Block'}
                       </button>
                       <button
                         type="button"

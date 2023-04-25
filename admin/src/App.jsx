@@ -12,6 +12,8 @@ const AddUser = lazy(() => import('./Pages/Users/addUser'))
 const Viewusers = lazy(() => import('./Pages/Users/viewUser'))
 const Addtheater = lazy(() => import('./Pages/Theaters/addtheater'))
 const Viewtheater = lazy(() => import('./Pages/Theaters/viewtheater'))
+const Genre_Language = lazy(() => import('./Pages/Gener&Language/add'))
+const Viewgenre_Language = lazy(() => import('./Pages/Gener&Language/view'))
 
 function App() {
   return (
@@ -104,10 +106,30 @@ function App() {
               </Suspense>
             }
           />
+        <Route
+          path={'/gener-language'}
+          element={
+            <Suspense
+              fallback={<div className="bg-gray-800">Loading...</div>}
+            >
+              <Genre_Language />
+            </Suspense>
+          }
+        />
+        <Route
+          path={'/view-genre_language'}
+          element={
+            <Suspense
+              fallback={<div className="bg-gray-800">Loading...</div>}
+            >
+              <Viewgenre_Language />
+            </Suspense>
+          }
+        />
         </Route>
-        {/* end */}
-      </Routes>
-    </BrowserRouter>
+      {/* end */}
+    </Routes>
+    </BrowserRouter >
   )
 }
 

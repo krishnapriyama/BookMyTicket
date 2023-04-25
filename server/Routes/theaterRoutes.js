@@ -8,7 +8,8 @@ const {
   viewScreen,
   deleteScreen,
   ScreennedMovies,
-  AddShow
+  AddShow,
+  updateScreen
 } = require('../Controllers/theaterControllers')
 const authMiddleware = require('../Middlewares/authMiddleware')
 
@@ -17,7 +18,7 @@ router.post('/login', Login)
 router.post('/register', Register)
 router.post('/add-screen', addScreen)
 router.post("/add-Show",authMiddleware,AddShow)
-
+router.post('/updateScreen', updateScreen)
 
 // get
 router.get('/view-screens',authMiddleware, viewScreen)

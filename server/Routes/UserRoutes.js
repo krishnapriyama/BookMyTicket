@@ -1,28 +1,36 @@
 const {
   register,
   login,
+  getallMovies,
   getMovies,
   newrelease,
   singleMovie,
   categorymovie,
   findShow,
   search,
-  verifyNumber
+  verifyNumber,
+  seatBooking,
+  bookedseats,
+  order,
+  confirmPayment
 } = require('../Controllers/userControllers')
-const { checkUser } = require('../Middlewares/UserMddleware')
-
+const verifyAuth = require('../Middlewares/authMiddleware')
 const router = require('express').Router()
 
 //post
-router.post('/', checkUser)
 router.post('/register', register)
 router.post('/login', login)
-router.get('/getMovies', getMovies)
+router.get('/getMovies', getallMovies)
+router.get('/homeMovies', getMovies)
 router.get('/new-release', newrelease)
 router.get('/moviedetail/:id', singleMovie)
 router.get('/categorymovie/:category', categorymovie)
 router.get('/findShow/:id',findShow)
 router.get('/search',search)
 router.post('/verifyNumber',verifyNumber)
+router.post('/seatbook',verifyAuth,seatBooking)
+router.post('/bookedseats',bookedseats)
+router.post('/order',verifyAuth,order)
+router.post('/confirmPayment',verifyAuth,confirmPayment)
 
 module.exports = router
