@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
-
+import theaterToken from '../../../config/theaterAxios'
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,6 +7,7 @@ export default function ModalScreen(props) {
    const navigate = useNavigate()
    const [showModal, setShowModal] = useState(false)
    const [screen, setScreen] = useState(props.screen)
+   
 
    console.log(screen);
 
@@ -35,10 +35,9 @@ export default function ModalScreen(props) {
          setShowModal(false)
          try {
             values._id = screen._id
-            const response = await axios.post(
-               'http://localhost:4000/theater/updateScreen',
-               { ...values },
-               { Credentials: true },
+            const response = await theaterToken.post(
+               '/theater/updateScreen',
+               { ...values }
             )
              
             console.log(response);

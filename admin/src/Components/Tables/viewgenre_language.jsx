@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import swal from 'sweetalert';
+import adminAxios from '../../../config/adminAxios'
 
 //components
 import Modelgenre  from '../Models/editgenre'
@@ -16,11 +17,11 @@ const viewgenre_language = () => {
 
 
    useEffect(() => {
-      axios.get('http://localhost:4000/admin/view-genre').then((response) => {
+      adminAxios.get('/admin/all-Genres').then((response) => {
          Setgenrelength(response.data.length)
          setGenre(response.data)
       })
-      axios.get('http://localhost:4000/admin/view-language').then((response) => {
+      adminAxios.get('/admin/all-Languages').then((response) => {
          Setlanguagelength(response.data.length)
          setLanguage(response.data)
       })

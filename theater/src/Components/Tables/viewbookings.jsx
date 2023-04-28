@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import theaterAxios from '../../../config/theaterAxios'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 
@@ -8,15 +8,9 @@ const viewbookings = () => {
   const [length, setLength] = useState()
   const [currentPage, setCurrentPage] = useState(0)
   const itemsPerPage = 5
-  const token = localStorage.getItem('theaterToken')
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/theater/view-booking', {
-        Credentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    theaterAxios
+      .get('/theater/view-booking')
       .then((bookinglist) => {
         console.log(bookinglist);
         setBooking(bookinglist.data)
@@ -106,13 +100,6 @@ const viewbookings = () => {
                   scope="row"
                   className="px-6 py-4 font-medium text-white  whitespace-nowrap"
                 >
-                  <button
-                    type="button"
-                    className="text-white focus:ring-4 bg-green-700 hover:bg-green-800  w-20  hover:ring-red-300 font-medium rounded-lg text-sm  py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  >
-                    Edit
-                  </button>{' '}
-                  <br />
                   <button
                     type="button"
                     className="text-white bg-red-700 hover:bg-red-800  w-20 hover:ring-4 hover:ring-green-300 font-medium rounded-lg text-sm  py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

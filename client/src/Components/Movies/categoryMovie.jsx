@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import axios from 'axios'
+import userAxios from '../../../confic/axiosUser'
 
 const categoryMovie = () => {
 
    const [movies, SetMovie] = useState([])
    const { category } = useParams();
    useEffect(() => {
-     axios.get(`http://localhost:4000/categorymovie/${category}`).then((resp) => {
+    userAxios.get(`/categorymovie/${category}`).then((resp) => {
        SetMovie(resp.data)
        console.log(resp.data)
      })

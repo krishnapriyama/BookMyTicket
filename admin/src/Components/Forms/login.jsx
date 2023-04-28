@@ -6,6 +6,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import adminAxios from '../../../config/adminAxios'
 
 const login = () => {
   const navigate = useNavigate()
@@ -42,12 +43,11 @@ const login = () => {
     onSubmit: async (values) => {
       console.log(values)
       try {
-        const response = await axios.post(
-          'http://localhost:4000/admin/login',
+        const response = await adminAxios.post(
+          '/admin/login',
           {
             ...values,
-          },
-          { Credentials: true },
+          }
         )
 
         if (response.data.created == true) {

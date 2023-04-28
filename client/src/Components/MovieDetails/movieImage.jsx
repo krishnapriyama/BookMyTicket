@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import axios from 'axios'
-
+import userAxios from '../../../confic/axiosUser'
+import moment from 'moment';
 // components
 import MovieSlide from '../Extracomponents/movieSlide'
 const movieImage = () => {
   const [movie, SetMovie] = useState('')
   const { id } = useParams();
   useEffect(() => {
-    axios.get(`http://localhost:4000/moviedetail/${id}`).then((resp) => {
+    userAxios.get(`/moviedetail/${id}`).then((resp) => {
       SetMovie(resp.data)
       console.log(resp.data)
     })
@@ -78,9 +78,9 @@ const movieImage = () => {
       <h5 className='"text-gray-600 text-black mb-4 mt-6 items-center text-center'>
         Genre :{movie.genre}
       </h5>
-      <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
-        Release Date :{movie.releasedate}
-      </h5>
+      <h5 className="text-black font-bold mb-4 mt-6 items-center text-center">
+  Release Date: {moment(movie.releasedate).format('MMM DD, YYYY')}
+</h5>
     </div>
   </div>
   <div className="flex mx-auto items-center justify-center gap-6">

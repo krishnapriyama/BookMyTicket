@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
+import theaterToken from '../../../config/theaterAxios'
 
 const signup = () => {
   const navigate = useNavigate()
@@ -39,10 +40,9 @@ const signup = () => {
     onSubmit: async (values) => {
       console.log(values)
       try {
-        const response = await axios.post(
-          'http://localhost:4000/theater/register',
-          { ...values },
-          { Credentials: true },
+        const response = await theaterToken.post(
+          '/theater/register',
+          { ...values }
         )
 
         if (response.data.created == true) {

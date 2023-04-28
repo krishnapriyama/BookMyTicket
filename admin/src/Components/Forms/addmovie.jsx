@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import adminAxios from '../../../config/adminAxios'
 import { storage } from '../../Firebase/firebase'
 import { useState } from 'react'
 
@@ -92,8 +92,8 @@ const addmovieform = () => {
           console.log('Image3 is null or undefined')
         }
 
-        const response = await axios.post(
-          'http://localhost:4000/admin/addmovies',
+        const response = await adminAxios.post(
+          '/admin/addmovies',
           {
             ...values,
             poster1: posterUrl1,
@@ -101,7 +101,7 @@ const addmovieform = () => {
             poster3: posterUrl3,
           },
           {
-            Credentials: true,
+           
             headers: { 'Content-Type': 'application/json' },
           },
         )
@@ -136,10 +136,10 @@ const addmovieform = () => {
 
   useEffect(() => {
     try {
-      axios.get('http://localhost:4000/admin/all-Genres',{Credential:true}).then((response) => {
+      adminAxios.get('/admin/all-Genres').then((response) => {
         setGenre(response.data)
       })
-      axios.get('http://localhost:4000/admin/all-Languages',{Credential:true}).then((response) => {
+      adminAxios.get('/admin/all-Languages').then((response) => {
         setLanguage(response.data)
       })
     } catch (error) {

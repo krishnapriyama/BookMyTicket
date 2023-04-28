@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import adminAxios from '../../../config/adminAxios'
 
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
@@ -42,10 +42,9 @@ export default function Modal(props) {
       console.log(values, '----movies data')
       try {
         values._id = movie._id;
-        const response = await axios.post(
-          'http://localhost:4000/admin/updateMovie',
-          { ...values },
-          { Credentials: true },
+        const response = await adminAxios.post(
+          '/admin/updateMovie',
+          { ...values }
         )
         if (response.data.msg) {
           window.location.href = '/view-movies'

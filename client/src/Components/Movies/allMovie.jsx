@@ -3,12 +3,13 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import userAxios from '../../../confic/axiosUser'
 
 const movies = () => {
   const [movies, setMovies] = useState([])
   console.log(movies);
   useEffect(() => {
-    axios.get('http://localhost:4000/getMovies').then((resp) => {
+    userAxios.get('/getMovies').then((resp) => {
       setMovies(resp.data)
     })
   }, [])

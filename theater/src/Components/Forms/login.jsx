@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import { useEffect } from 'react'
+import theaterToken from '../../../config/theaterAxios'
 
 const login = () => {
   const navigate = useNavigate()
@@ -41,8 +42,8 @@ const login = () => {
     onSubmit: async (values) => {
       console.log(values)
       try {
-        const response = await axios.post(
-          'http://localhost:4000/theater/login',
+        const response = await theaterToken.post(
+          '/theater/login',
           {
             ...values,
           },

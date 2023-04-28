@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
 import { useFormik } from 'formik'
 import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Lottie from 'react-lottie'
 import { Link } from 'react-router-dom'
 import animationData from '../../assets/LottieAnimations/signupMovie.json'
+import userAxios from '../../../confic/axiosUser'
 
 function signup() {
   const navigateto = useNavigate()
@@ -61,10 +61,10 @@ function signup() {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await axios.post(
-          'http://localhost:4000/register',
+        const response = await userAxios.post(
+          '/register',
           { ...values },
-          { Credentials: true },
+         
         )
 
         if (!response.data.created) {

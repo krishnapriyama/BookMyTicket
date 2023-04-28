@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
-
+import adminAxios from '../../../config/adminAxios'
 
 const addusers = () => {
   const navigate = useNavigate()
@@ -49,10 +49,10 @@ const addusers = () => {
     onSubmit: async (values) => {
       console.log(values, '----users data')
       try {
-        const response = await axios.post(
-          'http://localhost:4000/register',
+        const response = await adminAxios.post(
+          '/register',
           { ...values },
-          { Credentials: true },
+          
         )
 
         if (response.data.created == true) {

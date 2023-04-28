@@ -2,20 +2,15 @@ import React, { useEffect, useState } from 'react'
 
 import Modaluser from '../Model/edituser'
 import Modelshow from '../Model/viewbookings'
-import axios from 'axios'
+import userAxios from '../../../confic/axiosUser'
 
 const profile = () => {
   const token = localStorage.getItem('userToken')
   const [user, setUser] = useState([])
   const [booking, setBooking] = useState([])
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/view-booking', {
-        Credentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    userAxios
+      .get('/view-booking')
       .then((bookinglist) => {
         console.log(bookinglist);
         setUser(bookinglist.data.user)

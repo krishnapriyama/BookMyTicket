@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
+import theaterToken from '../../../config/theaterAxios'
 
 // components
 import CardStats from "./cardstats";
-import axios from "axios";
 
 export default function Statics() {
 
   const[totalIncome,settotalIncome]=useState()
 
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/theater/total-income').then((resp) => {
+    theaterToken
+      .get('/theater/total-income').then((resp) => {
         console.log(resp);
         settotalIncome(resp.data.totalIncome);
       })

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 import moment from 'moment';
+import adminAxios from '../../../config/adminAxios'
 
 //component
 import Editmovie from '../Models/editmovie'
@@ -15,7 +16,7 @@ const viewmovies = () => {
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
-    axios.get('http://localhost:4000/admin/view-movies').then((response) => {
+    adminAxios.get('/admin/view-movies').then((response) => {
       setLength(response.data.length)
       setAllMovies(response.data)
     })

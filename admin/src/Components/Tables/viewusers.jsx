@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 import swal from 'sweetalert';
+import adminAxios from '../../../config/adminAxios'
 
 //components
 import Modaluser from '../Models/edituser'
@@ -15,7 +16,7 @@ const viewusers = () => {
 const[editedvalue,seteditedvalue] = useState()
 
   useEffect(() => {
-    axios.get('http://localhost:4000/admin/view-users').then((response) => {
+    adminAxios.get('/admin/view-users').then((response) => {
       SetLength(response.data.length)
       setAllUsers(response.data)
     })
@@ -55,8 +56,8 @@ const[editedvalue,seteditedvalue] = useState()
   }
 
   function userAction(usertoUpdate, action) {
-    axios
-      .post(`http://localhost:4000/admin/useraction`, {
+    adminAxios
+      .post(`/admin/useraction`, {
         email: usertoUpdate.email,
         action: action,
       })

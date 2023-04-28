@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
 import swal from 'sweetalert';
+import theaterToken from '../../../config/theaterAxios'
 
 //components
 import Modelscreen  from '../Model/editscreen'
@@ -17,13 +18,8 @@ const viewscreen = () => {
     try {
       let token = localStorage.getItem('theaterToken')
       console.log(token)
-      axios
-        .get('http://localhost:4000/theater/view-screens', 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        })
+      theaterToken
+        .get('/theater/view-screens')
         .then((resp) => {
           console.log(resp)
           if (resp.data) {

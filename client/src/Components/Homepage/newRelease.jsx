@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import axios from 'axios'
+
+import userAxios from '../../../confic/axiosUser'
 
 const upcommingMovies = () => {
   const [movies,setMovies] =useState([])
   useEffect(()=>{
-axios.get('http://localhost:4000/new-release').then((resp)=>{
+    userAxios.get('/new-release').then((resp)=>{
   setMovies(resp.data)
 })
   },[])

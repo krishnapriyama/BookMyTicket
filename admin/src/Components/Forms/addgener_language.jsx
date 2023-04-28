@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import adminAxios from '../../../config/adminAxios'
 
 function TwoColumnForm() {
 
@@ -21,10 +22,9 @@ function TwoColumnForm() {
     onSubmit: async (values) => {
       console.log(values,"-----genre");
       try {
-        const response = await axios.post(
-          'http://localhost:4000/admin/add-genre',
-          { ...values },
-          { Credentials: true }
+        const response = await adminAxios.post(
+          '/admin/add-genre',
+          { ...values }
         );
         if (response) {
          window.location.href = "/gener-language"
@@ -50,10 +50,10 @@ function TwoColumnForm() {
     onSubmit: async (values) => {
       console.log(values,"-----language");
       try {
-        const response = await axios.post(
-          'http://localhost:4000/admin/add-language',
+        const response = await adminAxios.post(
+          '/admin/add-language',
           { ...values },
-          { Credentials: true }
+         
         );
         if (response) {
          window.location.href = "/gener-language"

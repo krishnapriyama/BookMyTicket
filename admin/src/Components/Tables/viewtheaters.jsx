@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate'
-
+import adminAxios from '../../../config/adminAxios'
 //components
 import Modaltheater from '../Models/edittheater'
 
@@ -24,8 +24,8 @@ const ViewTheaters = () => {
   }, [])
 
   function authorizeTheater(theaterToUpdate, action) {
-    axios
-      .patch(`http://localhost:4000/admin/accept`, {
+    adminAxios
+      .patch(`/admin/accept`, {
         email: theaterToUpdate.email,
         action: action,
       })

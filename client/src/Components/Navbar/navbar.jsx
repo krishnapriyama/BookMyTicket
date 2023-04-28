@@ -7,6 +7,7 @@ import Bookmyshowimg from '../../assets/bookmyshow.png'
 import axios from 'axios'
 import animationData from '../../assets/LottieAnimations/profile.json'
 import Lottie from 'react-lottie'
+import userAxios from '../../../confic/axiosUser'
 
 const NavLg = () => {
   const [isModelOpen, setIsModelOpen] = useState(false)
@@ -29,7 +30,7 @@ const NavLg = () => {
           setSearch([])
           return
         }
-        const response = await axios.get('http://localhost:4000/search', {
+        const response = await userAxios.get('/search', {
           params: { key: key, limit: 5 },
         })
         setSearch(response.data)

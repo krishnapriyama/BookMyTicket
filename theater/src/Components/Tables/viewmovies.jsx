@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 const token = localStorage.getItem('theaterToken')
+import theaterAxios from '../../../config/theaterAxios'
+import swal from 'sweetalert';
 
 const viewmovies = () => {
   const [shows, setShows] = useState([])
@@ -10,13 +12,8 @@ const viewmovies = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const itemsPerPage = 5
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/theater/view-show', {
-        Credentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    theaterAxios
+      .get('/theater/view-show')
       .then((showlists) => {
         setShows(showlists.data)
         setLength(showlists.data.length)
@@ -30,6 +27,39 @@ const viewmovies = () => {
     return shows.slice(startIndex, endIndex);
   }
 
+
+  const handleDelete = (id) => {
+    swal({
+       title: "Are you sure?",
+       text: "Once deleted, you will not be able to recover this",
+       icon: "warning",
+       buttons: true,
+       dangerMode: true,
+    })
+       .then((willDelete) => {
+          if (willDelete) {
+             fetch(`http://localhost:4000/theater/deleteshow/${id}`, {
+                method: 'DELETE',
+                headers: {
+                   'Content-Type': 'application/json',
+                },
+             })
+                .then((response) => {
+                   if (response.ok) {
+                      const updatedmovie = shows.filter((s) => s._id !== id);
+                      setShows(updatedmovie);
+                   } else {
+                      console.error('Error deleting movie')
+                      alert('Error deleting movie')
+                   }
+                })
+                .catch((error) => {
+                   console.error(error)
+                   alert('Error deleting movie')
+                })
+          }
+       });
+ }
 
   return (
     <div className="h-screen w-full p-0 m-0 flex justify-center items-center bg-gray-100 dark:bg-gray-800">
@@ -128,16 +158,11 @@ const viewmovies = () => {
                   scope="row"
                   className="px-6 py-4 font-medium text-white  whitespace-nowrap"
                 >
-                  <button
-                    type="button"
-                    className="text-white focus:ring-4 bg-green-700 hover:bg-green-800  w-20  hover:ring-red-300 font-medium rounded-lg text-sm  py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  >
-                    Edit
-                  </button>{' '}
                   <br />
                   <button
                     type="button"
                     className="text-white bg-red-700 hover:bg-red-800  w-20 hover:ring-4 hover:ring-green-300 font-medium rounded-lg text-sm  py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    onClick={() => handleDelete(value._id)}
                   >
                     Delete
                   </button>

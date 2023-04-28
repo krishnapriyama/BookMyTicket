@@ -109,6 +109,16 @@ module.exports.deleteScreen = async (req, res, next) => {
     res.status(404).send({ err: 'no idea', error })
   }
 }
+module.exports.deleteshow = async (req, res, next) => {
+  const showId = req.params.id;
+  try {
+    await ShowModel.deleteOne({ _id: showId });
+    res.send({ msg: 'movie deleted' });
+  } catch (error) {
+    res.status(404).send({ err: 'no idea', error });
+  }
+}
+
 
 module.exports.ScreennedMovies = async (req, res, next) => {
   const { email } = req.user;

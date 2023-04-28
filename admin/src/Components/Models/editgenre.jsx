@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import adminAxios from '../../../config/adminAxios'
 
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
@@ -25,10 +25,9 @@ export default function Modalgenre(props) {
          setShowModal(false)
          try {
             values._id = genre._id
-            const response = await axios.post(
-               'http://localhost:4000/admin/updateGenre',
-               { ...values },
-               { Credentials: true },
+            const response = await adminAxios.post(
+               '/admin/updateGenre',
+               { ...values }
             )
             if (response) {
                window.location.href = '/view-genre_language'

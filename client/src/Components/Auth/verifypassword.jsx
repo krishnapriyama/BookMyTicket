@@ -5,6 +5,8 @@ import swal from "sweetalert2";
 import swal1 from "sweetalert";
 import axios from 'axios'
 import { getAuth, signInWithPhoneNumber } from "firebase/auth";
+import userAxios from '../../../confic/axiosUser'
+
 
 function forgotpassword() {
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ function forgotpassword() {
             verified: true,
             number: "+91" +document.getElementById("phone").value,
           };
-          axios.post('http://localhost:4000/verifyNumber', {
+          userAxios.post('/verifyNumber', {
             ...verifyPhoneNumber,
           }).then((resp)=>{
             

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik'
-
+import adminAxios from '../../../config/adminAxios'
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 
@@ -34,10 +34,9 @@ const addtheater = () => {
     onSubmit: async (values) => {
       console.log(values, '----theater data')
       try {
-        const response = await axios.post(
-          'http://localhost:4000/add-theaters',
-          { ...values },
-          { Credentials: true },
+        const response = await adminAxios.post(
+          '/add-theaters',
+          { ...values }
         )
 
         if (response) {

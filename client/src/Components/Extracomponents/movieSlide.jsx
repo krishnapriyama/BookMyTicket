@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import userAxios from '../../../confic/axiosUser'
 
 const movies =[{
    title:"THE DARK",
@@ -25,7 +26,7 @@ const movieSlide = () => {
 
    const [movies,setMovies] =useState([])
   useEffect(()=>{
-axios.get('http://localhost:4000/new-release').then((resp)=>{
+   userAxios.get('/new-release').then((resp)=>{
   setMovies(resp.data)
 })
   },[])

@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
+import userAxios from '../../../confic/axiosUser'
+
 const colors = {
    orange: "#FFBA5A",
    grey: "#a9a9a9"
@@ -18,14 +20,10 @@ const Rate = (props) => {
    const stars = Array(5).fill(0)
 
    useEffect(() => {
-      axios.get('http://localhost:4000/star-ratingvalue', {
+      userAxios.get('/star-ratingvalue', {
          params: {
             movieName: props.moviename,
-         },
-         Credentials: true,
-         headers: {
-            Authorization: `Bearer ${token}`,
-         },
+         }
       }).then((resp) => {
          setRatingvalue(resp.data)
          setCurrentValue(resp.data.user.ratings[0].value)
@@ -36,11 +34,8 @@ const Rate = (props) => {
 
    const handleClick = (value, moviename) => {
       setCurrentValue(value)
-      axios.post('http://localhost:4000/update-rate', { rating: value, moviename: moviename }, {
-         Credentials: true,
-         headers: {
-            Authorization: `Bearer ${token}`,
-         },
+      userAxios.post('/update-rate', { rating: value, moviename: moviename }, {
+         
       })
          .then(response => {
             setratings(response.data.ratings)

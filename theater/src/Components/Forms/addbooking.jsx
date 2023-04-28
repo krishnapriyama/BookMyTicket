@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import theaterAxios from '../../../config/theaterAxios'
 
 let coulumSeat = [];
 let seat = [];
@@ -15,19 +16,12 @@ function addbooking() {
    const [selectedScreenId, setSelectedScreenId] = useState("");
    const [movie, setMovie] = useState([]);
    const [time, setTime] = useState([]);
-<div className="0"></div>
-
-   const token = localStorage.getItem('theaterToken')
 
    useEffect(() => {
-      axios
+      theaterAxios
          .get(
-            "http://localhost:4000/theater/screen",
-            {
-               headers: {
-                  Authorization: `Bearer ${token}`,
-               },
-            }
+            "/theater/screen",
+
          ).then((response) => {
             setScreens(response.data.screens);
          })
@@ -52,18 +46,14 @@ function addbooking() {
          setSelectedSeat(selectedSeat.filter((val) => val !== event.target.value));
       }
    };
- 
+
 
 
    const handleScreenChange = (event) => {
       const screenId = event.target.value;
       setSelectedScreenId(screenId);
 
-      axios.get(`http://localhost:4000/theater/movie-time/${screenId}`, {
-         headers: {
-            Authorization: `Bearer ${token}`,
-         },
-      })
+      theaterAxios.get(`/theater/movie-time/${screenId}`)
          .then(data => {
             console.log(data);
             console.log(data.data[0]);

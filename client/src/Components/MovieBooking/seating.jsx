@@ -7,6 +7,7 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChair } from '@fortawesome/free-solid-svg-icons';
+import userAxios from '../../../confic/axiosUser'
 
 let coulumSeat = [];
 let seat = [];
@@ -34,9 +35,9 @@ function Seatselect() {
           navigate("/login");
         });
       } else {
-        axios
+        userAxios
           .post(
-            "http://localhost:4000/seatbook",
+            "/seatbook",
             {
               BookingDate: new Date(),
               show: {
@@ -49,11 +50,7 @@ function Seatselect() {
               movie: data.Screen.Movie,
               theater: data.Screen.theater,
             },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
+            
           )
           .then((resp) => {
             swal({
@@ -115,7 +112,7 @@ function Seatselect() {
     }
   };
   useEffect(() => {
-    axios.post('http://localhost:4000/bookedseats'
+    userAxios.post('/bookedseats'
       , {
         date: data?.date,
         time: data?.time,

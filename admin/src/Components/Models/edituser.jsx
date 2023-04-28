@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import adminAxios from '../../../config/adminAxios'
 
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
@@ -33,10 +33,9 @@ export default function Modaluser(props) {
       console.log(values, '----user data')
       try {
         values._id = user._id
-        const response = await axios.post(
-          'http://localhost:4000/admin/updateUser',
-          { ...values },
-          { Credentials: true },
+        const response = await adminAxios.post(
+          '/admin/updateUser',
+          { ...values }
         )
         if (response.data) {
           window.location.reload()

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import userAxios from '../../../confic/axiosUser'
 
 //components
 import MovieBooking from '../../Components/MovieBooking/movieBooking'
@@ -18,7 +18,7 @@ const movieBooking = () => {
     console.log(show)
   }
   useEffect(() => {
-    axios.get(`http://localhost:4000/findShow/${id}`).then((resp) => {
+    userAxios.get(`/findShow/${id}`).then((resp) => {
       setShow(resp.data)
       console.log(resp.data);
     })

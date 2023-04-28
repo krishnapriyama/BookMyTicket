@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import axios from 'axios'
+import userAxios from '../../../confic/axiosUser'
+
 import { ToastContainer, toast } from 'react-toastify'
 import Lottie from 'react-lottie'
 import { Link } from 'react-router-dom'
@@ -43,12 +45,12 @@ function login() {
     onSubmit: async (values) => {
       console.log(values,"--------------values");
       try {
-        const response = await axios.post(
-          'http://localhost:4000/login',
+        const response = await userAxios.post(
+          '/login',
           {
             ...values,
-          },
-          { Credentials: true },
+          }
+          
         )
         console.log(response);
         if (response.data.created == true) {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-
+import userAxios from '../../../confic/axiosUser'
 
 function Payment(props) {
 
@@ -15,11 +15,7 @@ function Payment(props) {
 
   const createOrder = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/order', { amount },{
-         headers: {
-           Authorization: `Bearer ${token}`,
-         },
-       });
+      const response = await userAxios.post('/order', { amount });
       setOrder(response.data);
     } catch (error) {
       console.error(error);
@@ -37,14 +33,10 @@ function Payment(props) {
       order_id: order.id,
       handler: function (response) {
         
-        axios.post('http://localhost:4000/confirmPayment',{
+        userAxios.post('/confirmPayment',{
             ...response,
             bookingid
-        },{
-         headers: {
-           Authorization: `Bearer ${token}`,
-         },
-       }).then((resp)=>{
+        }).then((resp)=>{
         if (resp) {
           const lastArray = resp.data.details.slice(-1); 
           navigate('/paymentsuccess', { state: { paymentResp: lastArray } }); 

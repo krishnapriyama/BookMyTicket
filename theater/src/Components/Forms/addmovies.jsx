@@ -3,6 +3,7 @@ import { useFormik } from 'formik'
 import axios from 'axios'
 import Select from 'react-select'
 import { useNavigate } from 'react-router-dom'
+import theaterToken from '../../../config/theaterAxios'
 
 let token = localStorage.getItem('theaterToken')
 const timeOptions = [
@@ -28,16 +29,12 @@ const addmovies = () => {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:4000/admin/view-movies').then((response) => {
+    theaterToken.get('/admin/view-movies').then((response) => {
       setMovies(response.data)
     })
 
-    axios
-      .get('http://localhost:4000/theater/view-screens', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    theaterToken
+      .get('/theater/view-screens')
       .then((resp) => {
         console.log(resp)
         if (resp.data) {
@@ -75,15 +72,10 @@ const addmovies = () => {
       values.ShowTimes=ShowTimes;
        console.log(values, '----movies data')
       try {
-        const response = await axios.post(
-          'http://localhost:4000/theater/add-Show',
+        const response = await theaterToken.post(
+          '/theater/add-Show',
           { ...values },
-          { 
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            Credentials: true 
-           }
+          
           
         )
         if (response) {

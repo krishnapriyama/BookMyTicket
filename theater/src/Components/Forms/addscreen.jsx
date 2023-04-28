@@ -2,6 +2,7 @@ import React from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import theaterToken from '../../../config/theaterAxios'
 
 const addscreen = () => {
 
@@ -32,10 +33,10 @@ const addscreen = () => {
     onSubmit: async (values) => {
       console.log(values, '----movies data')
       try {
-        const response = await axios.post(
-          'http://localhost:4000/theater/add-screen',
+        const response = await theaterToken.post(
+          '/theater/add-screen',
           { ...values },
-          { Credentials: true },
+         
         )
 
        if (response) {
