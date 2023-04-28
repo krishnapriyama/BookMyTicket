@@ -45,7 +45,7 @@ export default function Modal(props) {
         const response = await axios.post(
           'http://localhost:4000/admin/updateMovie',
           { ...values },
-          { withCredentials: true },
+          { Credentials: true },
         )
         if (response.data.msg) {
           window.location.href = '/view-movies'

@@ -82,7 +82,7 @@ const addmovies = () => {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-            withCredentials: true 
+            Credentials: true 
            }
           
         )

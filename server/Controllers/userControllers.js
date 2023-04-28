@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken')
 const movieModels = require('../Models/movieModel')
 const bcrypt = require('bcrypt')
 const ShowModel = require('../Models/showModel')
-const bookingModel = require('../Models/bookingModel')
-const { createOrder } = require("../Config/Razorpay");
+const bookingModel = require('../Models/BookingModel')
+const { createOrder } = require('../Config/Razorpay')
 
 const handleErrors = (err) => {
   let errors = { email: '', password: '' }
@@ -34,7 +34,7 @@ module.exports.register = async (req, res, next) => {
   console.log(req.body)
   try {
     const { email, name, password, phone } = req.body
-    const action = { isBlocked: true }
+    const action = { isBlocked: false }
     const user = await userModel.create({
       email,
       name,
@@ -51,7 +51,7 @@ module.exports.register = async (req, res, next) => {
 }
 
 module.exports.login = async (req, res, next) => {
-  console.log("hello");
+  console.log('hello')
   try {
     const { email, password } = req.body
     const user = await userModel.findOne({ email })
@@ -59,36 +59,33 @@ module.exports.login = async (req, res, next) => {
       bcrypt.compare(password, user.password, function (err, result) {
         if (result === true) {
           if (user.isBlocked) {
-            console.log(res,"------userblocked");
-            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+            console.log(res, '------userblocked')
             res.status(401).json({ error: 'user Blocked Contact admin' })
           } else if (!user.verified) {
-            console.log(res,"------notverified");
-            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+            console.log(res, '------notverified')
             res.status(401).json({ error: 'user Not verified' })
           } else {
-            console.log(res,"------sucess");
+            console.log(res, '------sucess')
             const token = jwt.sign({ email }, 'SuperSecretKey')
-            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+           
             res.json({ created: true, token })
           }
         } else {
-          res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+          res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
           res.json({ error: 'Invalid email or password' })
           console.log('Passwords do not match.')
         }
       })
     } else {
-      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
       res.json({ error: 'Invalid email or password' })
     }
   } catch (error) {
     console.log(error)
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
     res.send(error)
   }
 }
-
 
 //get
 module.exports.getallMovies = async (req, res, next) => {
@@ -230,45 +227,106 @@ module.exports.seatBooking = async (req, res, next) => {
   }
 }
 
-module.exports.bookedseats = async (req,res,next)=>{
+module.exports.bookedseats = async (req, res, next) => {
   try {
-    const date = req.body.date.split("T")[0];
+    const date = req.body.date.split('T')[0]
     let screenseats = await ShowModel.findOne(
-      { "theater.screen._id": req.body.screen_id },
-      { "theater.screen": true }
-    );
-    bookingModel.find(
-      {
-        "show.date": new Date(date),
-        "show.time": req.body.time,
-        "theater.screen._id": req.body.screen_id,
-      },
-      { show: true, theater: true }
-    ).then((resp) => {
-      let seats = [];
-      resp.map((value) => {
-        seats.push(...value.show.SeatNumber);
-      });
-      res.status(200).send({ seats, screenseats });
-    });
+      { 'theater.screen._id': req.body.screen_id },
+      { 'theater.screen': true },
+    )
+    bookingModel
+      .find(
+        {
+          'show.date': new Date(date),
+          'show.time': req.body.time,
+          'theater.screen._id': req.body.screen_id,
+        },
+        { show: true, theater: true },
+      )
+      .then((resp) => {
+        let seats = []
+        resp.map((value) => {
+          seats.push(...value.show.SeatNumber)
+        })
+        res.status(200).send({ seats, screenseats })
+      })
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404).send(error)
   }
-} 
-
+}
 
 module.exports.order = async (req, res, next) => {
-  const { email } = req.user;
-  const { amount } = req.body;
-  const order = await createOrder(amount);
-  order.userEmail = email;
-  order.userName = email.split("@")[0];
-  res.send(order);
-};
+  const { email } = req.user
+  const { amount } = req.body
+  const order = await createOrder(amount)
+  order.userEmail = email
+  order.userName = email.split('@')[0]
+  res.send(order)
+}
 
-module.exports.confirmPayment = async (req,res,next)=>{
-  const {email} = req.user;
-  bookingModel.updateOne({_id:req.body.bookingid},{CompletPayment:true}).then((response)=>{
-    res.status(200).send(response)
+module.exports.confirmPayment = async (req, res, next) => {
+  const { email } = req.user
+  const details = await bookingModel.find({ 'user.email': email })
+  bookingModel
+    .updateOne({ _id: req.body.bookingid }, { CompletPayment: true })
+    .then((response) => {
+      res.status(200).send({ response, details })
+    })
+}
+
+module.exports.viewbooking = async (req, res, next) => {
+  const { email } = req.user
+  const user = await userModel.find({ email: email })
+  bookingModel.find({ 'user.email': email }).then((show) => {
+    res.status(200).send({ show, user })
   })
 }
+
+module.exports.updaterate = async (req, res, next) => {
+  const { email } = req.user
+  const { moviename, rating } = req.body
+
+  try {
+    const user = await userModel.findOne({ email: email })
+
+    if (!user.ratings) {
+      await userModel.updateOne({ email: email }, { $set: { ratings: [] } })
+    }
+
+    const movieIndex = user.ratings.findIndex((r) => r.moviename === moviename)
+
+    if (movieIndex !== -1) {
+      user.ratings[movieIndex].value = rating
+    } else {
+      user.ratings.push({ moviename: moviename, value: rating })
+    }
+    await user.save()
+
+    res.status(200).send(user)
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+
+module.exports.ratingvalue = async (req, res, next) => {
+  const { email } = req.user;
+  const { movieName } = req.query;
+
+  try {
+    const user = await userModel.findOne({ email, 'ratings.moviename': movieName });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const rating = user.ratings.find((rating) => rating.moviename === movieName);
+    if (!rating) {
+      return res.status(404).json({ message: 'Rating not found' });
+    }
+
+    res.json({ user });
+  } catch (err) {
+    next(err);
+  }
+};

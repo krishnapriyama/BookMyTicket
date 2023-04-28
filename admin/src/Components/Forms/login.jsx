@@ -47,7 +47,7 @@ const login = () => {
           {
             ...values,
           },
-          { withCredentials: true },
+          { Credentials: true },
         )
 
         if (response.data.created == true) {

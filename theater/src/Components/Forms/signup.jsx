@@ -42,7 +42,7 @@ const signup = () => {
         const response = await axios.post(
           'http://localhost:4000/theater/register',
           { ...values },
-          { withCredentials: true },
+          { Credentials: true },
         )
 
         if (response.data.created == true) {

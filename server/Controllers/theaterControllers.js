@@ -2,6 +2,7 @@ const TheaterModel = require('../Models/theaterModel')
 const ScreenModel = require('../Models/screenmodel')
 const MovieModel = require('../Models/movieModel')
 const ShowModel = require('../Models/showModel')
+const bookingModel = require('../Models/BookingModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -62,15 +63,15 @@ module.exports.Login = async (req, res, next) => {
 }
 
 module.exports.addScreen = async (req, res, next) => {
-  const data = {
-    screenname: req.body.screenname,
-    totalcount: req.body.totalcount,
-    row: req.body.rowcount,
-    column: req.body.columncount,
-    screentype: req.body.screentype,
-  }
-
+  
   try {
+    const data = {
+      screenname: req.body.screenname,
+      totalcount: req.body.totalcount,
+      row: req.body.rowcount,
+      column: req.body.columncount,
+      screentype: req.body.screentype,
+    }
     TheaterModel.updateOne({ $push: { screens: data } })
       .then((resp) => {
         res.json({ created: true })
@@ -110,20 +111,35 @@ module.exports.deleteScreen = async (req, res, next) => {
 }
 
 module.exports.ScreennedMovies = async (req, res, next) => {
-  console.log(req.user)
-  const { email } = req.user
+  const { email } = req.user;
   try {
-    ShowModel.find({ 'theater.email': email })
+    ShowModel.find({ "theater.email": email }).sort({'EndDate': -1})
       .then((ScreendMovies) => {
-        res.send(ScreendMovies)
+        console.log(ScreendMovies);
+        res.status(200).send(ScreendMovies);
       })
       .catch((err) => {
-        console.log(err)
-        res.send(err)
-      })
+        res.status(404).send(err);
+      });
   } catch (error) {
-    console.log(err)
-    res.send(error)
+    res.status(404).send(error);
+  }
+};
+
+module.exports.viewbooking = async (req, res, next) => {
+  bookingModel.find().then((resp) => {
+    res.status(200).send(resp);
+  });
+};
+
+module.exports.screen = async (req, res, next) => {
+  const { email } = req.user
+  try {
+    const theater = await TheaterModel.findOne({ email })
+    const screens = theater.screens
+    res.status(200).json({ screens })
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' })
   }
 }
 
@@ -158,13 +174,7 @@ module.exports.AddShow = async (req, res, next) => {
 }
 
 module.exports.updateScreen = async (req, res, next) => {
-  const {
-    _id,
-    screenname,
-    screentype,
-    rowcount,
-    columncount,
-  } = req.body
+  const { _id, screenname, screentype, rowcount, columncount } = req.body
 
   try {
     const theater = await TheaterModel.findById(_id)
@@ -179,9 +189,67 @@ module.exports.updateScreen = async (req, res, next) => {
     res.json(screen)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: "Server error" })
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+module.exports.totalincome = async (req, res, next) => {updateScreen
+  try {
+    const total = await bookingModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalAmount: {
+            $sum: '$show.TotelPrice',
+          },
+        },
+      },
+    ])
+
+    const monthwise = await bookingModel.aggregate([
+      {
+        $project: {
+          month: {
+            $month: '$BookingDate',
+          },
+          Amount: '$show.TotelPrice',
+        },
+      },
+      {
+        $group: {
+          _id: '$month',
+          totalRevenue: {
+            $sum: '$Amount',
+          },
+        },
+      },
+    ])
+    res.status(200).json({ totalIncome: total[0].totalAmount, monthwise })
+  } catch (error) {
+    console.log(error)
   }
 }
 
+module.exports.movietime = async (req, res, next) => {
+  const screen_id = req.params.id
+  console.log(req.user)
 
+  try {
+    const movie = await ShowModel.findOne({ 'theater.screen._id': screen_id })
+    if (!movie) {
+      return res
+        .status(404)
+        .json({ message: 'Movie not found for given screen id.' })
+    }
 
+    const theater = movie.theater
+    const showTimes = movie.ShowTimes
+    const movieDetails = [{
+      movieName: movie.Movie.moviename,
+    }]
+
+    return res.status(200).json([ movieDetails, showTimes,theater ])
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ message: 'Server error.' })
+  }
+}

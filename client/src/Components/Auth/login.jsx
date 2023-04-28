@@ -48,7 +48,7 @@ function login() {
           {
             ...values,
           },
-          { withCredentials: true },
+          { Credentials: true },
         )
         console.log(response);
         if (response.data.created == true) {

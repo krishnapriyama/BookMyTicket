@@ -28,7 +28,7 @@ export default function Modalgenre(props) {
             const response = await axios.post(
                'http://localhost:4000/admin/updateGenre',
                { ...values },
-               { withCredentials: true },
+               { Credentials: true },
             )
             if (response) {
                window.location.href = '/view-genre_language'

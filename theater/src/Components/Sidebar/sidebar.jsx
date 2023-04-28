@@ -92,6 +92,33 @@ const sidebar = () => {
               </li>
             </ul>
 
+
+            <hr className="my-4 md:min-w-full" />
+            {/* Heading */}
+            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+              Booking MANGEMENT
+            </h6>
+            {/* Navigation */}
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none">
+              <li className="items-center">
+                <Link
+                  className="text-xs uppercase py-3 font-bold block "
+                  to="/add-booking"
+                >
+                  <i className={'fas fa-tv mr-2 text-sm '}></i> add bookings
+                </Link>
+              </li>
+
+              <li className="items-center">
+                <Link
+                  className="text-xs uppercase py-3 font-bold block "
+                  to="/view-booking"
+                >
+                  <i className={'fas fa-tools mr-2 text-sm '}></i> view bookings
+                </Link>
+              </li>
+            </ul>
+
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}

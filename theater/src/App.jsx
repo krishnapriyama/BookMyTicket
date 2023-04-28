@@ -17,8 +17,13 @@ const Approval = lazy(() => import('./Pages/404/approval'));
 const Addscreen = lazy(() => import('./Pages/screen/addscreen'));
 const Viewscreen = lazy(() => import('./Pages/screen/viewscreen'));
 
+// Movies
 const Addmovies = lazy(() => import('./Pages/Movie/addmovies'));
 const Viewmovies = lazy(() => import('./Pages/Movie/viewmovies'));
+
+// booking
+const AddBooking = lazy(() => import('./Pages/Bookings/addbooking'));
+const ViewBooking = lazy(() => import('./Pages/Bookings/viebookings'));
 
 const App = () => {
   return (
@@ -34,6 +39,8 @@ const App = () => {
           <Route path={'/add-movies'} element={<Suspense fallback={<div>Loading...</div>}> <Addmovies /> </Suspense>} />
           <Route path={'/view-screens'} element={<Suspense fallback={<div>Loading...</div>}> <Viewscreen /> </Suspense>} />
           <Route path={'/view-movies'} element={<Suspense fallback={<div>Loading...</div>}> <Viewmovies /> </Suspense>} />
+          <Route path={'/add-booking'} element={<Suspense fallback={<div>Loading...</div>}> <AddBooking /> </Suspense>} />
+          <Route path={'/view-booking'} element={<Suspense fallback={<div>Loading...</div>}> <ViewBooking /> </Suspense>} />
         </Route>
         {/* end */}
       </Routes>

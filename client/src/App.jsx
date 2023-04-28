@@ -19,6 +19,7 @@ const Offer = lazy(() => import('./Pages/Payments/offer'))
 const Profile = lazy(() => import('./Pages/Profile/profile'))
 const Categorymovie = lazy(()=>import('./Pages/Movies/categoryMovies'))
 const Checkout = lazy(()=>import('./Pages/Booking/checkout'))
+const PaymentSucess = lazy(()=>import('./Pages/Payments/Sucess'))
 // Routes
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path={'/profile'} element={<Profile />} />
             <Route path={'/categorymovie/:category'} element={<Categorymovie />} />
             <Route path={"/Checkout"} element={<Checkout/>} />
+            <Route path={"/paymentsuccess"} element={<PaymentSucess/>} />
           {/* end */}
         </Routes>
       </Suspense>

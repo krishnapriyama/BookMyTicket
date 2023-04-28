@@ -24,7 +24,7 @@ function TwoColumnForm() {
         const response = await axios.post(
           'http://localhost:4000/admin/add-genre',
           { ...values },
-          { withCredentials: true }
+          { Credentials: true }
         );
         if (response) {
          window.location.href = "/gener-language"
@@ -53,7 +53,7 @@ function TwoColumnForm() {
         const response = await axios.post(
           'http://localhost:4000/admin/add-language',
           { ...values },
-          { withCredentials: true }
+          { Credentials: true }
         );
         if (response) {
          window.location.href = "/gener-language"

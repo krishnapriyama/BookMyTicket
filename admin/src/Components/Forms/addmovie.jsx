@@ -101,7 +101,7 @@ const addmovieform = () => {
             poster3: posterUrl3,
           },
           {
-            withCredentials: true,
+            Credentials: true,
             headers: { 'Content-Type': 'application/json' },
           },
         )
@@ -136,10 +136,10 @@ const addmovieform = () => {
 
   useEffect(() => {
     try {
-      axios.get('http://localhost:4000/admin/all-Genres').then((response) => {
+      axios.get('http://localhost:4000/admin/all-Genres',{Credential:true}).then((response) => {
         setGenre(response.data)
       })
-      axios.get('http://localhost:4000/admin/all-Languages').then((response) => {
+      axios.get('http://localhost:4000/admin/all-Languages',{Credential:true}).then((response) => {
         setLanguage(response.data)
       })
     } catch (error) {

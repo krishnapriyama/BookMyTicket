@@ -106,7 +106,7 @@ const viewscreen = () => {
             </thead>
             <tbody className="justify-center items-center dark:divide-gray-700">
               {getCurrentPageData().map((s) => (
-                <tr key={s.id}>
+                <tr key={s.id} className='text-center items-center'>
                   <td
                     scope="row"
                     className="px-6 py-4 font-medium justify-center items-center text-white whitespace-nowrap"

@@ -12,7 +12,7 @@ const viewmovies = () => {
   useEffect(() => {
     axios
       .get('http://localhost:4000/theater/view-show', {
-        withCredentials: true,
+        Credentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
         },

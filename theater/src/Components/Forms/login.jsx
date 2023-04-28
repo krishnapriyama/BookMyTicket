@@ -46,7 +46,7 @@ const login = () => {
           {
             ...values,
           },
-          { withCredentials: true },
+          { Credentials: true },
         )
 
         if (response.data.error == 'Admin Not accepted') {

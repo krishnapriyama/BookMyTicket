@@ -34,6 +34,9 @@ const MovieSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  rating: {
+    type: Number
+  },
   trailerlink: {
     type: String,
     require: true,

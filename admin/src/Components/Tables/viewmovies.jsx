@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
+import moment from 'moment';
 
 //component
 import Editmovie from '../Models/editmovie'
@@ -98,7 +99,7 @@ const viewmovies = () => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap text-lg"
                     >
-                      {movie.releasedate}
+                      {movie.releasedate.split('T')[0]}
                     </td>
                     <td
                   scope="row"
@@ -119,12 +120,6 @@ const viewmovies = () => {
                     </td>
 
                     <td className="px-6 py-4 items-center flex justify-center gap-4">
-                      <button
-                        type="button"
-                        className="text-white bg-blue-600 font-medium rounded-lg text-lg px-5 py-2.5 focus:outline-none"
-                      >
-                        Block
-                      </button>
                       <Editmovie movie={movie}></Editmovie>
                       <button
                         type="button"

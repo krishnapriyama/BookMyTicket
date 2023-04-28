@@ -37,7 +37,7 @@ const addtheater = () => {
         const response = await axios.post(
           'http://localhost:4000/add-theaters',
           { ...values },
-          { withCredentials: true },
+          { Credentials: true },
         )
 
         if (response) {

@@ -5,10 +5,8 @@ import { BiSearch } from 'react-icons/bi'
 import Modal from 'react-modal'
 import Bookmyshowimg from '../../assets/bookmyshow.png'
 import axios from 'axios'
-
-
-
-
+import animationData from '../../assets/LottieAnimations/profile.json'
+import Lottie from 'react-lottie'
 
 const NavLg = () => {
   const [isModelOpen, setIsModelOpen] = useState(false)
@@ -17,6 +15,12 @@ const NavLg = () => {
 
   const [search, setSearch] = useState([])
   const [key, setKey] = useState('')
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+  };
 
   useEffect(() => {
     const search = async () => {
@@ -46,7 +50,7 @@ const NavLg = () => {
     <>
       <div className="container">
         <div className="flex justify-around gap-3">
-          <div className="w-56 h-11 m-0">
+          <div className="w-56 h-11 m-0 mt-3">
             <Link to="/">
               <img src={Bookmyshowimg} alt="logo" className="w-full h-full" />
             </Link>
@@ -54,7 +58,7 @@ const NavLg = () => {
 
 
           <div class="relative">
-            <div class="flex items-center bg-white rounded-md">
+            <div class="flex items-center justify-center mt-3 bg-white rounded-md">
               <input type="search" class="bg-transparent w-[500px] border-none focus:outline-none py-2 px-2" placeholder="Search for movies, events, Plays, Sports and Activities." value={key} onChange={(e) => setKey(e.target.value)} />
             </div>
             {search && search.length > 0 && (
@@ -62,8 +66,8 @@ const NavLg = () => {
                 {search.map((movie) => (
                   <div class="flex items-center px-2 py-3 cursor-pointer hover:bg-gray-100" key={movie._id}>
                     <div class="w-12 h-16 mr-4">
-                    <Link to={`/moviedetail/${movie._id}`}>
-                     <img class="object-cover w-full h-full" src={movie.poster1} />
+                      <Link to={`/moviedetail/${movie._id}`}>
+                        <img class="object-cover w-full h-full" src={movie.poster1} />
                       </Link>
                     </div>
                     <div class="text-lg font-medium">{movie.moviename}</div>
@@ -76,16 +80,27 @@ const NavLg = () => {
           <div className="flex items-center justify-end w-full gap-3 ml-6">
             <div className="justify-end flex items-center">
               {token ? (
-                <button
-                  className="px-6 py-3 text-white justify-end bg-red-600 rounded-md"
-                  type="button"
-                  onClick={() => {
-                    localStorage.removeItem('userToken')
-                    setToken(null)
-                  }}
-                >
-                  Logout
-                </button>
+                <>
+                  <button
+                    className="px-6 py-3 text-white justify-end bg-red-600 rounded-md"
+                    type="button"
+                    onClick={() => {
+                      localStorage.removeItem('userToken')
+                      setToken(null)
+                    }}
+                  >
+                    Logout
+                  </button>
+                  <Link to='/profile'>
+                    <div style={{ height: '70px', width: '100px' }}>
+                      <Lottie
+                        options={defaultOptions}
+                        isClickToPauseDisabled={true}
+                      />
+                    </div>
+
+                  </Link>
+                </>
               ) : (
                 <Link to="/login">
                   <button
@@ -97,7 +112,7 @@ const NavLg = () => {
                 </Link>
               )}
             </div>
-            </div>
+          </div>
 
         </div>
       </div>

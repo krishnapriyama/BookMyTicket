@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // components
-
 import CardStats from "./cardstats";
+import axios from "axios";
 
 export default function Statics() {
+
+  const[totalIncome,settotalIncome]=useState()
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:4000/theater/total-income').then((resp) => {
+        console.log(resp);
+        settotalIncome(resp.data.totalIncome);
+      })
+  }, [])
+
   return (
     <>
       {/* Header */}
-      <div className="relative bg-lightBlue-600 md:pt-32 pb-32 pt-12">
+      <div className="relative  pb-32 pt-12 bg-gray-800">
         <div className="px-4 md:px-10 mx-auto w-full">
           <div>
             {/* Card stats */}
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="Year "
-                  statTitle="350,897"
+                  statSubtitle="Total"
+                  statTitle= {totalIncome}
                   statArrow="up"
                   statPercent="3.48"
                   statPercentColor="text-emerald-500"

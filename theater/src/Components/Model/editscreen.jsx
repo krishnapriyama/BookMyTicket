@@ -38,13 +38,13 @@ export default function ModalScreen(props) {
             const response = await axios.post(
                'http://localhost:4000/theater/updateScreen',
                { ...values },
-               { withCredentials: true },
+               { Credentials: true },
             )
              
             console.log(response);
 
             if (response) {
-               window.location.href = '/view-screens'
+               window.location.reload()
             } else {
                console.log('Something went wrong')
             }

@@ -33,7 +33,7 @@ export default function Modaltheater(props) {
          const response = await axios.post(
             'http://localhost:4000/admin/updateTheater',
             { ...values },
-            { withCredentials: true },
+            { Credentials: true },
             )
             if (response.data.msg) {
                window.location.href = '/view-theaters'

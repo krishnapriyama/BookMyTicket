@@ -1,6 +1,16 @@
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
 
+
+const rating = {
+   value:{
+      type:Number
+   },
+   moviename:{
+      type:String
+   }
+}
+
 const userSchema = new mongoose.Schema({
    email:{
       type:String,
@@ -24,7 +34,8 @@ const userSchema = new mongoose.Schema({
     },
     verified:{
       type: Boolean,
-    }
+    },
+    ratings:[rating]
 })
 
 userSchema.pre('save',async function (next) {

@@ -12,7 +12,7 @@ const viewusers = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0)
   const itemsPerPage = 5
-
+const[editedvalue,seteditedvalue] = useState()
 
   useEffect(() => {
     axios.get('http://localhost:4000/admin/view-users').then((response) => {

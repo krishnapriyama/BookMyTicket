@@ -11,6 +11,8 @@ function Payment(props) {
   const [order, setOrder] = useState(null);
   const navigate = useNavigate();
 
+
+
   const createOrder = async () => {
     try {
       const response = await axios.post('http://localhost:4000/order', { amount },{
@@ -43,8 +45,12 @@ function Payment(props) {
            Authorization: `Bearer ${token}`,
          },
        }).then((resp)=>{
-            navigate("/");
-        })
+        if (resp) {
+          const lastArray = resp.data.details.slice(-1); 
+          navigate('/paymentsuccess', { state: { paymentResp: lastArray } }); 
+        }
+      })
+      
         
         // alert(response.razorpay_payment_id);
         // alert(response.razorpay_order_id);

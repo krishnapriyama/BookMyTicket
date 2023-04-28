@@ -64,7 +64,7 @@ function signup() {
         const response = await axios.post(
           'http://localhost:4000/register',
           { ...values },
-          { withCredentials: true },
+          { Credentials: true },
         )
 
         if (!response.data.created) {

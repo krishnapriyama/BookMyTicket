@@ -27,8 +27,8 @@ const {
 router.get('/view-theaters', viewTheaters)
 router.get('/view-users', viewUsers)
 router.get('/view-movies', viewMovies)
-router.get('/view-genre', allGenres)
-router.get('/view-language', allLanguages)
+router.get('/all-Genres', allGenres)
+router.get('/all-Languages', allLanguages)
 
 //post
 router.post('/login', adminLogin)
