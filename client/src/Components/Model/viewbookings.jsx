@@ -3,7 +3,6 @@ import moment from 'moment';
 import Rate from '../Extracomponents/rate'
 
 export default function viewbookings(props) {
-   console.log(props);
    const [showModal, setShowModal] = useState(false);
    const [rating, setRating] = useState(0);
    const [rating2, setRating2] = useState(0);
@@ -17,7 +16,7 @@ export default function viewbookings(props) {
    return (
       <>
          <button
-            class="bg-gray-800 text-white font-bold uppercase text-sm px-6 py-3 rounded"
+            className="bg-gray-800 text-white font-bold uppercase text-sm px-6 py-3 rounded"
             type="button"
             onClick={() => setShowModal(true)}
          >

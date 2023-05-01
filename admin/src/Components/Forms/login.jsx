@@ -2,10 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import { useEffect } from 'react'
-import { useState } from 'react'
 import adminAxios from '../../../config/adminAxios'
 
 const login = () => {
@@ -41,7 +39,6 @@ const login = () => {
       return error
     },
     onSubmit: async (values) => {
-      console.log(values)
       try {
         const response = await adminAxios.post(
           '/admin/login',

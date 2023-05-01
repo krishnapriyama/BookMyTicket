@@ -35,11 +35,11 @@ const newRelease = () => {
                   alt="poster"
                 />
               </Link>
-              <div class="mt-1 p-2 items-center justify-center">
-                <h2 class="text-white items-center justify-center">
+              <div className="mt-1 p-2 items-center justify-center">
+                <h2 className="text-white items-center justify-center">
                   {movie.moviename}
                 </h2>
-                <p class="mt-1 text-sm text-white">
+                <p className="mt-1 text-sm text-white">
                   {movie.genre} {'/'}
                   {movie.language}
                 </p>

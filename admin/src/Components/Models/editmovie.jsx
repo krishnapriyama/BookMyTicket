@@ -20,7 +20,6 @@ export default function Modal(props) {
       trailerlink: movie.trailerlink,
     },
     validate: (values) => {
-      console.log(values)
       const error = {}
       if (!values.moviename) {
         error.moviename = 'Name Required'
@@ -39,7 +38,6 @@ export default function Modal(props) {
     },
     onSubmit: async (values) => {
       setShowModal(false)
-      console.log(values, '----movies data')
       try {
         values._id = movie._id;
         const response = await adminAxios.post(
@@ -60,7 +58,7 @@ export default function Modal(props) {
   return (
     <>
       <button
-        class="text-black bg-green-600 font-medium rounded-lg text-lg px-5 py-2.5 focus:outline-none"
+        className="text-black bg-green-600 font-medium rounded-lg text-lg px-5 py-2.5 focus:outline-none"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -85,19 +83,19 @@ export default function Modal(props) {
                   </button>
                 </div>
                 {/*body*/}
-                <form class="w-full max-w-lg" onSubmit={formik.handleSubmit}>
+                <form className="w-full max-w-lg" onSubmit={formik.handleSubmit}>
                   <div className="relative p-6 flex-auto">
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                          class="block uppercase tracking-wide text-bleck text-xs font-bold mb-2"
-                          for="grid-first-name"
+                          className="block uppercase tracking-wide text-bleck text-xs font-bold mb-2"
+                          htmlFor="grid-first-name"
                         >
                           Movie Name
                         </label>
                         <input
                           {...formik.getFieldProps('moviename')}
-                          class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="moviename"
                           type="text"
                           name="moviename"
@@ -108,16 +106,16 @@ export default function Modal(props) {
                           </div>
                         ) : null}
                       </div>
-                      <div class="w-full md:w-1/2 px-3">
+                      <div className="w-full md:w-1/2 px-3">
                         <label
-                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                          for="grid-last-name"
+                          className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          htmlFor="grid-last-name"
                         >
                           Release date
                         </label>
                         <input
                           {...formik.getFieldProps('releasedate')}
-                          class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-last-name"
                           type="text"
                           name="releasedate"
@@ -130,17 +128,17 @@ export default function Modal(props) {
                         ) : null}
                       </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full px-3">
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full px-3">
                         <label
-                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                          for="grid-password"
+                          className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          htmlFor="grid-password"
                         >
                           Description
                         </label>
                         <input
                           {...formik.getFieldProps('description')}
-                          class="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="grid-password"
                           type="text"
                           name="description"
@@ -153,17 +151,17 @@ export default function Modal(props) {
                         </div>
                       ) : null}
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-2 mt-9">
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div className="flex flex-wrap -mx-3 mb-2 mt-9">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                          for="grid-city"
+                          className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          htmlFor="grid-city"
                         >
                           Genre
                         </label>
                         <input
                           {...formik.getFieldProps('genre')}
-                          class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-city"
                           name="genre"
                           type="text"
@@ -174,16 +172,16 @@ export default function Modal(props) {
                           </div>
                         ) : null}
                       </div>
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                          for="grid-state"
+                          className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          htmlFor="grid-state"
                         >
                           language
                         </label>
                         <input
                           {...formik.getFieldProps('language')}
-                          class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-city"
                           name="language"
                           type="text"
@@ -195,16 +193,16 @@ export default function Modal(props) {
                         ) : null}
                       </div>
                     </div>
-                    <div class="w-full mt-9">
+                    <div className="w-full mt-9">
                       <label
-                        class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                        for="grid-password"
+                        className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                        htmlFor="grid-password"
                       >
                         Trailer link
                       </label>
                       <input
                         {...formik.getFieldProps('trailerlink')}
-                        class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id="grid-password"
                         type="text"
                         name="trailerlink"

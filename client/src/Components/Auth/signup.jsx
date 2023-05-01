@@ -32,34 +32,36 @@ function signup() {
       password: '',
       conformpassword: '',
     },
-    validate: (values) => {
-      const error = {}
-      if (!values.email) {
-        error.email = 'Email Required'
-      }else
-
-      if (!values.name) {
-        error.name = 'Name Required'
-      }else
-
-      if (!values.phone) {
-        error.phone = 'Number Required'
-      } else if (values.phone.length != 10) {
-        error.phone = 'Number should be 10'
-      } else if (!/^[0-9]+$/.test(values.phone)) {
-        error.phone = 'This field should only contain numbers'
-      }else
-
-      if (!values.password) {
-        error.password = 'Password Required'
-      }else if (values.password != values.conformpassword) {
-        error.conformpassword = 'Password Mismatch'
-      }
-
-      return error
-    },
+  validate: (values) => {
+  const error = {};
+  if (!values.email) {
+    error.email = "Email Required";
+  }
+  if (!values.name) {
+    error.name = "Name Required";
+  }
+  if (!values.phone) {
+    error.phone = "Number Required";
+  } else if (values.phone.length !== 10) {
+    error.phone = "Number should be 10";
+  } else if (!/^[0-9]+$/.test(values.phone)) {
+    error.phone = "This field should only contain numbers";
+  }
+  if (!values.password) {
+    error.password = "Password Required";
+  } else if (
+    !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])(?=.{8,})/.test(
+      values.password
+    )
+  ) {
+    error.password =
+      "Password must contain at least 8 characters, including at least 1 digit, 1 lowercase letter, 1 uppercase letter, and 1 special character";
+  } else if (values.password !== values.conformpassword) {
+    error.conformpassword = "Password Mismatch";
+  }
+  return error;
+},
     onSubmit: async (values) => {
-      console.log(values);
       try {
         const response = await userAxios.post(
           '/register',
@@ -68,7 +70,6 @@ function signup() {
         )
 
         if (!response.data.created) {
-          console.log(response);
           console.log(response.data.created, 'Created False')
           if (response.data.errors) {
             const { email, password } = response.data.errors

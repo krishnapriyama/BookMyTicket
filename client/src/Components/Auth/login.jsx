@@ -33,7 +33,6 @@ function login() {
       password: '',
     },
     validate: (values) => {
-      console.log(values)
       const error = {}
       if (!values.email) {
         error.email = 'Email Required'
@@ -43,7 +42,6 @@ function login() {
       return error
     },
     onSubmit: async (values) => {
-      console.log(values,"--------------values");
       try {
         const response = await userAxios.post(
           '/login',

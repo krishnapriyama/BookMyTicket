@@ -6,7 +6,7 @@ const userModel = require('../Models/userModel')
 const genreModel = require('../Models/genreModel')
 const languageModel = require('../Models/languageModel')
 const jwt = require('jsonwebtoken')
-const moment = require('moment');
+const moment = require('moment')
 
 //Login
 module.exports.adminLogin = async (req, res, next) => {
@@ -17,21 +17,21 @@ module.exports.adminLogin = async (req, res, next) => {
       bcrypt.compare(password, admin.password, function (err, result) {
         if (result === true) {
           const token = jwt.sign({ email }, 'SuperSecretKey')
-          res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+          res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001')
           res.json({ created: true, token })
         } else {
-          res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+          res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001')
           res.json({ error: 'Invalid email or password' })
           console.log('Passwords do not match.')
         }
       })
     } else {
-      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001')
       res.json({ error: 'Invalid email or password' })
     }
   } catch (error) {
     console.log(error)
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001')
     res.send(error)
   }
 }
@@ -42,7 +42,7 @@ module.exports.viewTheaters = async (req, res, next) => {
     TheaterModel.find({}, { password: 0 }).then((response) => {
       res.json(response)
     })
-  } catch (error) { 
+  } catch (error) {
     res.status(404).send(error)
   }
 }
@@ -101,8 +101,6 @@ module.exports.addMovie = async (req, res, next) => {
       genre,
       language,
     } = req.body
-
-    console.log(req.body)
 
     const Movie = {
       moviename: moviename,
@@ -189,7 +187,6 @@ module.exports.deleteMovie = async (req, res, next) => {
 module.exports.theatorAccept = async (req, res, next) => {
   try {
     const { email, action } = await req.body
-    console.log(req.body)
     TheaterModel.findOneAndUpdate({ email: email }, { accepted: action })
       .then((resp) => {
         res.send(resp)
@@ -204,7 +201,6 @@ module.exports.theatorAccept = async (req, res, next) => {
 
 module.exports.userAction = async (req, res, next) => {
   try {
-    console.log(req.body)
     const { email, action } = await req.body
     userModel
       .findOneAndUpdate({ email: email }, { isBlocked: action })
@@ -231,7 +227,6 @@ module.exports.updateMovie = async (req, res, next) => {
     genre,
     language,
   } = req.body
-  console.log(req.body)
   try {
     MovieModel.updateOne(
       { _id: _id },
@@ -268,20 +263,18 @@ module.exports.updateUser = async (req, res, next) => {
 }
 
 module.exports.updateGenre = async (req, res, next) => {
-  const { _id, genre} = req.body
+  const { _id, genre } = req.body
   try {
-    genreModel
-      .updateOne({ _id: _id }, { genre: genre })
-      .then((resp) => {
-        res.send({ msg: `Genre updated` })
-      })
+    genreModel.updateOne({ _id: _id }, { genre: genre }).then((resp) => {
+      res.send({ msg: `Genre updated` })
+    })
   } catch (error) {
     console.log(error)
     res.send(error)
   }
 }
 module.exports.updateLanguage = async (req, res, next) => {
-  const { _id, language} = req.body
+  const { _id, language } = req.body
   try {
     languageModel
       .updateOne({ _id: _id }, { language: language })
@@ -302,7 +295,6 @@ module.exports.updateTheater = async (req, res, next) => {
       { name: theatername, place: place },
     ).then((resp) => {
       res.send({ msg: `theater updated` })
-      console.log(req.body)
     })
   } catch (error) {
     console.log(error)

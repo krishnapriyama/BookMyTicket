@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const sidebar = () => {
   const navigate = useNavigate()
@@ -73,25 +73,34 @@ const sidebar = () => {
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
+
+            <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/add-screen'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/add-screen"
                 >
-                  <i className={'fas fa-tv mr-2 text-sm '}></i> add screen
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
+                  add screen
                 </Link>
               </li>
-
-              <li className="items-center">
+            <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/view-screens'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/view-screens"
                 >
-                  <i className={'fas fa-tools mr-2 text-sm '}></i> view Screens
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
+                  view screen
                 </Link>
               </li>
             </ul>
-
 
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
@@ -100,21 +109,30 @@ const sidebar = () => {
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
+            <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/add-booking'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/add-booking"
                 >
-                  <i className={'fas fa-tv mr-2 text-sm '}></i> add bookings
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
+                  add booking
                 </Link>
               </li>
-
-              <li className="items-center">
+            <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/view-booking'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/view-booking"
                 >
-                  <i className={'fas fa-tools mr-2 text-sm '}></i> view bookings
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
+                  view booking
                 </Link>
               </li>
             </ul>
@@ -128,28 +146,60 @@ const sidebar = () => {
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
+             
+            <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/add-movies'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/add-movies"
                 >
-                  <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{' '}
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
                   ADD MOVIES
                 </Link>
               </li>
-
-              <li className="items-center">
+            <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/view-movies'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/view-movies"
                 >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{' '}
-                  view movies
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
+                  view MOVIES
                 </Link>
               </li>
             </ul>
+            {/* Divider */}
+            <hr className="my-4 md:min-w-full" />
+            {/* Heading */}
+            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+              Reports
+            </h6>
+            {/* Navigation */}
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none">
+
+            <li className="items-center">
+                <Link
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/report-screen'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
+                  to="/report-screen"
+                >
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
+                  Screen - Report
+                </Link>
+              </li>
+            </ul>
+
             <button
-              className="text-blueGray-700 bg-[#fa1b1b] rounded-xl hover:text-black-500 text-xs uppercase py-3 font-bold block duration-300 hover:bg-[#690606] hover:text-white hover:rounded-lg "
+              className="text-blueGray-700 mt-5 bg-[#fa1b1b] rounded-xl hover:text-black-500 text-xs uppercase py-3 font-bold block duration-300 hover:bg-[#690606] hover:text-white hover:rounded-lg "
               onClick={() => {
                 localStorage.removeItem('theaterToken')
                 navigate('/login')

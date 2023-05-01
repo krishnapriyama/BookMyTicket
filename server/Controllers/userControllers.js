@@ -31,7 +31,6 @@ const handleErrors = (err) => {
 
 //Auth
 module.exports.register = async (req, res, next) => {
-  console.log(req.body)
   try {
     const { email, name, password, phone } = req.body
     const action = { isBlocked: false }
@@ -51,7 +50,6 @@ module.exports.register = async (req, res, next) => {
 }
 
 module.exports.login = async (req, res, next) => {
-  console.log('hello')
   try {
     const { email, password } = req.body
     const user = await userModel.findOne({ email })
@@ -59,13 +57,10 @@ module.exports.login = async (req, res, next) => {
       bcrypt.compare(password, user.password, function (err, result) {
         if (result === true) {
           if (user.isBlocked) {
-            console.log(res, '------userblocked')
             res.status(401).json({ error: 'user Blocked Contact admin' })
           } else if (!user.verified) {
-            console.log(res, '------notverified')
             res.status(401).json({ error: 'user Not verified' })
           } else {
-            console.log(res, '------sucess')
             const token = jwt.sign({ email }, 'SuperSecretKey')
            
             res.json({ created: true, token })

@@ -11,10 +11,12 @@ const {
   AddShow,
   updateScreen,
   totalincome,
-  screen,
-  movietime,
+  screenedShows,
   viewbooking,
-  deleteshow
+  deleteshow,
+  reportscreen,
+  movieShows,
+  deletebooking
 } = require('../Controllers/theaterControllers')
 const authMiddleware = require('../Middlewares/authMiddleware')
 
@@ -30,12 +32,14 @@ router.get('/total-income', totalincome)
 router.get('/view-screens',authMiddleware, viewScreen)
 router.get("/view-show",authMiddleware,ScreennedMovies)
 router.get("/view-booking",authMiddleware,viewbooking)
-router.get("/screen",authMiddleware,screen)
-router.get("/movie-time/:id",authMiddleware,movietime)
+router.get("/shows",authMiddleware,screenedShows)
+router.get("/report-screen",authMiddleware,reportscreen)
+router.get("/movie-shows/:id",authMiddleware,movieShows)
 
 
 //delete
 router.delete('/deleteScreen/:id', deleteScreen)
 router.delete('/deleteshow/:id', deleteshow)
+router.delete('/deletebooking/:id', deletebooking)
 
 module.exports = router

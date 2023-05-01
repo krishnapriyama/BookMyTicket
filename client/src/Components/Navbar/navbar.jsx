@@ -58,20 +58,20 @@ const NavLg = () => {
           </div>
 
 
-          <div class="relative">
-            <div class="flex items-center justify-center mt-3 bg-white rounded-md">
-              <input type="search" class="bg-transparent w-[500px] border-none focus:outline-none py-2 px-2" placeholder="Search for movies, events, Plays, Sports and Activities." value={key} onChange={(e) => setKey(e.target.value)} />
+          <div className="relative">
+            <div className="flex items-center justify-center mt-3 bg-white rounded-md">
+              <input type="search" className="bg-transparent w-[500px] border-none focus:outline-none py-2 px-2" placeholder="Search htmlFor movies...." value={key} onChange={(e) => setKey(e.target.value)} />
             </div>
             {search && search.length > 0 && (
-              <div class="absolute top-full left-0 right-0 z-10 bg-white shadow-md max-h-60 overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 z-10 bg-white shadow-md max-h-60 overflow-y-auto">
                 {search.map((movie) => (
-                  <div class="flex items-center px-2 py-3 cursor-pointer hover:bg-gray-100" key={movie._id}>
-                    <div class="w-12 h-16 mr-4">
+                  <div className="flex items-center px-2 py-3 cursor-pointer hover:bg-gray-100" key={movie._id}>
+                    <div className="w-12 h-16 mr-4">
                       <Link to={`/moviedetail/${movie._id}`}>
-                        <img class="object-cover w-full h-full" src={movie.poster1} />
+                        <img className="object-cover w-full h-full" src={movie.poster1} />
                       </Link>
                     </div>
-                    <div class="text-lg font-medium">{movie.moviename}</div>
+                    <div className="text-lg font-medium">{movie.moviename}</div>
                   </div>
                 ))}
               </div>

@@ -7,9 +7,6 @@ export default function ModalScreen(props) {
    const navigate = useNavigate()
    const [showModal, setShowModal] = useState(false)
    const [screen, setScreen] = useState(props.screen)
-   
-
-   console.log(screen);
 
    const formik = useFormik({
       initialValues: {
@@ -39,8 +36,6 @@ export default function ModalScreen(props) {
                '/theater/updateScreen',
                { ...values }
             )
-             
-            console.log(response);
 
             if (response) {
                window.location.reload()
@@ -56,7 +51,7 @@ export default function ModalScreen(props) {
    return (
       <>
          <button
-            class="text-white bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+            className="text-white bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
             type="button"
             onClick={() => setShowModal(true)}
          >
@@ -81,19 +76,19 @@ export default function ModalScreen(props) {
                            </button>
                         </div>
                         {/*body*/}
-                        <form class="w-full max-w-lg" onSubmit={formik.handleSubmit}>
+                        <form className="w-full max-w-lg" onSubmit={formik.handleSubmit}>
                            <div className="relative p-6 flex-auto">
-                              <div class="flex flex-wrap -mx-3 mb-6">
-                                 <div class="w-full px-3 mb-6 md:mb-0">
+                              <div className="flex flex-wrap -mx-3 mb-6">
+                                 <div className="w-full px-3 mb-6 md:mb-0">
                                     <label
-                                       class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                                       for="grid-first-name"
+                                       className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                                       htmlFor="grid-first-name"
                                     >
                                        Name
                                     </label>
                                     <input
                                        {...formik.getFieldProps('screenname')}
-                                       class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                       className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                        id="grid-first-name"
                                        type="text"
                                        name="screenname"
@@ -105,16 +100,16 @@ export default function ModalScreen(props) {
                                        </div>
                                     ) : null}
                                  </div>
-                                 <div class="w-full px-3 mb-6 md:mb-0">
+                                 <div className="w-full px-3 mb-6 md:mb-0">
                                     <label
-                                       class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                                       for="grid-first-name"
+                                       className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                                       htmlFor="grid-first-name"
                                     >
                                        Type
                                     </label>
                                     <input
                                        {...formik.getFieldProps('screentype')}
-                                       class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                       className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                        id="grid-first-name"
                                        type="text"
                                        name="screentype"
@@ -126,16 +121,16 @@ export default function ModalScreen(props) {
                                        </div>
                                     ) : null}
                                  </div>
-                                 <div class="w-full px-3 mb-6 md:mb-0">
+                                 <div className="w-full px-3 mb-6 md:mb-0">
                                     <label
-                                       class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                                       for="grid-first-name"
+                                       className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                                       htmlFor="grid-first-name"
                                     >
                                        Row
                                     </label>
                                     <input
                                        {...formik.getFieldProps('rowcount')}
-                                       class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                       className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                        id="grid-first-name"
                                        type="text"
                                        name="rowcount"
@@ -147,16 +142,16 @@ export default function ModalScreen(props) {
                                        </div>
                                     ) : null}
                                  </div>
-                                 <div class="w-full px-3 mb-6 md:mb-0">
+                                 <div className="w-full px-3 mb-6 md:mb-0">
                                     <label
-                                       class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                                       for="grid-first-name"
+                                       className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                                       htmlFor="grid-first-name"
                                     >
                                        Column
                                     </label>
                                     <input
                                        {...formik.getFieldProps('columncount')}
-                                       class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                       className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                        id="grid-first-name"
                                        type="text"
                                        name="columncount"

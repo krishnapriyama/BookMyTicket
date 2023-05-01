@@ -38,7 +38,6 @@ const signup = () => {
       return error
     },
     onSubmit: async (values) => {
-      console.log(values)
       try {
         const response = await theaterToken.post(
           '/theater/register',
@@ -53,7 +52,6 @@ const signup = () => {
           if (email) {
             generateError(email)
           }
-          console.log(response)
           console.log('Registeration Failed')
         }
       } catch (error) {

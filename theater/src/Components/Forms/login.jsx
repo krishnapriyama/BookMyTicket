@@ -40,7 +40,6 @@ const login = () => {
       return error
     },
     onSubmit: async (values) => {
-      console.log(values)
       try {
         const response = await theaterToken.post(
           '/theater/login',

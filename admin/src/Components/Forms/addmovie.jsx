@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useFormik } from 'formik'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import adminAxios from '../../../config/adminAxios'
 import { storage } from '../../Firebase/firebase'
@@ -41,7 +40,6 @@ const addmovieform = () => {
       return errors
     },
     onSubmit: async (values) => {
-      console.log(values, '----movies data')
       try {
         let posterUrl1 = null
         let posterUrl2 = null
@@ -101,7 +99,6 @@ const addmovieform = () => {
             poster3: posterUrl3,
           },
           {
-           
             headers: { 'Content-Type': 'application/json' },
           },
         )
@@ -133,7 +130,6 @@ const addmovieform = () => {
     }
   }
 
-
   useEffect(() => {
     try {
       adminAxios.get('/admin/all-Genres').then((response) => {
@@ -143,13 +139,16 @@ const addmovieform = () => {
         setLanguage(response.data)
       })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }, [genre, language])
 
   return (
     <div className="flex justify-center items-center w-full text-white">
-      <form className="w-full max-w-lg ml-4 mt-9" onSubmit={formik.handleSubmit}>
+      <form
+        className="w-full max-w-lg ml-4 mt-9"
+        onSubmit={formik.handleSubmit}
+      >
         <h1 className="font-bold text-5xl items-center justify-center flex mb-11">
           ADD MOVIE
         </h1>
@@ -273,10 +272,18 @@ const addmovieform = () => {
 
         <div className="flex flex-wrap -mx-3 mb-2 mt-9">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-city">
+            <label
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              htmlFor="grid-city"
+            >
               Genre
             </label>
-            <select {...formik.getFieldProps('genre')} className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-city" name="genre">
+            <select
+              {...formik.getFieldProps('genre')}
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="grid-city"
+              name="genre"
+            >
               <option value="">Select</option>
               {genre.map((g) => (
                 <option key={g.id} value={g.genre}>
@@ -289,10 +296,18 @@ const addmovieform = () => {
             ) : null}
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-state">
+            <label
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              htmlFor="grid-state"
+            >
               language
             </label>
-            <select {...formik.getFieldProps('language')} className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-state" name="language">
+            <select
+              {...formik.getFieldProps('language')}
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="grid-state"
+              name="language"
+            >
               <option value="">Select</option>
               {language.map((l) => (
                 <option key={l.id} value={l.language}>

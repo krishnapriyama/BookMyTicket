@@ -28,19 +28,19 @@ const ProductBillingPage = () => {
 
 
    return (
-      <div class="flex justify-center items-center">
-         <div class="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
-            <div class="flex flex-col justify-start items-start w-full space-y-9">
-               <div class="flex justify-start flex-col items-start space-y-2">
-                  <p class="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-black uppercase">
+      <div className="flex justify-center items-center">
+         <div className="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
+            <div className="flex flex-col justify-start items-start w-full space-y-9">
+               <div className="flex justify-start flex-col items-start space-y-2">
+                  <p className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-black uppercase">
                      Checkout
                   </p>
                </div>
-               <div class="flex flex-col  xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
-                  <div class="flex  flex-col sm:flex-row xl:flex-col justify-center items-center bg-gray-100  sm:py-0 xl:py-10 px-10 xl:w-full">
-                     <h1 class="text-4xl my-4 uppercase ">{checkoutDetieals?.movie?.moviename}</h1>
+               <div className="flex flex-col  xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
+                  <div className="flex  flex-col sm:flex-row xl:flex-col justify-center items-center bg-gray-100  sm:py-0 xl:py-10 px-10 xl:w-full">
+                     <h1 className="text-4xl my-4 uppercase ">{checkoutDetieals?.movie?.moviename}</h1>
                      <img src={checkoutDetieals?.movie?.poster1} width={300} height={300} alt="" />
-                     <div class="flex  flex-col justify-start items-start w-full space-y-4">
+                     <div className="flex  flex-col justify-start items-start w-full space-y-4">
                         <span className="text-base font-semibold leading-none text-gray-600">
                            <h1 className="text-xl my-4 uppercase text-center ">{checkoutDetieals?.movie?.description}</h1>
                         </span>

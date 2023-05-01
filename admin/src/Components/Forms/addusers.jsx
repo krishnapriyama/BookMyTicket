@@ -1,6 +1,5 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import adminAxios from '../../../config/adminAxios'
@@ -47,7 +46,6 @@ const addusers = () => {
       return error
     },
     onSubmit: async (values) => {
-      console.log(values, '----users data')
       try {
         const response = await adminAxios.post(
           '/register',
@@ -74,21 +72,21 @@ const addusers = () => {
 
   return (
     <div className="flex justify-center items-center w-full text-white">
-      <form class="w-full max-w-lg mt-9" onSubmit={formik.handleSubmit}>
+      <form className="w-full max-w-lg mt-9" onSubmit={formik.handleSubmit}>
         <h1 className="font-bold text-5xl items-center justify-center flex mb-11">
           ADD USER
         </h1>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
-              class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-              for="grid-first-name"
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              hrmlFor="grid-first-name"
             >
               Email
             </label>
             <input
               {...formik.getFieldProps('email')}
-              class="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-first-name"
               type="email"
               name="email"
@@ -99,16 +97,16 @@ const addusers = () => {
               <div className="text-red-500">{formik.errors.email}</div>
             ) : null}
           </div>
-          <div class="w-full md:w-1/2 px-3">
+          <div className="w-full md:w-1/2 px-3">
             <label
-              class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-              for="grid-last-name"
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              hrmlFor="grid-last-name"
             >
               UserName
             </label>
             <input
               {...formik.getFieldProps('name')}
-              class="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="name"
               type="text"
               name="name"
@@ -119,17 +117,17 @@ const addusers = () => {
             ) : null}
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
             <label
-              class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-              for="grid-password"
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              hrmlFor="grid-password"
             >
               Phone Number
             </label>
             <input
               {...formik.getFieldProps('phone')}
-              class="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="phone"
               type="text"
               name="phone"
@@ -140,17 +138,17 @@ const addusers = () => {
             <div className="text-red-500">{formik.errors.phone}</div>
           ) : null}
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
             <label
-              class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-              for="grid-password"
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              hrmlFor="grid-password"
             >
               password
             </label>
             <input
               {...formik.getFieldProps('password')}
-              class="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-password"
               type="text"
               name="password"
@@ -161,17 +159,17 @@ const addusers = () => {
             <div className="text-red-500">{formik.errors.password}</div>
           ) : null}
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
             <label
-              class="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-              for="grid-password"
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
+              hrmlFor="grid-password"
             >
               confrom password
             </label>
             <input
               {...formik.getFieldProps('confirmPassword')}
-              class="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full h-14 bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-password"
               type="password"
               name="confirmPassword"
@@ -184,7 +182,7 @@ const addusers = () => {
             ) : null}
           </div>
         </div>
-        <div class="w-full px-3 mt-9 items-end flex justify-end">
+        <div className="w-full px-3 mt-9 items-end flex justify-end">
           <button className="text-white w-full h-14 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             Submit
           </button>

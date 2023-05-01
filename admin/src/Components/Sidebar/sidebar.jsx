@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const sidebar = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const [collapseShow, setCollapseShow] = useState('hidden')
   return (
     <>
@@ -75,7 +77,11 @@ const sidebar = () => {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/add-users'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/add-users"
                 >
                   <i className={'fas fa-tv mr-2 text-sm '}></i> add user
@@ -84,18 +90,20 @@ const sidebar = () => {
 
               <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/view-users'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/view-users"
                 >
-                  <i className={'fas fa-tools mr-2 text-sm '}></i> view users
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> View Users
                 </Link>
               </li>
             </ul>
 
-
-
-             {/* Divider */}
-             <hr className="my-4 md:min-w-full" />
+            {/* Divider */}
+            <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Type MANGEMENT
@@ -104,19 +112,27 @@ const sidebar = () => {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/gener-language'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/gener-language"
                 >
-                  <i className={'fas fa-tv mr-2 text-sm '}></i> Genre & Languagae
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> Genre &
+                  Languagae
                 </Link>
               </li>
-
               <li className="items-center">
                 <Link
-                  className="text-xs uppercase py-3 font-bold block "
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/view-genre_language'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/view-genre_language"
                 >
-                  <i className={'fas fa-tools mr-2 text-sm '}></i> View 
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> View
                 </Link>
               </li>
             </ul>
@@ -130,23 +146,28 @@ const sidebar = () => {
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
+            <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/add-movies'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/add-movies"
                 >
-                  <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{' '}
-                  ADD MOVIES
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> ADD MOVIES
                 </Link>
               </li>
-
-              <li className="items-center">
+            <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/view-movies'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/view-movies"
                 >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{' '}
-                  view movies
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> ADD view movies
                 </Link>
               </li>
             </ul>
@@ -159,28 +180,35 @@ const sidebar = () => {
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
+
+            <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/add-theaters'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/add-theaters"
                 >
-                  <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{' '}
-                  add theaters
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> 
+                   add theaters
                 </Link>
               </li>
-
-              <li className="items-center">
+            <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  className={`text-xs uppercase py-3 font-bold block ${
+                    location.pathname === '/view-theaters'
+                      ? 'bg-gray-500 rounded-2xl'
+                      : ''
+                  }`}
                   to="/view-theaters"
                 >
-                  <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{' '}
-                  view theaters
+                  <i className={'fas fa-tools mr-2 text-sm'}></i> ADD  view theaters
                 </Link>
               </li>
             </ul>
             <button
-              className="text-blueGray-700 bg-[#fa1b1b] rounded-xl hover:text-black-500 text-xs uppercase py-3 font-bold block duration-300 hover:bg-[#690606] hover:text-white hover:rounded-lg "
+              className="text-blueGray-700 mt-5 bg-[#fa1b1b] rounded-xl hover:text-black-500 text-xs uppercase py-3 font-bold block duration-300 hover:bg-[#690606] hover:text-white hover:rounded-lg "
               onClick={() => {
                 localStorage.removeItem('adminToken')
                 navigate('/login')

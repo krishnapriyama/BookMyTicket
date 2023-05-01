@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
-import moment from 'moment';
 import adminAxios from '../../../config/adminAxios'
 
 //component

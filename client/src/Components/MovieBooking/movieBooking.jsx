@@ -17,15 +17,15 @@ const movieBooking = (props) => {
 
   return (
     <div>
-      <div class="Main-Container w-full m-0 p-3">
-        <div class="active-fill flex justify-end items-center mb-4">
-          <button class="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">
+      <div className="Main-Container w-full m-0 p-3">
+        <div className="active-fill flex justify-end items-center mb-4">
+          <button className="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">
             Availability
           </button>
-          <button class="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">
+          <button className="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">
             Fast Filling
           </button>
-          <button class="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">
+          <button className="btn bg-red-500 h-10 text-white rounded-lg px-4 mx-1">
             Subtitle
           </button>
         </div>
@@ -37,14 +37,14 @@ const movieBooking = (props) => {
             if (currentDate >= startDate && currentDate <= endDate) {
               return (
                 <React.Fragment key={index}>
-                  <hr class="pt-3" />
+                  <hr className="pt-3" />
                   {console.log(item, 'hjkjhkj')}
-                  <div class="Theater-container">
-                    <div class="theater-Name-container w-3/10 flex items-center">
-                      <h5 class="pe-3 m-0">{item.theater.name}</h5>
-                      <p class="m-3">{item.theater.screen.screenname}</p>
+                  <div className="Theater-container">
+                    <div className="theater-Name-container w-3/10 flex items-center">
+                      <h5 className="pe-3 m-0">{item.theater.name}</h5>
+                      <p className="m-3">{item.theater.screen.screenname}</p>
                     </div>
-                    <div class="Time-button w-7/10 flex justify-start mt-5">
+                    <div className="Time-button w-7/10 flex justify-start mt-5">
                       {item.ShowTimes.map((value, index) => (
                         <button
                           onClick={() => {

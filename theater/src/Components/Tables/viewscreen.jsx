@@ -17,11 +17,9 @@ const viewscreen = () => {
   useEffect(() => {
     try {
       let token = localStorage.getItem('theaterToken')
-      console.log(token)
       theaterToken
         .get('/theater/view-screens')
         .then((resp) => {
-          console.log(resp)
           if (resp.data) {
             setScreen(resp.data.screens)
             SetLength(resp.data.screens.length)

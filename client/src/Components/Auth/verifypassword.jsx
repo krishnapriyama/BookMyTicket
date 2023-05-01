@@ -27,21 +27,15 @@ function forgotpassword() {
         document.getElementById("sendotp").hidden = true;
         document.getElementById("verify").hidden = false;
         document.getElementById("recaptcha-container").hidden = true;
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult;
-        // ...
       })
       .catch((error) => {
-        // Error; SMS not sent
         swal.fire({
             title: "Error",
             text: " SMS not sent",
             icon: "error",
             confirmButtonText: "OK",
           });
-        // console.log(error, "Error; SMS not sent");
-        // ...
       });
       
   }
@@ -51,7 +45,6 @@ function forgotpassword() {
     window.confirmationResult.confirm(code)
       .then((result) => {
         
-        // User signed in successfully.
         let verifyPhoneNumber = {
             verified: true,
             number: "+91" +document.getElementById("phone").value,
@@ -78,11 +71,8 @@ function forgotpassword() {
                   });
               }
           })
-        // const user = result.user;
-        // ...
       })
       .catch((error) => {
-        // User couldn't sign in (bad verification code?)
         swal.fire({
             title: "Error",
             text: "Verification code is incorrect",
@@ -90,7 +80,6 @@ function forgotpassword() {
             confirmButtonText: "OK",
           });
           throw error;
-        // ...
       });
   }
   

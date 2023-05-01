@@ -42,7 +42,7 @@ export default function Modallanguage(props) {
    return (
       <>
          <button
-            class="text-black bg-yellow-600 font-medium rounded-lg text-lg px-5 py-2.5 focus:outline-none"
+            className="text-black bg-yellow-600 font-medium rounded-lg text-lg px-5 py-2.5 focus:outline-none"
             type="button"
             onClick={() => setShowModal(true)}
          >
@@ -67,19 +67,19 @@ export default function Modallanguage(props) {
                            </button>
                         </div>
                         {/*body*/}
-                        <form class="w-full max-w-lg" onSubmit={formik.handleSubmit}>
+                        <form className="w-full max-w-lg" onSubmit={formik.handleSubmit}>
                            <div className="relative p-6 flex-auto">
-                              <div class="flex flex-wrap -mx-3 mb-6">
-                                 <div class="w-full px-3 mb-6 md:mb-0">
+                              <div className="flex flex-wrap -mx-3 mb-6">
+                                 <div className="w-full px-3 mb-6 md:mb-0">
                                     <label
-                                       class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                                       for="grid-first-name"
+                                       className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                                       htmlFor="grid-first-name"
                                     >
                                        Language
                                     </label>
                                     <input
                                        {...formik.getFieldProps('language')}
-                                       class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                       className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                        id="grid-first-name"
                                        type="text"
                                        name="language"

@@ -26,7 +26,6 @@ export default function Modaltheater(props) {
       return errors
     },
     onSubmit: async (values) => {
-       console.log(values, '----theater data')
       setShowModal(false)
       try {
          values._id = theater._id
@@ -48,7 +47,7 @@ export default function Modaltheater(props) {
   return (
     <>
       <button
-        class="text-black bg-blue-600 font-medium items-center rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+        className="text-black bg-blue-600 font-medium items-center rounded-lg text-sm px-5 py-2.5 focus:outline-none"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -73,19 +72,19 @@ export default function Modaltheater(props) {
                   </button>
                 </div>
                 {/*body*/}
-                <form class="w-full max-w-lg" onSubmit={formik.handleSubmit}>
+                <form className="w-full max-w-lg" onSubmit={formik.handleSubmit}>
                   <div className="relative p-6 flex-auto">
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                          for="grid-first-name"
+                          className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          htmlFor="grid-first-name"
                         >
                           theaer Name
                         </label>
                         <input
                           {...formik.getFieldProps('theatername')}
-                          class="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                          className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-first-name"
                           type="text"
                           name="theatername"
@@ -98,16 +97,16 @@ export default function Modaltheater(props) {
                           </div>
                         ) : null}
                       </div>
-                      <div class="w-full md:w-1/2 px-3">
+                      <div className="w-full md:w-1/2 px-3">
                         <label
-                          class="block uppercase tracking-wide text-black text-xs font-bold mb-2"
-                          for="grid-last-name"
+                          className="block uppercase tracking-wide text-black text-xs font-bold mb-2"
+                          htmlFor="grid-last-name"
                         >
                           Place
                         </label>
                         <input
                           {...formik.getFieldProps('place')}
-                          class="appearance-none block w-full bg-gray-200 text-black border border-gray-200 round
+                          className="appearance-none block w-full bg-gray-200 text-black border border-gray-200 round
            ed py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="grid-last-name"
                           type="text"

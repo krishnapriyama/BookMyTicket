@@ -5,6 +5,7 @@ const ShowModel = require('../Models/showModel')
 const bookingModel = require('../Models/BookingModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const showModel = require('../Models/showModel')
 
 const handleErrors = (err) => {
   let errors = { email: '', password: '' }
@@ -63,7 +64,6 @@ module.exports.Login = async (req, res, next) => {
 }
 
 module.exports.addScreen = async (req, res, next) => {
-  
   try {
     const data = {
       screenname: req.body.screenname,
@@ -110,44 +110,53 @@ module.exports.deleteScreen = async (req, res, next) => {
   }
 }
 module.exports.deleteshow = async (req, res, next) => {
-  const showId = req.params.id;
+  const showId = req.params.id
   try {
-    await ShowModel.deleteOne({ _id: showId });
-    res.send({ msg: 'movie deleted' });
+    await ShowModel.deleteOne({ _id: showId })
+    res.send({ msg: 'movie deleted' })
   } catch (error) {
-    res.status(404).send({ err: 'no idea', error });
+    res.status(404).send({ err: 'no idea', error })
+  }
+}
+module.exports.deletebooking = async (req, res, next) => {
+  const bookingId = req.params.id
+  try {
+    await bookingModel.deleteOne({ _id: bookingId })
+    res.send({ msg: 'booking deleted' })
+  } catch (error) {
+    res.status(404).send({ err: 'no idea', error })
   }
 }
 
-
 module.exports.ScreennedMovies = async (req, res, next) => {
-  const { email } = req.user;
+  const { email } = req.user
   try {
-    ShowModel.find({ "theater.email": email }).sort({'EndDate': -1})
+    ShowModel.find({ 'theater.email': email })
+      .sort({ EndDate: -1 })
       .then((ScreendMovies) => {
-        console.log(ScreendMovies);
-        res.status(200).send(ScreendMovies);
+        res.status(200).send(ScreendMovies)
       })
       .catch((err) => {
-        res.status(404).send(err);
-      });
+        res.status(404).send(err)
+      })
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404).send(error)
   }
-};
+}
 
 module.exports.viewbooking = async (req, res, next) => {
   bookingModel.find().then((resp) => {
-    res.status(200).send(resp);
-  });
-};
+    res.status(200).send(resp)
+  })
+}
 
-module.exports.screen = async (req, res, next) => {
+module.exports.screenedShows = async (req, res, next) => {
   const { email } = req.user
   try {
-    const theater = await TheaterModel.findOne({ email })
-    const screens = theater.screens
-    res.status(200).json({ screens })
+    const today = new Date()
+    const shows = await showModel.find({"theater.email":email,EndDate:{$gte:today}})
+    
+    res.status(200).json(shows)
   } catch (err) {
     res.status(500).json({ error: 'Server error' })
   }
@@ -202,7 +211,8 @@ module.exports.updateScreen = async (req, res, next) => {
     res.status(500).json({ message: 'Server error' })
   }
 }
-module.exports.totalincome = async (req, res, next) => {updateScreen
+module.exports.totalincome = async (req, res, next) => {
+  updateScreen
   try {
     const total = await bookingModel.aggregate([
       {
@@ -239,27 +249,44 @@ module.exports.totalincome = async (req, res, next) => {updateScreen
   }
 }
 
-module.exports.movietime = async (req, res, next) => {
-  const screen_id = req.params.id
-  console.log(req.user)
+module.exports.reportscreen = async (req, res, next) => {
+  const { email } = req.user
 
-  try {
-    const movie = await ShowModel.findOne({ 'theater.screen._id': screen_id })
-    if (!movie) {
-      return res
-        .status(404)
-        .json({ message: 'Movie not found for given screen id.' })
+  const bookings = await bookingModel.aggregate([
+    {
+      $match: {
+        'theater.email': email,
+      }
+    },
+    {
+      $group: {
+        _id: {
+          theater: '$theater.name',
+          screen: '$theater.screen.screenname',
+        },
+        count: { $sum: 1 },
+        successCount: { $sum: { $cond: [ '$CompletPayment', 1, 0 ] } },
+        failureCount: { $sum: { $cond: [ '$CompletPayment', 0, 1 ] } },
+        totalAmount: { $sum: '$show.TotelPrice' }
+      }
     }
+  ])
 
-    const theater = movie.theater
-    const showTimes = movie.ShowTimes
-    const movieDetails = [{
-      movieName: movie.Movie.moviename,
-    }]
-
-    return res.status(200).json([ movieDetails, showTimes,theater ])
-  } catch (err) {
-    console.log(err)
-    return res.status(500).json({ message: 'Server error.' })
+  if (!bookings || bookings.length === 0) {
+    return res.status(404).json({ error: 'No bookings found' })
   }
+
+  return res.status(200).json({ bookings })
 }
+
+module.exports.movieShows = async (req, res, next) => {
+const today = new Date()
+showModel.find({"theater.screen._id":req.params.id,EndDate:{$gte:today}}).then((resp)=>{
+  res.status(200).send(resp)
+}).catch((err)=>{
+  res.status(404).send(err)
+})
+}
+
+
+

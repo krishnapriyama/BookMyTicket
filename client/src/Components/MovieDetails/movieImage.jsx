@@ -65,7 +65,7 @@ const movieImage = () => {
       className="w-[200px] h-[300px] block rounded-lg"
       />
       </div>
-      <p class="text-black mb-4 w-[1200px] mx-auto flex justify-center font-semibold items-center text-center">
+      <p className="text-black mb-4 w-[1200px] mx-auto flex justify-center font-semibold items-center text-center">
   {movie.description}
 </p>
 

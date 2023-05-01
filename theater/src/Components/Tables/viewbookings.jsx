@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import theaterAxios from '../../../config/theaterAxios'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
+import swal from 'sweetalert';
+
 
 const viewbookings = () => {
   const [booking, setBooking] = useState([])
@@ -12,7 +14,6 @@ const viewbookings = () => {
     theaterAxios
       .get('/theater/view-booking')
       .then((bookinglist) => {
-        console.log(bookinglist);
         setBooking(bookinglist.data)
         setLength(bookinglist.data.length)
       })
@@ -24,6 +25,39 @@ const viewbookings = () => {
     const endIndex = startIndex + itemsPerPage;
     return booking.slice(startIndex, endIndex);
   }
+
+  const handleDelete = (id) => {
+    swal({
+       title: "Are you sure?",
+       text: "Once deleted, you will not be able to recover this",
+       icon: "warning",
+       buttons: true,
+       dangerMode: true,
+    })
+       .then((willDelete) => {
+          if (willDelete) {
+             fetch(`http://localhost:4000/theater/deletebooking/${id}`, {
+                method: 'DELETE',
+                headers: {
+                   'Content-Type': 'application/json',
+                },
+             })
+                .then((response) => {
+                   if (response.ok) {
+                      const updatedbooking = booking.filter((s) => s._id !== id);
+                      setBooking(updatedbooking);
+                   } else {
+                      console.error('Error deleting booking')
+                      alert('Error deleting booking')
+                   }
+                })
+                .catch((error) => {
+                   console.error(error)
+                   alert('Error deleting booking')
+                })
+          }
+       });
+ }
 
 
   return (
@@ -103,6 +137,7 @@ const viewbookings = () => {
                   <button
                     type="button"
                     className="text-white bg-red-700 hover:bg-red-800  w-20 hover:ring-4 hover:ring-green-300 font-medium rounded-lg text-sm  py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    onClick={() => handleDelete(Reservation._id)}
                   >
                     Delete
                   </button>

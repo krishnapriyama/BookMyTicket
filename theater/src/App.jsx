@@ -5,25 +5,17 @@ import 'react-toastify/dist/ReactToastify.css';
 // components
 const Dashboard = lazy(() => import('./Pages/Dashboard/dashboard'));
 const Sidebar = lazy(() => import('./Pages/Dashboard/sidebar'));
-
-// Auth
 const Signup = lazy(() => import('./Pages/Authentication/signup'));
 const Login = lazy(() => import('./Pages/Authentication/login'));
-
-// 404
 const Approval = lazy(() => import('./Pages/404/approval'));
-
-// screens
 const Addscreen = lazy(() => import('./Pages/screen/addscreen'));
 const Viewscreen = lazy(() => import('./Pages/screen/viewscreen'));
-
-// Movies
 const Addmovies = lazy(() => import('./Pages/Movie/addmovies'));
 const Viewmovies = lazy(() => import('./Pages/Movie/viewmovies'));
-
-// booking
 const AddBooking = lazy(() => import('./Pages/Bookings/addbooking'));
 const ViewBooking = lazy(() => import('./Pages/Bookings/viebookings'));
+const ReportScreens = lazy(() => import('./Pages/Reports/reportScreen'));
+
 
 const App = () => {
   return (
@@ -41,6 +33,7 @@ const App = () => {
           <Route path={'/view-movies'} element={<Suspense fallback={<div>Loading...</div>}> <Viewmovies /> </Suspense>} />
           <Route path={'/add-booking'} element={<Suspense fallback={<div>Loading...</div>}> <AddBooking /> </Suspense>} />
           <Route path={'/view-booking'} element={<Suspense fallback={<div>Loading...</div>}> <ViewBooking /> </Suspense>} />
+          <Route path={'/report-screen'} element={<Suspense fallback={<div>Loading...</div>}> <ReportScreens /> </Suspense>} />
         </Route>
         {/* end */}
       </Routes>
