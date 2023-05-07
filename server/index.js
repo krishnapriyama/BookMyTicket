@@ -30,8 +30,11 @@ app.use((req, res, next) => {
   next();
 });
 
+const url = 'mongodb+srv://krishnapriyama185:AS4UtDXk1Yjf9vJI@cluster0.p8d9dql.mongodb.net/bookmyticket'
+
 mongoose
-  .connect('mongodb://localhost:27017/bookticket', {
+
+  .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

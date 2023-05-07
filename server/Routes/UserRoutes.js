@@ -15,7 +15,8 @@ const {
   confirmPayment,
   viewbooking,
   updaterate,
-  ratingvalue
+  ratingvalue,
+  forgotpassword
 } = require('../Controllers/userControllers')
 const verifyAuth = require('../Middlewares/authMiddleware')
 const router = require('express').Router()
@@ -35,6 +36,7 @@ router.post('/seatbook',verifyAuth,seatBooking)
 router.post('/bookedseats',bookedseats)
 router.post('/order',verifyAuth,order)
 router.post('/order',verifyAuth,order)
+router.post('/forgotpassword',forgotpassword)
 router.post('/update-rate',verifyAuth,updaterate)
 router.get('/view-booking',verifyAuth,viewbooking)
 router.get('/star-ratingvalue',verifyAuth,ratingvalue)

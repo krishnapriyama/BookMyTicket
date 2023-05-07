@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path={'/login'} element={<Login />} />
           <Route path={'/signup'} element={<Signup />} />
-        <Route path="/forgotpassword" element={<Forgotpassword/>}/>
+        <Route path="/verifymobile" element={<Forgotpassword/>}/>
           {/* Child components */}
           <Route path={'/'} element={<Homepage />}/>
             <Route path={'/allmovies'} element={<Movies />} />

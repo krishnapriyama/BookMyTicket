@@ -8,7 +8,7 @@ import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 import userAxios from '../../../confic/axiosUser'
 
 
-function forgotpassword() {
+function verifyMobile() {
   const navigate = useNavigate();
 
   async function handleClickVerify() {
@@ -140,4 +140,4 @@ function forgotpassword() {
   );
 }
 
-export default forgotpassword;
+export default verifyMobile;

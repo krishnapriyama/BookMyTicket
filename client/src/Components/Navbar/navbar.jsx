@@ -60,7 +60,7 @@ const NavLg = () => {
 
           <div className="relative">
             <div className="flex items-center justify-center mt-3 bg-white rounded-md">
-              <input type="search" className="bg-transparent w-[500px] border-none focus:outline-none py-2 px-2" placeholder="Search htmlFor movies...." value={key} onChange={(e) => setKey(e.target.value)} />
+              <input type="search" className="bg-transparent w-[500px] border-none focus:outline-none py-2 px-2" placeholder="Search For movies...." value={key} onChange={(e) => setKey(e.target.value)} />
             </div>
             {search && search.length > 0 && (
               <div className="absolute top-full left-0 right-0 z-10 bg-white shadow-md max-h-60 overflow-y-auto">

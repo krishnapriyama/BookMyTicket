@@ -58,27 +58,27 @@ module.exports.login = async (req, res, next) => {
         if (result === true) {
           if (user.isBlocked) {
             res.status(401).json({ error: 'user Blocked Contact admin' })
+            console.log("user is blocked");
           } else if (!user.verified) {
-            res.status(401).json({ error: 'user Not verified' })
+            res.json({ error: 'user Not verified,Please verify your phone number......' })
+            console.log("user not verified");
           } else {
             const token = jwt.sign({ email }, 'SuperSecretKey')
            
             res.json({ created: true, token })
           }
         } else {
-          res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-          res.json({ error: 'Invalid email or password' })
-          console.log('Passwords do not match.')
+          res.json({ error: 'Password Mismatch'})
+          console.log('Passwords Mismatch.')
         }
       })
     } else {
-      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-      res.json({ error: 'Invalid email or password' })
+      res.json({ error: 'Invalid email' })
+      console.log('Email Mismatchh.')
     }
   } catch (error) {
-    console.log(error)
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
     res.send(error)
+    console.log(error,"---catch error");
   }
 }
 
@@ -259,6 +259,22 @@ module.exports.order = async (req, res, next) => {
   res.send(order)
 }
 
+module.exports.forgotpassword = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'Email address not registered' });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports.confirmPayment = async (req, res, next) => {
   const { email } = req.user
   const details = await bookingModel.find({ 'user.email': email })
@@ -325,3 +341,5 @@ module.exports.ratingvalue = async (req, res, next) => {
     next(err);
   }
 };
+
+
